@@ -108,12 +108,12 @@ index는 each 내부에서 $index 로 사용하면 된다.
 	'''
 index와 컬렉션 아이템을 변수명으로 지정하고자 하는 경우에는 아래와 같이 쓴다. 
 
-	'''
+{% highlight %}
 	{{each(i,item)  list}}
 		<li>${i + 1} 번째 데이터</li>
 		<li>${item}<li>
 	{{/each}}
-	'''
+{% highlight %}
 > 더 자세한 내용은 http://borismoore.github.io/jquery-tmpl/demos/step-by-step.html 참고
 
 
