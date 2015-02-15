@@ -9,29 +9,25 @@ categories: jekyll update
 DOM에 데이터를 추가 할 때 아래와같이 append()로 데이터를 추가하게 된다. 
 
 #list.html
-~~~list.html
-<table>
-    <caption>연락처</caption>
-    <thead>
-        <tr>
-            <th>이름</th>
-            <th>전화번호</th>
-        </tr>
-    </thead>
-    <tbody id="list" >
-    </tbody>
-</table> 
-~~~ 
+	<table>
+	    <caption>연락처</caption>
+	    <thead>
+	        <tr>
+	            <th>이름</th>
+	            <th>전화번호</th>
+	        </tr>
+	    </thead>
+	    <tbody id="list" >
+	    </tbody>
+	</table> 
 
 #list.js
-~~~list.js 
-var data = [{'name':'yoon', 'tel': '010-0000-0000'}, {'name':'kim', 'tel':'010-1111-1111'}];
-var appendData = "";
-$.each(data, function(index, value) { 
-    appendData += "<tr><td>" + value.name + "</td> " +  " <td> " + value.tel + " </td></tr>";
-});
-$("#list").append(appendData);
-~~~
+	var data = [{'name':'yoon', 'tel': '010-0000-0000'}, {'name':'kim', 'tel':'010-1111-1111'}];
+	var appendData = "";
+	$.each(data, function(index, value) { 
+	    appendData += "<tr><td>" + value.name + "</td> " +  " <td> " + value.tel + " </td></tr>";
+	});
+	$("#list").append(appendData);
 
 
 간단한 리스트를 추가함에도 불구하고 많은 문자열 연결연산이 필요하고 복잡하다. 
@@ -53,71 +49,65 @@ $("#list").append(appendData);
 javascript template engine 중 하나인 jquery tmpl을 사용해보았다. 
 
 list.html 
-~~~
-<script id="template-tel" type="text/j-query-tmpl">
-    <tr>
-        <td>${name}</td>
-        <td>${tel}</td>
-    <tr>
-</script>
+	<script id="template-tel" type="text/j-query-tmpl">
+	    <tr>
+	        <td>${name}</td>
+	        <td>${tel}</td>
+	    <tr>
+	</script>
 
-<table>
-    <caption>연락처(template)</caption>
-    <thead>
-        <tr>
-            <th>이름</th>
-            <th>전화번호</th>
-        </tr>
-    </thead>
-    <tbody id="template-list">
-    </tbody>
-</table> 
-~~~
+	<table>
+	    <caption>연락처(template)</caption>
+	    <thead>
+	        <tr>
+	            <th>이름</th>
+	            <th>전화번호</th>
+	        </tr>
+	    </thead>
+	    <tbody id="template-list">
+	    </tbody>
+	</table> 
 
-list.js
-~~~
-var data = [{'name':'yoon', 'tel': '010-0000-0000'}, {'name':'kim', 'tel':'010-1111-1111'}];
-$("#template-tel").tmpl(data).appendTo("#template-list");
-~~~
+#list.js
+	var data = [{'name':'yoon', 'tel': '010-0000-0000'}, {'name':'kim', 'tel':'010-1111-1111'}];
+	$("#template-tel").tmpl(data).appendTo("#template-list");
 
 반복적인 템플릿은 템플릿 코드로 분리하고, 태그를 사용하여 키 값으로 해당 데이터를 표시할 수 있다.  
 
 #jQuery tmpl 태그 
+
 jquery tmpl 에서는 다음과 같은 태그를 제공한다.
+
 ## if / else
-if ~ else 구문을 사용 할 수 있다. 
-~~~
-{{if item.length > 0 }}
-	<li> ${item} </li>
-{{else}}
-	empty item 
-{{/if}}
-~~~
+	if ~ else 구문을 사용 할 수 있다. 
+	{{if item.length > 0 }}
+		<li> ${item} </li>
+	{{else}}
+		empty item 
+	{{/if}}
 
 ## html 
+
 html 태그를 문자열로 출력한다. 
-~~~
-{{html <li>item</li>}}
-~~~
+
+	{{html <li>item</li>}}
 
 ## each
+
 컬렌션의 모든 요소에 대해 반복문을 수행한다.   
 index는 each 내부에서 $index 로 사용하면 된다.    
 
-~~~
-{{each list}}
-	<li> ${index + 1} 번째 데이터 </li>
-    <li>${item}</li>
-{{/each}}
-~~~
+	{{each list}}
+		<li> ${index + 1} 번째 데이터 </li>
+	    <li>${item}</li>
+	{{/each}}
 
 index와 컬렉션 아이템을 변수명으로 지정하고자 하는 경우에는 아래와 같이 쓴다. 
-~~~
-{{each(i,item)  list}}
-        <li>${i + 1} 번째 데이터</li>
-      	<li>${item}<li>
-{{/each}}
-~~~
+
+	{{each(i,item)  list}}
+	        <li>${i + 1} 번째 데이터</li>
+	      	<li>${item}<li>
+	{{/each}}
 
 > 더 자세한 내용은 http://borismoore.github.io/jquery-tmpl/demos/step-by-step.html 참고
 
