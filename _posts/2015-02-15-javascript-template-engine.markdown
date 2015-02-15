@@ -82,38 +82,41 @@ jquery tmpl 에서는 다음과 같은 태그를 제공한다.
 
 if ~ else 구문을 사용 할 수 있다. 
 
-'''
-	{{if item.length > 0 }}
-		<li> ${item} </li>
-	{{else}}
-		empty item 
-	{{/if}}
-'''
+{{if item.length > 0 }}
+	<li> ${item} </li>
+{{else}}
+	empty item 
+{{/if}}
+
 ## html 
 
 html 태그를 문자열로 출력한다. 
-	'''
-	{{html <li>item</li>}}
-	'''
+{% highlight %}
+{{html <li>item</li>}}
+{% endhighlight %}
+
 ## each
 
 컬렌션의 모든 요소에 대해 반복문을 수행한다.   
 index는 each 내부에서 $index 로 사용하면 된다.    
 
-	'''
-	{{each list}}
-		<li>${index + 1} 번째 데이터</li>
-		<li>${item}</li>
-	{{/each}}
-	'''
+{% highlight %}
+{{each list}}
+	<li>${index + 1} 번째 데이터</li>
+	<li>${item}</li>
+{{/each}}
+{% endhighlight %}
+
 index와 컬렉션 아이템을 변수명으로 지정하고자 하는 경우에는 아래와 같이 쓴다. 
 
 {% highlight %}
-	{{each(i,item)  list}}
-		<li>${i + 1} 번째 데이터</li>
-		<li>${item}<li>
-	{{/each}}
-{% highlight %}
+{{each(i,item)  list}}
+	<li>${i + 1} 번째 데이터</li>
+	<li>${item}<li>
+{{/each}}
+{% endhighlight %}
+
+
 > 더 자세한 내용은 http://borismoore.github.io/jquery-tmpl/demos/step-by-step.html 참고
 
 
