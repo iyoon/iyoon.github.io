@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SSL의 동작원리1 (암호화 알고리즘)</title>
+  <meta name="description" content="데이터를 안전하게 전송하려면?인터넷을 하다보면 포털사이트 혹은 쇼핑몰 등의 사이트에서 브라우저 마다 다르지만 주소를 적는 부분에 자물쇠 모양으로 신뢰감을 주는 페이지를 볼 수 있다.이런 페이지는 대부분 개인정보를 적는 페이지나 로그인을 하는 페이지에서 많이 볼 수 있다.http 프...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://iyoon.github.io/jekyll/update/2015/02/15/about_ssl.html">
+  <link rel="alternate" type="application/rss+xml" title="hyungwon ,Yoon" href="http://iyoon.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">hyungwon ,Yoon</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">SSL의 동작원리1 (암호화 알고리즘)</h1>
+    <p class="post-meta">Feb 15, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">데이터를 안전하게 전송하려면?</h1>
+<p>인터넷을 하다보면 포털사이트 혹은 쇼핑몰 등의 사이트에서 브라우저 마다 다르지만 주소를 적는 부분에 자물쇠 모양으로 신뢰감을 주는 페이지를 볼 수 있다.
+이런 페이지는 대부분 개인정보를 적는 페이지나 로그인을 하는 페이지에서 많이 볼 수 있다.
+http 프로토콜에서의 통신은 URL이나 header에 평문으로 데이터를 전송하기 때문에 중간에 누군가가 패킷을 가로채기라도 한다면 개인정보는 그대로 노출 될 수 있다.
+이 문제를 해결하려면 클라이언트가 서버로 데이터를 전송 할 때 암호화해 전송하고 서버에서는 복호화하면 된다.
+데이터를 암호화 하는 알고리즘의 종류인 대칭키 알고리즘과 공개키 알고리즘에 대해 먼저 살펴보자!</p>
+
+<h1 id="section-1">대칭키 알고리즘</h1>
+<p>대칭키 알고리즘은 데이터를 암호화 하고 복호화 할 때 같은 암호키를 사용하는 암호화 알고리즘이다.
+즉, 클라이언트와 서버가 같은 암호화 키를 공유해야 한다는 의미이다.
+먼저 서버는 클라이언트에게 암호화 키를 건네주면 클라이언트는 건네받은 암호화키로 데이터를 암호화하여 서버에 전송하면 된다. 
+문제는 서버가 클라이언트에게 암호화 키를 건네 줄 때다. 
+기껏 데이터는 암호화 했지만 정작 암호화 키는 암호화 되어 있지 않기 때문에 암호화 키가 노출 되었을 때 데이터는 쉽게 복호화 될 것 이다.
+바로 이런 키 관리가 어렵다는 점이 대칭키 알고리즘의 큰 단점이다. 
+장점으로는 암호화 키를 한 개만 사용하기 때문에 암호화나 복호화를 할 때 비용이 적게 든다는 것이다.</p>
+
+<h1 id="section-2">공개키 알고리즘</h1>
+<p>공개키 알고리즘은 대칭키 알고리즘과 다르게  공개키(public key) 와 비밀키 (private key), 2개의  암호화 키를 사용한다.  (비밀키는 개인키라고도 부른다.)
+공개키 알고리즘은 공개키를 통해 암호화 된 데이터는 비밀키로만 복호화 할 수 있다. 또, 비밀키로 암호화된 데이터는 공개키로만 복호화 할 수 있다.
+왜 이렇게 키를 2개는 쓰는 것일까?
+대칭키 알고리즘의 문제점을 말했다시피 암호와 복호화를 하는 데 하나의 키값을 쓰고, 키 값을 서로 공유할 때 노출 될 수 있는 문제점이 있다.
+하지만 공개키 알고리즘에서는 공개키를 누구에게나 공개해도 상관없다. 공개키로 암호화 된 데이터는 비밀키로만 복호화 할 수 있기 때문이다.
+따라서 공개키는 공유하고 비밀키만 안전하게 보관한다면 암호화 된 데이터를 복호화 하긴 어려울 것이다.</p>
+
+<p>공개키 알고리즘은 이처럼 2개의 키를 사용함으로서 대칭키 알고리즘에 비해 훨씬 안전하게 키를 공유하고 데이터를 암호화 할 수 있다는 장점이있다.
+단점은 2개의 키로 암호화를 하다보니 암호화/복호화 하는데 비용이 크다는 문제점이 있다.</p>
+
+<h1 id="ssl--">SSL의 암호화 알고리즘?</h1>
+<p>SSL 에서는 위에서 본 2개의 알고리즘 중 어떤 것을 사용 할 까?  나는 당연히 공개키 알고리즘을 사용 해야 한다고 생각했다.
+SSL은 대칭키 알고리즘과 공개키 알고리즘 둘 다 사용한다.
+그 이유는 각 알고리즘의 장점을 보면 알 수 있듯이 대칭키 알고리즘은 암호화/복호화 비용이 적고, 공개키 알고리즘은 키 관리와 보안에 우수한 장점을 섞는 편이 훨씬 좋기 때문이다.</p>
+
+<blockquote>
+  <p>참고자료
+<a href="http://ko.wikipedia.org/wiki/%EC%95%94%ED%98%B8%ED%95%99">암호화 알고리즘</a></p>
+</blockquote>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">hyungwon ,Yoon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>hyungwon ,Yoon</li>
+          <li><a href="mailto:hyungwon.yoon@nhnent.com">hyungwon.yoon@nhnent.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iyoon">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">iyoon</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
