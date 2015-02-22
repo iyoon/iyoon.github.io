@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "SSL의 동작원리2 (SSL인증서)"
-date:   2015-02-14 18:00:00
+date:   2015-02-22 13:00:00
 categories: jekyll update
 ---
 
