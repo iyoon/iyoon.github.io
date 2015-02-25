@@ -6,9 +6,105 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 22 Feb 2015 13:05:54 +0900</pubDate>
-    <lastBuildDate>Sun, 22 Feb 2015 13:05:54 +0900</lastBuildDate>
+    <pubDate>Wed, 25 Feb 2015 19:17:21 +0900</pubDate>
+    <lastBuildDate>Wed, 25 Feb 2015 19:17:21 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>(OSX) Apache Tomcat 연동하기</title>
+        <description>&lt;p&gt;개발환경에서 웹 프로젝트를 실행 할 때 보통 Tomcat Server만 설치하여 사용하는 경우가 많다.&lt;br /&gt;
+하지만, 개발을 하다보면 개발환경에서 Apache가 필요한 경우가 있다.  &lt;/p&gt;
+
+&lt;p&gt;대부분의 OS에는 Apache를 별도로 설치해야하지만 OSX에는 기본으로 Apache가 깔려있다.
+(이하 내용은 OSX Yosemite 10.10.1 버전 기준으로 작성 되었습니다. )&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Apache 설치 경로&lt;/strong&gt;&lt;br /&gt;
+/etc/apache2&lt;/p&gt;
+
+&lt;p&gt;├── extra&lt;br /&gt;
+│   ├── httpd-autoindex.conf&lt;br /&gt;
+│   ├── httpd-dav.conf&lt;br /&gt;
+│   ├── httpd-default.conf&lt;br /&gt;
+│   ├── httpd-info.conf&lt;br /&gt;
+│   ├── httpd-languages.conf&lt;br /&gt;
+│   ├── httpd-manual.conf&lt;br /&gt;
+│   ├── httpd-mpm.conf&lt;br /&gt;
+│   ├── httpd-multilang-errordoc.conf&lt;br /&gt;
+│   ├── httpd-ssl.conf&lt;br /&gt;
+│   ├── httpd-ssl.conf~orig&lt;br /&gt;
+│   ├── httpd-userdir.conf&lt;br /&gt;
+│   ├── httpd-vhosts.conf&lt;br /&gt;
+│   ├── mod_hgc.conf&lt;br /&gt;
+│   └── proxy-html.conf&lt;br /&gt;
+├── httpd.conf&lt;br /&gt;
+└── workers.properties&lt;br /&gt;
+… (생략)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Apache Log&lt;/strong&gt;&lt;br /&gt;
+/private/var/log/apache2&lt;/p&gt;
+
+&lt;p&gt;먼저 Apache와 Tomcat 연동을 위해서는 mod_jk(tomcat connector)를 설치 해야 한다. &lt;br /&gt;
+http://tomcat.apache.org/connectors-doc/ 에서 다운로드 한다. &lt;/p&gt;
+
+&lt;p&gt;받은 파일은 source 파일이므로 컴파일을 하여서 mod_jk.so 파일을 만들어야한다. &lt;/p&gt;
+
+&lt;p&gt;다운로드 받은 파일을 압축을 풀고 아래 내용을 실행한다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;./configure
+sudo make  
+sudo make install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;mod_jk.so 파일을 apache module이 저장되어 있는 경로로 /usr/libexec/apache2 이동 시킨다. &lt;/p&gt;
+
+&lt;p&gt;/etc/apache2/httpd.conf 에 아래 내용을 추가한다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;LoadModule jk_module libexec/apache2/mod_jk.so
+
+&amp;lt;IfModule mod_jk.c&amp;gt;
+JkMount /* tomcat
+JkWorkersFile &lt;span class=&quot;s2&quot;&gt;&amp;quot;/etc/apache2/workers.properties&amp;quot;&lt;/span&gt;
+JkLogFile &lt;span class=&quot;s2&quot;&gt;&amp;quot;/private/var/log/apache2/mod_jk.log&amp;quot;&lt;/span&gt;
+JkLogLevel error
+&amp;lt;/IfModule&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;/* 모든 하위 실행에 대해서 tomcat이라는 worker로 보내겠다는 의미이다.&lt;br /&gt;
+tomcat 은 workers.properties에 정의 되어있다. &lt;/p&gt;
+
+&lt;p&gt;/etc/apache2/workers.properties 위치에 workers.properties 파일을 생성한다. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;workers.properties&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;worker.list&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tomcat
+worker.tomcat.type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ajp13
+worker.tomcat.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8009
+worker.tomcat.socket_timeout&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10
+worker.tomcat.connection_pool_timeout&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apache를 재시작하기 위해 먼저 Apache를 stop 한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apachectl stop&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apache를 시작하기 전에 config 파일이 제대로 작성되었는지 검사를 한다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;apachectl -t&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;config 파일에 문제가 없으면 apache를 시작한다.  &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apachectl start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;그럼 끝! &lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 26 Feb 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/02/26/apache-tomcat-modjk.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/02/26/apache-tomcat-modjk.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>SSL의 동작원리2 (SSL인증서)</title>
