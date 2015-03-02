@@ -1,0 +1,89 @@
+<h1 id="section">지난 포스트</h1>
+<p><a href="http://iyoon.github.io/jekyll/update/2015/02/14/about_ssl.html">SSL의 동작원리1 암호화 알고리즘</a></p>
+
+<p>지난 포스트에서는 HTTP 통신은 암호화되지 않은 평문으로 전송이 되기 때문에 도청이나 변조의 위험이 있고, 
+그에 대한 대응 방안으로 암호화의 필요성과 대칭키/공개키 알고리즘에 대하여 작성하였다. </p>
+
+<p>이번 포스트에서는 SSL과 관련된 용어를 정리하였다. </p>
+
+<h1 id="https">HTTPS</h1>
+
+<p>HTTPS 통신은 아래 그림과 같이 HTTP(application) 하위 계층에 SSL이 있다. 
+SSL은 데이터를 암호화와 클라이언트와 서버간의 신뢰를 보장하기 위한 인증의 역할을 한다. </p>
+
+<h1 id="ssl--">SSL 인증서의 기능</h1>
+
+<p>SSL 인증서의 기능은 크게 2가지이다.
+1. 클라이언트가 접속하려는 서버가 신뢰 할 수 있는 서버인지를 보장한다. 
+2. 클라이언트와 서버가 통신할 때 암호화 방법을 알려준다. </p>
+
+<h1 id="ssl---1">SSL 인증서의 내용</h1>
+<p>SSL 인증서에는 아래와 같은 정보들이 있다. </p>
+
+<ol>
+  <li>SSL 인증서 발급기관(CA)에 대한 정보 (발급기관, 공개키)</li>
+  <li>SSL 인증서가 설치된 사이트에 대한 정보 </li>
+  <li>암호화 방식 </li>
+</ol>
+
+<h1 id="ca-certificate-authority--root-certificate">CA (Certificate Authority | Root Certificate)</h1>
+<p>CA는 SSL 인증서를 발급해주는 신뢰 할 수 있는 기업이다. 
+CA 업체 리스트는 아래와 같은 기업들이 있다. </p>
+
+<ol>
+  <li>
+    <p>Symantec (VeriSign, Thawte, Geotrust)</p>
+  </li>
+  <li>
+    <p>COMODO</p>
+  </li>
+  <li>
+    <p>GlobalSign</p>
+  </li>
+  <li>
+    <p>Go Daddy </p>
+  </li>
+  <li>
+    <p>DigiCert</p>
+  </li>
+</ol>
+
+<p>이런 CA 기업이 필요한 이유는 사이트를 제공하는 서버의 공개키가 신뢰할 수 있는 공개키인지를 보장해주기 위해서이다.   </p>
+
+<h1 id="how------">How 신뢰 할 수 있는 사이트임을 보장?</h1>
+
+<ol>
+  <li>
+    <p>사이트 제공자가 CA 인증기관에 공개키를 제출을 하면 CA는 제출 받은 공개키와 사이트에 대한 정보를 인증서에 담아 비밀키로 암호화 한다. </p>
+  </li>
+  <li>
+    <p>CA는 해당 인증서를 사이트 제공자에게 발급해준다. </p>
+  </li>
+  <li>
+    <p>클라이언트가 사이트에 접속하게 되면 사이트 제공자는 CA로 부터 받은 인증서를 클라이언트에게 준다. </p>
+  </li>
+  <li>
+    <p>브라우저 내에는 CA 리스트와 공개키가 모두 저장되어져 있다. 
+(브라우저 내에 없는 CA는 인터넷 상에서 신뢰 할 수 없는 증명서이며, 이런 증명서는 브라우저에서 https 프로토콜에 취소선이 그어져 있거나, “이 사이트의 보안 증명서에는 문제가 있습니다.” 같은 메시지가 표시된다.)</p>
+  </li>
+</ol>
+
+<p>클라이언트의 브라우저는 해당 인증서를 읽어 어떤 CA인지를 파악 후, 해당 CA의 공개키로 인증서를 복호화하게 된다. 
+제대로 복호화가 된다면 해당 인증서는 CA에 의해 암호화된 신뢰 할 수 있는 인증서임을 알 수 있게 된다. </p>
+
+<p>또, 사이트 제공자가 제출한 공개키 또한 인증서 내에 내포되어 있기 때문에 중간에 변조를 할 수 없기 때문에 서버의 공개키를 안전하게 클라이언트에게 제공해준다. </p>
+
+<h1 id="section-1">참고자료</h1>
+
+<blockquote>
+  <p><a href="http://ucert.tistory.com/146">인증서 발급기관</a></p>
+</blockquote>
+
+<blockquote>
+  <p><a href="http://opentutorials.org/course/228/4894">생활코딩 HTTPS와 SSL 인증서</a></p>
+</blockquote>
+
+<blockquote>
+  <p>그림으로 배우는 Http Network Basic (우에노 센)</p>
+</blockquote>
+

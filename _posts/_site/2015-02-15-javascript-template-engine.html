@@ -1,0 +1,114 @@
+<p>DOM에 데이터를 추가 할 때 아래와같이 append()로 데이터를 추가하게 된다. </p>
+
+<h1 id="listhtml">list.html</h1>
+<pre><code>&lt;table&gt;
+    &lt;caption&gt;연락처&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;이름&lt;/th&gt;
+            &lt;th&gt;전화번호&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody id="list" &gt;
+    &lt;/tbody&gt;
+&lt;/table&gt; 
+</code></pre>
+
+<h1 id="listjs">list.js</h1>
+<pre><code>var data = [{'name':'yoon', 'tel': '010-0000-0000'}, {'name':'kim', 'tel':'010-1111-1111'}];
+var appendData = "";
+$.each(data, function(index, value) { 
+    appendData += "&lt;tr&gt;&lt;td&gt;" + value.name + "&lt;/td&gt; " +  " &lt;td&gt; " + value.tel + " &lt;/td&gt;&lt;/tr&gt;";
+});
+$("#list").append(appendData);
+</code></pre>
+
+<p>간단한 리스트를 추가함에도 불구하고 많은 문자열 연결연산이 필요하고 복잡하다. 
+반복적으로 추가 되는 부분이 복잡해 질 수록 해당 코드는 더 복잡해지기 때문에 관리하기도 어렵고, 개발자가 실수 하기도 쉽다.  </p>
+
+<p>자바에서는 JSP를 통해 템플릿을 만든다. 
+자바스크립트에서도 이런 템플릿을 만들 수 있는 자바스크립 템플릿 엔진이 있다. 
+이렇게 템플릿을 사용하게되면 데이터모델(json) 과 뷰(template)을 분리 할 수 있는 장점이 있다. </p>
+
+<h1 id="javscript-template-engine-">Javscript Template Engine의 종류</h1>
+<ol>
+  <li>pure (http://beebole.com/pure/) </li>
+  <li>jTemplates(http://jtemplates.tpython.com/)</li>
+  <li>trimpath JavaScriptTemplates (http://code.google.com/p/trimpath/wiki/JavaScriptTemplates)</li>
+  <li>jQuery tmpl (https://github.com/BorisMoore/jquery-tmpl)</li>
+</ol>
+
+<p>다양한 자바스크립트 템플릿 엔진 라이브러리들이 많다.
+템플릿 엔진별로 제공하는 기능이나 문법이 다르기 때문에 Documents를 읽어보고 사용하기 편한 엔진을 사용하는게 좋을것 같다.</p>
+
+<p>javascript template engine 중 하나인 jquery tmpl을 사용해보았다. </p>
+
+<p>list.html 
+	<script id="template-tel" type="text/j-query-tmpl">
+	    &lt;tr&gt;
+	        &lt;td&gt;${name}&lt;/td&gt;
+	        &lt;td&gt;${tel}&lt;/td&gt;
+	    &lt;tr&gt;
+	</script></p>
+
+<pre><code>&lt;table&gt;
+    &lt;caption&gt;연락처(template)&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;이름&lt;/th&gt;
+            &lt;th&gt;전화번호&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody id="template-list"&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt; 
+</code></pre>
+
+<h1 id="listjs-1">list.js</h1>
+<pre><code>var data = [{'name':'yoon', 'tel': '010-0000-0000'}, {'name':'kim', 'tel':'010-1111-1111'}];
+$("#template-tel").tmpl(data).appendTo("#template-list");
+</code></pre>
+
+<p>반복적인 템플릿은 템플릿 코드로 분리하고, 태그를 사용하여 키 값으로 해당 데이터를 표시할 수 있다.  </p>
+
+<h1 id="jquery-tmpl-">jQuery tmpl 태그</h1>
+
+<p>jquery tmpl 에서는 다음과 같은 태그를 제공한다.</p>
+
+<h2 id="if--else">if / else</h2>
+
+<p>if ~ else 구문을 사용 할 수 있다. </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html">{{if item.length &gt; 0 }}
+	<span class="nt">&lt;li&gt;</span> ${item} <span class="nt">&lt;/li&gt;</span>
+{{else}}
+	<span class="nt">&lt;li&gt;</span>empty item<span class="nt">&lt;/li&gt;</span> 
+{{/if}}</code></pre></div>
+
+<h2 id="html">html</h2>
+
+<p>html 태그를 문자열로 출력한다. </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html">{{html <span class="nt">&lt;li&gt;</span>item<span class="nt">&lt;/li&gt;</span>}}</code></pre></div>
+
+<h2 id="each">each</h2>
+
+<p>컬렌션의 모든 요소에 대해 반복문을 수행한다. <br />
+index는 each 내부에서 $index 로 사용하면 된다.    </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html">{{each list}}
+	<span class="nt">&lt;li&gt;</span>${index + 1} 번째 데이터<span class="nt">&lt;/li&gt;</span>
+	<span class="nt">&lt;li&gt;</span>${item}<span class="nt">&lt;/li&gt;</span>
+{{/each}}</code></pre></div>
+
+<p>index와 컬렉션 아이템을 변수명으로 지정하고자 하는 경우에는 아래와 같이 쓴다. </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html">{{each(i,item)  list}}
+	<span class="nt">&lt;li&gt;</span>${i + 1} 번째 데이터<span class="nt">&lt;/li&gt;</span>
+	<span class="nt">&lt;li&gt;</span>${item}<span class="nt">&lt;li&gt;</span>
+{{/each}}</code></pre></div>
+
+<blockquote>
+  <p>더 자세한 내용은 http://borismoore.github.io/jquery-tmpl/demos/step-by-step.html 참고</p>
+</blockquote>
+

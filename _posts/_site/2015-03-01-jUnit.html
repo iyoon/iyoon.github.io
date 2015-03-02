@@ -1,0 +1,168 @@
+<p><a href="http://www.slideshare.net/wakaleo/junit-kung-fu-getting-more-out-of-your-unit-tests">Junit Kung Fu</a> 내용을 보고  jUnit의 활용방법에 대해 요약하였다. 
+(제가 작성한 글이 아니라 요약한 글의 내용입니다.) </p>
+
+<h1 id="test-naming-">첫 번째 이야기:  test naming 방법</h1>
+<ol>
+  <li>test의 메소드명은 test라 이름짓지 말고, shold를 활용해서 작성하자. </li>
+</ol>
+
+<p>예를 들어 돈을 입출금하는 작업에 대해서 입금처리를 하는 테스트 메소드가 있다고 하자. </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">testDeposit</span><span class="o">()</span></code></pre></div>
+
+<p>should를 활용하면 어떤 동작을 테스트하고자 하는 것인지 더 명확하게 표현 할 수 있다. </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">depositShouldAddAmountToAccountBalance</span><span class="o">()</span>
+<span class="c1">// 계좌에 금액을 더해야한다.</span></code></pre></div>
+
+<ol>
+  <li>test Class의 이름은 이 테스트 클래스가 어떤 상황에서 필요한지를 알 수 있도록 작성한다. </li>
+</ol>
+
+<p>WhenYouCreateACell 
+- aDeadCellShouldBePrintedAsAdot();
+- aLiveCellShouldBePrintedAsAsterisk();
+…</p>
+
+<p>Grid 관련 프로그램에서 새로운 셀을 생성할 때 사용하지 않는 셀은 . (dot) 으로 표시하고, 사용하는 셀은 * (asterisk) 로 표시 한다고 할 때, 
+테스트 클래스명은 해당 테스트가 언제 사용되는지를 의미하도록 하고, 메소드명은 어떤 동작을 테스트하는지 알 수 있도록 작성한다. </p>
+
+<ol>
+  <li>
+    <p>테스트 메소드는 일관된 형식으로 작성을 한다.
+보통 Given - When - Then 또는 Arrange - Act - Assert (AAA) 형식으로 작성한다. 
+Arrange 단계에서는 test 할 데이터와 expected 되는 데이터를 준비하도록 한다. 
+Act 단계에서는 테스트하고자 하는 부분의 동작을 테스트 한다. 
+Assert 단계에서는 Act 단계의 결과 값이 expected 데이터와 일치하는지 확인한다. </p>
+  </li>
+  <li>
+    <p>테스트 코드는 결과물과 마찬가지 이다. 
+실제로 실행되는 프로그램이나 서비스만큼 테스트코드 또한 주요한 결과물 중에 하나이다. 따라서 항상 refactoring을 통해서 clean 한 코드를 유지하고, 
+읽기 쉬운 코드로 작성하도록 해야한다. </p>
+  </li>
+</ol>
+
+<p>두 번째 이야기: Hamcrest 활용하기 </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.*;</span>
+<span class="o">...</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="mi">10000</span><span class="o">,</span> <span class="n">calculatedTax</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span></code></pre></div>
+
+<p>보통 실제 값과 기대 값이 일치하는지를 비교할 때 assertEquals를 많이 쓰게 된다. 
+assertEquals는 첫 번째 인자 값이 기대값이고, 두 번째 인자값이 실제 값이다. 마지막은 오차 허용범위값이다. 
+나는 매번 사용 할 때마다, 기대 값과 실제 값의 위치가 헷갈린다.
+하지만, 두 파라미터의 순서를 바꿔도 테스트하는데 큰 오류는 없기에 순서를 고려하지 않은 경우가 많았다. </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">hamcrest</span><span class="o">.</span><span class="na">Matchers</span><span class="o">.*;</span>
+<span class="o">...</span>
+<span class="n">assertThat</span><span class="o">(</span><span class="n">calculatedTax</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="mi">10000</span><span class="o">));</span><span class="err">￼</span></code></pre></div>
+
+<p>이 코드는 hamcrest 의 matcher를 사용한 코드이다. assertEquals를 사용한 코드와 동일한 동작을 하는 코드이다.
+하지만 첫 번째 코드에 비해 더 명확해보인다. 왜냐하면 cacculatedText is 10000 처럼 쉽게 이해가 되기 때문이다. </p>
+
+<p>assertThat() 은 첫 번째에 실제 값을 적고, 두 번째 인자값은 matcher를 추가한다. 
+실제 값이 matcher을 통과한 값이면 테스트코드가 통과하게 된다. </p>
+
+<p>뿐만 아니라 is() 과 같은 core matcher들을 사용하면 좀 더 명확하고 쉽게 테스트 코드를 작성 할 수 있으므로 테스트 코드 작성에 적극 활용하자.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Core</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>any()</td>
+      <td>Matches anything</td>
+    </tr>
+    <tr>
+      <td>is()</td>
+      <td>A matcher that checks if the given objects are equal.</td>
+    </tr>
+    <tr>
+      <td>describedAs()</td>
+      <td>Adds a descrption to a Matcher</td>
+    </tr>
+    <tr>
+      <td>Logical</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>allOf()	Takes an array of matchers, and all matchers must match the target object.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>anyOf()	Takes an array of matchers, and at least one of the matchers must report that it matches the target object.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>not()	Negates the output of the previous matcher.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Object</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>equalTo()</td>
+      <td>A matcher that checks if the given objects are equal.</td>
+    </tr>
+    <tr>
+      <td>instanceOf()</td>
+      <td>Checks if the given object is of type X or is compatible with type X</td>
+    </tr>
+    <tr>
+      <td>notNullValue()</td>
+      <td>Tests whether the given object is null or not null.</td>
+    </tr>
+    <tr>
+      <td>nullValue()</td>
+      <td>Tests whether the given object is null or not null.</td>
+    </tr>
+    <tr>
+      <td>sameInstance()</td>
+      <td>Tests if the given object is the exact same instance as another.</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><a href="http://tutorials.jenkov.com/java-unit-testing/matchers.html">matchers</a> </p>
+</blockquote>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span><span class="o">[]</span> <span class="n">colors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span><span class="s">&quot;red&quot;</span><span class="o">,</span><span class="s">&quot;green&quot;</span><span class="o">,</span><span class="s">&quot;blue&quot;</span><span class="o">};</span>
+<span class="n">String</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;yellow&quot;</span><span class="o">;</span>
+<span class="n">assertThat</span><span class="o">(</span><span class="n">color</span><span class="o">,</span> <span class="n">not</span><span class="o">(</span><span class="n">isIn</span><span class="o">(</span><span class="n">colors</span><span class="o">)));</span>
+<span class="err">￼</span></code></pre></div>
+
+<p>위의 코드와 같이 여러 기본 matcher를 혼합하여 사용이 가능하기 때문에 다양한 유형의 assert 를 작성 할 수 있다. 
+또한 custom matcher를 개발자가 직접 개발 할 수 도 있다. </p>
+
+<p>세 번째 이야기: Parameterized tests 
+테스트를 하기 위해서는 테스트 하고자 하는 데이터를 </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Parameterized</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TaxCalculatorDataTest</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">income</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">expectedTax</span><span class="o">;</span>
+
+<span class="nd">@Parameters</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">[]&gt;</span> <span class="nf">data</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[][]</span> <span class="o">{</span>
+            <span class="o">{</span> <span class="mf">0.00</span><span class="o">,</span> <span class="mf">0.00</span> <span class="o">},</span>
+            <span class="o">{</span> <span class="mf">10000.00</span><span class="o">,</span> <span class="mf">1250.00</span> <span class="o">},</span> <span class="o">{</span> <span class="mf">14000.00</span><span class="o">,</span> <span class="mf">1750.00</span> <span class="o">},</span>
+            <span class="o">{</span> <span class="mf">14001.00</span><span class="o">,</span> <span class="mf">1750.21</span> <span class="o">},</span> <span class="o">{</span> <span class="mf">45000.00</span><span class="o">,</span> <span class="mf">8260.00</span> <span class="o">},</span>
+            <span class="o">{</span> <span class="mf">48000.00</span><span class="o">,</span> <span class="mf">8890.00</span> <span class="o">},</span> <span class="o">{</span> <span class="mf">48001.00</span><span class="o">,</span> <span class="mf">8890.33</span> <span class="o">},</span>
+            <span class="o">{</span> <span class="mf">65238.00</span><span class="o">,</span> <span class="mf">14578.54</span> <span class="o">},</span> <span class="o">{</span> <span class="mf">70000.00</span><span class="o">,</span> <span class="mf">16150.00</span> <span class="o">},</span>
+            <span class="o">{</span> <span class="mf">70001.00</span><span class="o">,</span> <span class="mf">16150.38</span> <span class="o">},</span> <span class="o">{</span> <span class="mf">80000.00</span><span class="o">,</span> <span class="mf">19950.00</span> <span class="o">},</span>
+            <span class="o">{</span> <span class="mf">100000.00</span><span class="o">,</span> <span class="mf">27550.00</span> <span class="o">},</span> <span class="o">});</span>
+<span class="o">}</span>
+
+
+<span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldCalculateCorrectTax</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">TaxCalculator</span> <span class="n">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">TaxCalculator</span><span class="o">();</span>
+        <span class="kt">double</span> <span class="n">calculatedTax</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">calculateTax</span><span class="o">(</span><span class="n">income</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">calculatedTax</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">expectedTax</span><span class="o">));</span>
+<span class="o">}</span> <span class="o">}</span></code></pre></div>
+
