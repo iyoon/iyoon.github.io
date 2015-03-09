@@ -10,7 +10,7 @@ categories: jekyll update
 
 # Test Naming  #
 
-#### Test의 메소드명은 무조건 test라 이름짓지 말고, shold를 활용해서 작성하자.  ####
+#### Test의 메소드명은 무조건 test라 이름짓지 말고, should를 활용해서 작성하자.  ####
 
 예를 들어 돈을 입출금하는 작업에 대해서 입금처리를 하는 테스트 메소드을 naming 한다면 아래와 같이 작성 할 수 있다.
 입금이라는 작업을 한다는 것은 명확하지만 실제로 어떤 동작에 대해 테스트하는지에 대해서는 불명확하다. 
@@ -223,31 +223,7 @@ public class TaxCalculatorDataTest {
 {% endhighlight %}
 
 비기능적인 요구사항으로 정해진 시간 이내에 처리되어야 할 메소드가 있다면, TimeOut Rule을 사용하면 된다. 
-위의 코드 내용대로 하면 1000ms 처리되지 않으면 테스트 코드가 실패하게 된다. 
-
-#### The Verifier Rule ####
-
-
-{% highlight java %}
-
-public class VerifierTest {
-   private List<String> systemErrorMessages = new ArrayList<String>();
-	@Rule
-   public MethodRule verifier = new Verifier() {
-}
-@Override
-After each method, perform this
-public void verify() {
-   assertThat(systemErrorMessages.size(), is(0));
-} };
-@Test
-public void testSomething() {
-   // ...
-   systemErrorMessages.add("Oh, bother!");
-}
-
-{% endhighlight %}
-
+위의 코드 내용대로 하면 1000ms내에  처리되지 않으면 테스트 코드가 실패하게 된다. 
 
 #### The Verifier Rule ####
 
@@ -283,7 +259,7 @@ public class VerifierTest {
 }
 {% endhighlight %}
 
-각 테스트 메소드에 대해서 verify() 부분의 코드를 체크한다. 
+각 테스트 메소드에 대해서 verify() 부분의 코드를 체크한다.   
 해당 테스트 코드는 systemErrorMessage에 내용이 있기 때문에 테스크코드가 실패한다. 
 
 
@@ -303,7 +279,7 @@ public class TaxCalculatorDataTest {
 	};
 	
 	@Test
-    public void fails() {
+	public void fails() {
 		assertEquals(1, 0);
 	} 
 	
@@ -323,7 +299,8 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
 각 클래스의 테스트를 카테고리별 나누어 실행 그룹을 설정 할 수 있다. 
 테스트 Annotation 기법으로 쉽게 그룹핑을 할 수 있다. 
 
-적용하는 방법 3단계로 나누어진다. 
+적용하는 방법 3단계로 나누어진다.  
+
 1. 카테고리들을 정의한다. 
 
 {% highlight java %}
@@ -351,8 +328,8 @@ public class CellTest {
 	@Test
 	public void thePlusSymbolShouldProduceALivingCell() {...}
     
-    // 일반 테스트 메소드 
-    @Test
+	// 일반 테스트 메소드 
+	@Test
     public void theMinusSymbolShouldProduceADeadCell() {...}
 
 }
@@ -364,7 +341,8 @@ public class CellTest {
 {% highlight java %}
 @Category(IntegrationTests.class)
 public class CellTest {
-...}
+	...
+}
 {% endhighlight %}
 
 

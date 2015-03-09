@@ -70,7 +70,7 @@
 
 <h1 id="test-naming">Test Naming</h1>
 
-<h4 id="test---test---shold--">Test의 메소드명은 무조건 test라 이름짓지 말고, shold를 활용해서 작성하자.</h4>
+<h4 id="test---test---should--">Test의 메소드명은 무조건 test라 이름짓지 말고, should를 활용해서 작성하자.</h4>
 
 <p>예를 들어 돈을 입출금하는 작업에 대해서 입금처리를 하는 테스트 메소드을 naming 한다면 아래와 같이 작성 할 수 있다.
 입금이라는 작업을 한다는 것은 명확하지만 실제로 어떤 동작에 대해 테스트하는지에 대해서는 불명확하다. </p>
@@ -304,27 +304,9 @@ first thing went wrong, second thing went wrong, Oh no, not again 모두 에러�
 <span class="o">}</span></code></pre></div>
 
 <p>비기능적인 요구사항으로 정해진 시간 이내에 처리되어야 할 메소드가 있다면, TimeOut Rule을 사용하면 된다. 
-위의 코드 내용대로 하면 1000ms 처리되지 않으면 테스트 코드가 실패하게 된다. </p>
+위의 코드 내용대로 하면 1000ms내에  처리되지 않으면 테스트 코드가 실패하게 된다. </p>
 
 <h4 id="the-verifier-rule">The Verifier Rule</h4>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VerifierTest</span> <span class="o">{</span>
-   <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">systemErrorMessages</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
-	<span class="nd">@Rule</span>
-   <span class="kd">public</span> <span class="n">MethodRule</span> <span class="n">verifier</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Verifier</span><span class="o">()</span> <span class="o">{</span>
-<span class="o">}</span>
-<span class="nd">@Override</span>
-<span class="n">After</span> <span class="n">each</span> <span class="n">method</span><span class="o">,</span> <span class="n">perform</span> <span class="k">this</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">verify</span><span class="o">()</span> <span class="o">{</span>
-   <span class="n">assertThat</span><span class="o">(</span><span class="n">systemErrorMessages</span><span class="o">.</span><span class="na">size</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
-<span class="o">}</span> <span class="o">};</span>
-<span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSomething</span><span class="o">()</span> <span class="o">{</span>
-   <span class="c1">// ...</span>
-   <span class="n">systemErrorMessages</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Oh, bother!&quot;</span><span class="o">);</span>
-<span class="o">}</span></code></pre></div>
-
-<h4 id="the-verifier-rule-1">The Verifier Rule</h4>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">hamcrest</span><span class="o">.</span><span class="na">CoreMatchers</span><span class="o">.</span><span class="na">is</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
@@ -355,7 +337,7 @@ first thing went wrong, second thing went wrong, Oh no, not again 모두 에러�
 
 <span class="o">}</span></code></pre></div>
 
-<p>각 테스트 메소드에 대해서 verify() 부분의 코드를 체크한다. 
+<p>각 테스트 메소드에 대해서 verify() 부분의 코드를 체크한다. <br />
 해당 테스트 코드는 systemErrorMessage에 내용이 있기 때문에 테스크코드가 실패한다. </p>
 
 <h4 id="the-watchman-rule">The Watchman Rule</h4>
@@ -373,7 +355,7 @@ first thing went wrong, second thing went wrong, Oh no, not again 모두 에러�
 	<span class="o">};</span>
 	
 	<span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fails</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">fails</span><span class="o">()</span> <span class="o">{</span>
 		<span class="n">assertEquals</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
 	<span class="o">}</span> 
 	
@@ -391,8 +373,11 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
 <p>각 클래스의 테스트를 카테고리별 나누어 실행 그룹을 설정 할 수 있다. 
 테스트 Annotation 기법으로 쉽게 그룹핑을 할 수 있다. </p>
 
-<p>적용하는 방법 3단계로 나누어진다. 
-1. 카테고리들을 정의한다. </p>
+<p>적용하는 방법 3단계로 나누어진다.  </p>
+
+<ol>
+  <li>카테고리들을 정의한다. </li>
+</ol>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IntegrationTests</span> <span class="o">{}</span>
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PerformanceTests</span> <span class="o">{}</span>
@@ -416,8 +401,8 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
 	<span class="nd">@Test</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">thePlusSymbolShouldProduceALivingCell</span><span class="o">()</span> <span class="o">{...}</span>
     
-    <span class="c1">// 일반 테스트 메소드 </span>
-    <span class="nd">@Test</span>
+	<span class="c1">// 일반 테스트 메소드 </span>
+	<span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">theMinusSymbolShouldProduceADeadCell</span><span class="o">()</span> <span class="o">{...}</span>
 
 <span class="o">}</span></code></pre></div>
@@ -426,7 +411,8 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Category</span><span class="o">(</span><span class="n">IntegrationTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CellTest</span> <span class="o">{</span>
-<span class="o">...}</span></code></pre></div>
+	<span class="o">...</span>
+<span class="o">}</span></code></pre></div>
 
 <p>3 . 카테고리별 테스트 클래스를 생성하여 카테고리 테스트를 한다. </p>
 

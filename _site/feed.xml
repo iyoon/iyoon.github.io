@@ -6,8 +6,8 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 08 Mar 2015 21:11:07 +0900</pubDate>
-    <lastBuildDate>Sun, 08 Mar 2015 21:11:07 +0900</lastBuildDate>
+    <pubDate>Mon, 09 Mar 2015 10:05:17 +0900</pubDate>
+    <lastBuildDate>Mon, 09 Mar 2015 10:05:17 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -91,7 +91,7 @@ valid하지 않은 데이터인 경우에는 string으로 표시한다. &lt;/p&g
 
 &lt;h1 id=&quot;test-naming&quot;&gt;Test Naming&lt;/h1&gt;
 
-&lt;h4 id=&quot;test---test---shold--&quot;&gt;Test의 메소드명은 무조건 test라 이름짓지 말고, shold를 활용해서 작성하자.&lt;/h4&gt;
+&lt;h4 id=&quot;test---test---should--&quot;&gt;Test의 메소드명은 무조건 test라 이름짓지 말고, should를 활용해서 작성하자.&lt;/h4&gt;
 
 &lt;p&gt;예를 들어 돈을 입출금하는 작업에 대해서 입금처리를 하는 테스트 메소드을 naming 한다면 아래와 같이 작성 할 수 있다.
 입금이라는 작업을 한다는 것은 명확하지만 실제로 어떤 동작에 대해 테스트하는지에 대해서는 불명확하다. &lt;/p&gt;
@@ -325,27 +325,9 @@ first thing went wrong, second thing went wrong, Oh no, not again 모두 에러�
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;비기능적인 요구사항으로 정해진 시간 이내에 처리되어야 할 메소드가 있다면, TimeOut Rule을 사용하면 된다. 
-위의 코드 내용대로 하면 1000ms 처리되지 않으면 테스트 코드가 실패하게 된다. &lt;/p&gt;
+위의 코드 내용대로 하면 1000ms내에  처리되지 않으면 테스트 코드가 실패하게 된다. &lt;/p&gt;
 
 &lt;h4 id=&quot;the-verifier-rule&quot;&gt;The Verifier Rule&lt;/h4&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VerifierTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-   &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;systemErrorMessages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;();&lt;/span&gt;
-	&lt;span class=&quot;nd&quot;&gt;@Rule&lt;/span&gt;
-   &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MethodRule&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verifier&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Verifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;After&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;systemErrorMessages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;testSomething&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-   &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;systemErrorMessages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Oh, bother!&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;the-verifier-rule-1&quot;&gt;The Verifier Rule&lt;/h4&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hamcrest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;CoreMatchers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -376,7 +358,7 @@ first thing went wrong, second thing went wrong, Oh no, not again 모두 에러�
 
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;각 테스트 메소드에 대해서 verify() 부분의 코드를 체크한다. 
+&lt;p&gt;각 테스트 메소드에 대해서 verify() 부분의 코드를 체크한다. &lt;br /&gt;
 해당 테스트 코드는 systemErrorMessage에 내용이 있기 때문에 테스크코드가 실패한다. &lt;/p&gt;
 
 &lt;h4 id=&quot;the-watchman-rule&quot;&gt;The Watchman Rule&lt;/h4&gt;
@@ -394,7 +376,7 @@ first thing went wrong, second thing went wrong, Oh no, not again 모두 에러�
 	&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
 	
 	&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 		&lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 
 	
@@ -412,8 +394,11 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
 &lt;p&gt;각 클래스의 테스트를 카테고리별 나누어 실행 그룹을 설정 할 수 있다. 
 테스트 Annotation 기법으로 쉽게 그룹핑을 할 수 있다. &lt;/p&gt;
 
-&lt;p&gt;적용하는 방법 3단계로 나누어진다. 
-1. 카테고리들을 정의한다. &lt;/p&gt;
+&lt;p&gt;적용하는 방법 3단계로 나누어진다.  &lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;카테고리들을 정의한다. &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IntegrationTests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PerformanceTests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
@@ -437,8 +422,8 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
 	&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
 	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;thePlusSymbolShouldProduceALivingCell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
     
-    &lt;span class=&quot;c1&quot;&gt;// 일반 테스트 메소드 &lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// 일반 테스트 메소드 &lt;/span&gt;
+	&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;theMinusSymbolShouldProduceADeadCell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
 
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -447,7 +432,8 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Category&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegrationTests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CellTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;...}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+	&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;3 . 카테고리별 테스트 클래스를 생성하여 카테고리 테스트를 한다. &lt;/p&gt;
 
