@@ -6,115 +6,9 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Mar 2015 10:01:35 +0900</pubDate>
-    <lastBuildDate>Mon, 30 Mar 2015 10:01:35 +0900</lastBuildDate>
+    <pubDate>Mon, 30 Mar 2015 10:10:15 +0900</pubDate>
+    <lastBuildDate>Mon, 30 Mar 2015 10:10:15 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
-    
-      <item>
-        <title>Maven Build Profiles</title>
-        <description>&lt;h1 id=&quot;maven-profile&quot;&gt;Maven Profile&lt;/h1&gt;
-
-&lt;p&gt;배포환경에 따라 설정파일이나 리소스파일을 다르게 패키징 해야하는 경우가 있다.&lt;br /&gt;
-maven에서는 Profile 설정 만으로 간편하게 각 profile별로 패키징 할 수 있다. &lt;/p&gt;
-
-&lt;p&gt;배포환경마다 달라질 수 있는 정보로는 다음과 같은 경우가 보편적이다.  &lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;DB property : 각 환경별로 사용하는 DB가 다른 경우   &lt;/li&gt;
-  &lt;li&gt;Logging level: 개발환경은 logging level이 debug라면 운영환경은 error 와 같이 상위 level로 하는 경우   &lt;/li&gt;
-  &lt;li&gt;resource : 각 환경 별로 resource 값이나 경로가 다른 경우   &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;maven-profile-----&quot;&gt;Maven Profile 설정으로 배포환경에 따른 패키징 하기&lt;/h1&gt;
-
-&lt;p&gt;dev(개발환경), test(테스트환경), release(운영환경)으로 나누었다. &lt;br /&gt;
-src/main/java/{dev,test,release}에 각 환경별 db.properties 파일을 추가하였다. &lt;/p&gt;
-
-&lt;p&gt;profile-sample&lt;br /&gt;
-├── pom.xml&lt;br /&gt;
-├── src&lt;br /&gt;
-│   ├── main&lt;br /&gt;
-│   │   ├── java&lt;br /&gt;
-│   │   ├── resources&lt;br /&gt;
-│   │   │   ├── dev&lt;br /&gt;
-│   │   │   │   └── db.properties&lt;br /&gt;
-│   │   │   ├── release&lt;br /&gt;
-│   │   │   │   └── db.properties&lt;br /&gt;
-│   │   │   └── test&lt;br /&gt;
-│   │   │       └── db.properties  &lt;/p&gt;
-
-&lt;p&gt;pom.xml에 profiles에 각 환경 별 profile을 추가하였다. &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Development server --&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;dev&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;activation&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;activeByDefault&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/activeByDefault&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/activation&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;env&amp;gt;&lt;/span&gt;dev&lt;span class=&quot;nt&quot;&gt;&amp;lt;/env&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
-
-    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- test server --&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;beta&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;env&amp;gt;&lt;/span&gt;beta&lt;span class=&quot;nt&quot;&gt;&amp;lt;/env&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
-    
-    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- release server --&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;release&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;env&amp;gt;&lt;/span&gt;release&lt;span class=&quot;nt&quot;&gt;&amp;lt;/env&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/profiles&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;각 환경별로 resource의 경로를 설정해준다. 
-${env}는 profile에 설정한 properties의 &lt;env&gt; 이다. &lt;/env&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;resources&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/main/resources/${env}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resources&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;testResources&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;testResource&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/test/resources/resources/${env}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/testResource&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/testResources&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;각 환경별로 패키징을 하려면 mvn clean package -P “프로파일id” 로 실행한다. &lt;/p&gt;
-
-&lt;p&gt;mvn clean package dev &lt;br /&gt;
-mvn clean package test&lt;br /&gt;
-mvn clean package release   &lt;/p&gt;
-
-&lt;p&gt;(만일 -P 옵션을 제거하고 패키징한다면, profile에 activeByDefault로 설정된 dev profile로 패키징된다.)  &lt;/p&gt;
-
-&lt;p&gt;각 profile별로 db.properties가 배포 파일에 추가된 것을 확인 할 수 있다. &lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;http://maven.apache.org/guides/introduction/introduction-to-profiles.html&quot;&gt;Introduction to Build Profiles&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Mon, 23 Mar 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/03/23/maven_profiles.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/03/23/maven_profiles.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
     
       <item>
         <title>AngularJS_1</title>
@@ -243,9 +137,115 @@ w3schools AngularJS: http://www.w3schools.com/angular/default.asp  &lt;/p&gt;
 &lt;/blockquote&gt;
 
 </description>
+        <pubDate>Mon, 30 Mar 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/03/30/angularjs.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/03/30/angularjs.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Maven Build Profiles</title>
+        <description>&lt;h1 id=&quot;maven-profile&quot;&gt;Maven Profile&lt;/h1&gt;
+
+&lt;p&gt;배포환경에 따라 설정파일이나 리소스파일을 다르게 패키징 해야하는 경우가 있다.&lt;br /&gt;
+maven에서는 Profile 설정 만으로 간편하게 각 profile별로 패키징 할 수 있다. &lt;/p&gt;
+
+&lt;p&gt;배포환경마다 달라질 수 있는 정보로는 다음과 같은 경우가 보편적이다.  &lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;DB property : 각 환경별로 사용하는 DB가 다른 경우   &lt;/li&gt;
+  &lt;li&gt;Logging level: 개발환경은 logging level이 debug라면 운영환경은 error 와 같이 상위 level로 하는 경우   &lt;/li&gt;
+  &lt;li&gt;resource : 각 환경 별로 resource 값이나 경로가 다른 경우   &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;maven-profile-----&quot;&gt;Maven Profile 설정으로 배포환경에 따른 패키징 하기&lt;/h1&gt;
+
+&lt;p&gt;dev(개발환경), test(테스트환경), release(운영환경)으로 나누었다. &lt;br /&gt;
+src/main/java/{dev,test,release}에 각 환경별 db.properties 파일을 추가하였다. &lt;/p&gt;
+
+&lt;p&gt;profile-sample&lt;br /&gt;
+├── pom.xml&lt;br /&gt;
+├── src&lt;br /&gt;
+│   ├── main&lt;br /&gt;
+│   │   ├── java&lt;br /&gt;
+│   │   ├── resources&lt;br /&gt;
+│   │   │   ├── dev&lt;br /&gt;
+│   │   │   │   └── db.properties&lt;br /&gt;
+│   │   │   ├── release&lt;br /&gt;
+│   │   │   │   └── db.properties&lt;br /&gt;
+│   │   │   └── test&lt;br /&gt;
+│   │   │       └── db.properties  &lt;/p&gt;
+
+&lt;p&gt;pom.xml에 profiles에 각 환경 별 profile을 추가하였다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Development server --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;dev&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;activation&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;activeByDefault&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/activeByDefault&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/activation&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;env&amp;gt;&lt;/span&gt;dev&lt;span class=&quot;nt&quot;&gt;&amp;lt;/env&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- test server --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;beta&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;env&amp;gt;&lt;/span&gt;beta&lt;span class=&quot;nt&quot;&gt;&amp;lt;/env&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
+    
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- release server --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;release&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;env&amp;gt;&lt;/span&gt;release&lt;span class=&quot;nt&quot;&gt;&amp;lt;/env&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/profiles&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;각 환경별로 resource의 경로를 설정해준다. 
+${env}는 profile에 설정한 properties의 &lt;env&gt; 이다. &lt;/env&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;resources&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/main/resources/${env}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resources&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;testResources&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;testResource&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/test/resources/resources/${env}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/testResource&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/testResources&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;각 환경별로 패키징을 하려면 mvn clean package -P “프로파일id” 로 실행한다. &lt;/p&gt;
+
+&lt;p&gt;mvn clean package dev &lt;br /&gt;
+mvn clean package test&lt;br /&gt;
+mvn clean package release   &lt;/p&gt;
+
+&lt;p&gt;(만일 -P 옵션을 제거하고 패키징한다면, profile에 activeByDefault로 설정된 dev profile로 패키징된다.)  &lt;/p&gt;
+
+&lt;p&gt;각 profile별로 db.properties가 배포 파일에 추가된 것을 확인 할 수 있다. &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://maven.apache.org/guides/introduction/introduction-to-profiles.html&quot;&gt;Introduction to Build Profiles&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
         <pubDate>Mon, 23 Mar 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/03/23/angularjs.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/03/23/angularjs.html</guid>
+        <link>http://iyoon.github.io/jekyll/update/2015/03/23/maven_profiles.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/03/23/maven_profiles.html</guid>
         
         
         <category>jekyll</category>
