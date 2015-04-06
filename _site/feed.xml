@@ -6,9 +6,189 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Mar 2015 10:10:15 +0900</pubDate>
-    <lastBuildDate>Mon, 30 Mar 2015 10:10:15 +0900</lastBuildDate>
+    <pubDate>Mon, 06 Apr 2015 09:27:55 +0900</pubDate>
+    <lastBuildDate>Mon, 06 Apr 2015 09:27:55 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>브라우저 문서모드</title>
+        <description>&lt;p&gt;과거 웹 표준이 정해져 있지 않았을 때 각 브라우저마다 페이지를 표시하는 렌더링이 규칙이 달랐고, 이 때문에 같은 소스코드 임에도 불구하고 페이지가 다르게 표시되는 문제가 있다.  &lt;/p&gt;
+
+&lt;p&gt;최근에는 웹 표준을 지켜 코드를 작성하기 때문에 최신 브라우저라면 어떤 브라우저에서나 같은 페이지를 표시 할 수 있다.&lt;br /&gt;
+하지만 오래된 웹 페이지의 경우에는 최신 브라우저에서 깨져 보이거나 브라우저마다 다르게 표시되는 문제가 있다. &lt;/p&gt;
+
+&lt;p&gt;이런 문제를 해결하고자 임시 방편으로 문서 모드라는 것을 사용하여 두 가지 렌더링 모드를 지원하게 되었다.&lt;br /&gt;
+쿽스 모드는 구식의 코드(웹 표준을 지키지 않은) 가 최신 브라우저에서 정상적으로 표시하기 위한 목적으로 생겼다.&lt;br /&gt;
+문서모드에는 표준모드와 쿽스모드(quirks mode)가 있다.&lt;br /&gt;
+브라우저는 소스코드에 doctype에 따라 두 가지 모드 중에 선택하여 페이지를 렌더링 하게 된다.  &lt;/p&gt;
+
+&lt;p&gt;모드를 선택하는 방법은 각 브라우저 마다 DTD에 따라 문서모드가 선택된다. &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Q : 쿼크모드(Quirks mode)&lt;/li&gt;
+  &lt;li&gt;S : 표준모드(Standard mode)&lt;/li&gt;
+  &lt;li&gt;A : Almost Standard mode &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;| Doctype         | NS6 | Old Moz | Moz &amp;amp;Safari &amp;amp;Opera 10&amp;amp;IE10&amp;amp; HTML | Opera 9.0 | IE 8, IE 9 &amp;amp; Opera 9.5 | IE 7 &amp;amp; Opera 7.10 | IE 6 &amp;amp; Opera 7.0 | Mac IE 5 | Konq 3.2 |
+|—————–|—–|———|———————————-|———–|————————|——————-|——————|———-|———-|
+| None            |Q|Q         |Q                                  |Q           |Q                        |Q                   |Q                  |Q          |Q          |Q
+| &amp;lt;!DOCTYPE html&amp;gt; |Q     |S         |S                                  |S           |S                        | A                  |  A                | A         |          |
+|&amp;lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&amp;gt;                 | S    |S         |S                                  | S          |   S                     |   A                |       A           |   Q       |     Q     |
+이하 생략…&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;참고: Handling of Some Doctypes in text/html https://hsivonen.fi/doctype/&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Mon, 06 Apr 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/04/06/htmldoctype.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/06/htmldoctype.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>AngularJS2</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://www.w3schools.com/angular/default.asp&quot;&gt;W3school Tutorial&lt;/a&gt; 따라 해보기 &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;angularjs-filter&quot;&gt;AngularJS Filter&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;pipe(&lt;/td&gt;
+      &lt;td&gt;)를 표현식에 사용하여 Filter를 적용 할 수 있다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;uppercase : 대문자&lt;br /&gt;
+{{ person.name | uppercase}}&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;lowercase : 소문자&lt;br /&gt;
+{{ person.name | uppercase}}&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;currency : 통화 표시 &lt;br /&gt;
+{{ quantity * price | currency }}&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;통화 표시는 기본적으로는 웹 서버의 locale에 따라 표시가 된다. 
+통화 표시를 지정하려면 이와 같이 해준다.&lt;br /&gt;
+{{ quantity * price | currency : “원” }}&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Filter: 필터를 적용한다.&lt;/li&gt;
+  &lt;li&gt;orderBy: 지정한 속성으로 정렬을 한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-controller=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;namesCtrl&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;inputVal&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-repeat=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x in names | filter:inputVal | orderBy:&amp;#39;country&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;xmlhttprequest&quot;&gt;XMLHttpRequest&lt;/h1&gt;
+
+&lt;p&gt;$http는 원격서버로 부터 데이터를 읽어 오기 위한 AngularJS Service 이다. &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$http.get(url): url 서버로 부터 데이터를 가져오기 위한 메소드
+(기본적으로 json 포맷으로 받도록 되어져 있다. xml 이나 다른 포맷의 데이터를 사용하려면 
+http provider를 지정하여 사용하면 된다. )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;myApp&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-controller=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;customersCtrl&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-repeat=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x in names&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;myApp&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;customersCtrl&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://www.w3schools.com/angular/customers.php&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;names&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;records&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$scope는 customerCtrl Controller 을 의미한다. &lt;/li&gt;
+  &lt;li&gt;$http.get()으로 원격서버로 부터 데이터를 가져와서 $scope.names에 저장한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;tables&quot;&gt;Tables&lt;/h1&gt;
+
+&lt;p&gt;테이블 형태의 데이터를 출력할 때 &amp;lt;tr&amp;gt; 태그에 ng-repeat를 추가하여 데이터를 반복적으로 출력 할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;table&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;tr&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-repeat=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x in names | orderBy : &amp;#39;Country&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 예제와 같이 파이를 사용하여 정렬하여 데이터를 출력할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;html-dom&quot;&gt;HTML DOM&lt;/h1&gt;
+&lt;p&gt;HTML DOM elements의 attribute에 AngularJS 데이터를 바인딩하기 위한 Driective가 있다. &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ng-disabled Directive
+element의 disabled attribute 데이터를 바인딩 해준다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-disabled=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;mySwitch&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Click Me!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;checkbox&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;mySwitch&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Button
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;checkbox mySwitch model과 버튼과 바인딩되어 checbox의 상태에 따라 버튼이 활성/비활성화 된다. &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ng-show &amp;amp; ng-hide Driective 
+element의 display 속성을 바인딩한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-show=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;I am visible.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-hide=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;I am not visible.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;참고 자료&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;AngularJS API Doc: https://docs.angularjs.org/api&lt;br /&gt;
+w3schools AngularJS: http://www.w3schools.com/angular/default.asp  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Mon, 06 Apr 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/04/06/angularjs2.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/06/angularjs2.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>AngularJS_1</title>
@@ -1124,57 +1304,6 @@ index는 each 내부에서 $index 로 사용하면 된다.    &lt;/p&gt;
         <pubDate>Mon, 16 Feb 2015 05:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/02/16/javascript-template-engine.html</link>
         <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/02/16/javascript-template-engine.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>SSL의 동작원리1 (암호화 알고리즘)</title>
-        <description>&lt;h1 id=&quot;section&quot;&gt;데이터를 안전하게 전송하려면?&lt;/h1&gt;
-&lt;p&gt;인터넷을 하다보면 포털사이트 혹은 쇼핑몰 등의 사이트에서 브라우저 마다 다르지만 주소를 적는 부분에 자물쇠 모양으로 신뢰감을 주는 페이지를 볼 수 있다.
-이런 페이지는 대부분 개인정보를 적는 페이지나 로그인을 하는 페이지에서 많이 볼 수 있다.
-http 프로토콜에서의 통신은 URL이나 header에 평문으로 데이터를 전송하기 때문에 중간에 누군가가 패킷을 가로채기라도 한다면 개인정보는 그대로 노출 될 수 있다.
-이 문제를 해결하려면 클라이언트가 서버로 데이터를 전송 할 때 암호화해 전송하고 서버에서는 복호화하면 된다.
-데이터를 암호화 하는 알고리즘의 종류인 대칭키 알고리즘과 공개키 알고리즘에 대해 먼저 살펴보자!&lt;/p&gt;
-
-&lt;h1 id=&quot;section-1&quot;&gt;대칭키 알고리즘&lt;/h1&gt;
-&lt;p&gt;대칭키 알고리즘은 데이터를 암호화 하고 복호화 할 때 같은 암호키를 사용하는 암호화 알고리즘이다.
-즉, 클라이언트와 서버가 같은 암호화 키를 공유해야 한다는 의미이다.
-먼저 서버는 클라이언트에게 암호화 키를 건네주면 클라이언트는 건네받은 암호화키로 데이터를 암호화하여 서버에 전송하면 된다. 
-문제는 서버가 클라이언트에게 암호화 키를 건네 줄 때다. 
-기껏 데이터는 암호화 했지만 정작 암호화 키는 암호화 되어 있지 않기 때문에 암호화 키가 노출 되었을 때 데이터는 쉽게 복호화 될 것 이다.
-바로 이런 키 관리가 어렵다는 점이 대칭키 알고리즘의 큰 단점이다. 
-장점으로는 암호화 키를 한 개만 사용하기 때문에 암호화나 복호화를 할 때 비용이 적게 든다는 것이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;section-2&quot;&gt;공개키 알고리즘&lt;/h1&gt;
-&lt;p&gt;공개키 알고리즘은 대칭키 알고리즘과 다르게  공개키(public key) 와 비밀키 (private key), 2개의  암호화 키를 사용한다.  (비밀키는 개인키라고도 부른다.)
-공개키 알고리즘은 공개키를 통해 암호화 된 데이터는 비밀키로만 복호화 할 수 있다. 또, 비밀키로 암호화된 데이터는 공개키로만 복호화 할 수 있다.
-왜 이렇게 키를 2개는 쓰는 것일까?
-대칭키 알고리즘의 문제점을 말했다시피 암호와 복호화를 하는 데 하나의 키값을 쓰고, 키 값을 서로 공유할 때 노출 될 수 있는 문제점이 있다.
-하지만 공개키 알고리즘에서는 공개키를 누구에게나 공개해도 상관없다. 공개키로 암호화 된 데이터는 비밀키로만 복호화 할 수 있기 때문이다.
-따라서 공개키는 공유하고 비밀키만 안전하게 보관한다면 암호화 된 데이터를 복호화 하긴 어려울 것이다.&lt;/p&gt;
-
-&lt;p&gt;공개키 알고리즘은 이처럼 2개의 키를 사용함으로서 대칭키 알고리즘에 비해 훨씬 안전하게 키를 공유하고 데이터를 암호화 할 수 있다는 장점이있다.
-단점은 2개의 키로 암호화를 하다보니 암호화/복호화 하는데 비용이 크다는 문제점이 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;ssl--&quot;&gt;SSL의 암호화 알고리즘?&lt;/h1&gt;
-&lt;p&gt;SSL 에서는 위에서 본 2개의 알고리즘 중 어떤 것을 사용 할 까?  나는 당연히 공개키 알고리즘을 사용 해야 한다고 생각했다.
-SSL은 대칭키 알고리즘과 공개키 알고리즘 둘 다 사용한다.
-그 이유는 각 알고리즘의 장점을 보면 알 수 있듯이 대칭키 알고리즘은 암호화/복호화 비용이 적고, 공개키 알고리즘은 키 관리와 보안에 우수한 장점을 섞는 편이 훨씬 좋기 때문이다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;참고자료
-&lt;a href=&quot;http://ko.wikipedia.org/wiki/%EC%95%94%ED%98%B8%ED%95%99&quot;&gt;암호화 알고리즘&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Sun, 15 Feb 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/02/15/about_ssl.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/02/15/about_ssl.html</guid>
         
         
         <category>jekyll</category>

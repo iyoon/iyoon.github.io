@@ -1,0 +1,124 @@
+---
+layout: post
+title:  "AngularJS2"
+date:   2015-04-05 18:00:00
+categories: jekyll update
+---
+> [W3school Tutorial][W3school Tutorial] 따라 해보기 
+
+[W3school Tutorial]:http://www.w3schools.com/angular/default.asp
+
+
+#AngularJS Filter
+
+pipe(|)를 표현식에 사용하여 Filter를 적용 할 수 있다.  
+
+- uppercase : 대문자  
+\{\{ person.name | uppercase\}\}
+
+- lowercase : 소문자  
+\{\{ person.name | uppercase\}\}
+
+- currency : 통화 표시   
+\{\{ quantity * price | currency \}\}
+
+통화 표시는 기본적으로는 웹 서버의 locale에 따라 표시가 된다. 
+통화 표시를 지정하려면 이와 같이 해준다.  
+\{\{ quantity * price | currency : "원" \}\}
+
+- Filter: 필터를 적용한다.
+- orderBy: 지정한 속성으로 정렬을 한다. 
+
+{% highlight html %}
+<div ng-app="" ng-controller="namesCtrl">
+<p><input type="text" ng-model="inputVal"></p>
+<ul>
+  <li ng-repeat="x in names | filter:inputVal | orderBy:'country'">
+    {{ (x.name | uppercase) + ', ' + x.country }}
+  </li>
+</ul>
+</div>
+{% endhighlight %}
+
+
+# XMLHttpRequest 
+
+$http는 원격서버로 부터 데이터를 읽어 오기 위한 AngularJS Service 이다. 
+
+- $http.get(url): url 서버로 부터 데이터를 가져오기 위한 메소드
+(기본적으로 json 포맷으로 받도록 되어져 있다. xml 이나 다른 포맷의 데이터를 사용하려면 
+http provider를 지정하여 사용하면 된다. )
+
+{% highlight html %}
+<div ng-app="myApp" ng-controller="customersCtrl"> 
+<ul>
+  <li ng-repeat="x in names">
+    {{ x.Name + ', ' + x.Country }}
+  </li>
+</ul>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+    $http.get("http://www.w3schools.com/angular/customers.php")
+    .success(function(response) {$scope.names = response.records;});
+});
+</script>
+{% endhighlight %}
+
+- $scope는 customerCtrl Controller 을 의미한다. 
+- $http.get()으로 원격서버로 부터 데이터를 가져와서 $scope.names에 저장한다. 
+
+
+# Tables
+
+테이블 형태의 데이터를 출력할 때 <tr> 태그에 ng-repeat를 추가하여 데이터를 반복적으로 출력 할 수 있다.
+
+{% highlight html %}
+<table>
+  <tr ng-repeat="x in names | orderBy : 'Country'">
+    <td>{{ x.Name }}</td>
+    <td>{{ x.Country }}</td>
+  </tr>
+</table>
+{% endhighlight %}
+
+위의 예제와 같이 파이를 사용하여 정렬하여 데이터를 출력할 수 있다.
+
+# HTML DOM
+HTML DOM elements의 attribute에 AngularJS 데이터를 바인딩하기 위한 Driective가 있다. 
+
+- ng-disabled Directive
+element의 disabled attribute 데이터를 바인딩 해준다. 
+
+{% highlight html %}
+<div ng-app="">
+  <button ng-disabled="mySwitch">Click Me!</button>
+  <input type="checkbox" ng-model="mySwitch">Button
+</div>
+{% endhighlight %}
+
+checkbox mySwitch model과 버튼과 바인딩되어 checbox의 상태에 따라 버튼이 활성/비활성화 된다. 
+
+- ng-show & ng-hide Driective 
+element의 display 속성을 바인딩한다. 
+
+{% highlight html %}
+<div ng-app="">
+<p ng-show="true">I am visible.</p>
+<p ng-hide="true">I am not visible.</p>
+</div>
+{% endhighlight %}
+
+
+참고 자료 
+----
+> AngularJS API Doc: https://docs.angularjs.org/api  
+> w3schools AngularJS: http://www.w3schools.com/angular/default.asp  
+
+
+
+
+

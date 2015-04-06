@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AngularJS2</title>
+  <meta name="description" content="  W3school Tutorial 따라 해보기 ">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://iyoon.github.io/jekyll/update/2015/04/06/angularjs2.html">
+  <link rel="alternate" type="application/rss+xml" title="hyungwon ,Yoon" href="http://iyoon.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">hyungwon ,Yoon</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">AngularJS2</h1>
+    <p class="post-meta">Apr 6, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <blockquote>
+  <p><a href="http://www.w3schools.com/angular/default.asp">W3school Tutorial</a> 따라 해보기 </p>
+</blockquote>
+
+<h1 id="angularjs-filter">AngularJS Filter</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td>pipe(</td>
+      <td>)를 표현식에 사용하여 Filter를 적용 할 수 있다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>
+    <p>uppercase : 대문자<br />
+{{ person.name | uppercase}}</p>
+  </li>
+  <li>
+    <p>lowercase : 소문자<br />
+{{ person.name | uppercase}}</p>
+  </li>
+  <li>
+    <p>currency : 통화 표시 <br />
+{{ quantity * price | currency }}</p>
+  </li>
+</ul>
+
+<p>통화 표시는 기본적으로는 웹 서버의 locale에 따라 표시가 된다. 
+통화 표시를 지정하려면 이와 같이 해준다.<br />
+{{ quantity * price | currency : “원” }}</p>
+
+<ul>
+  <li>Filter: 필터를 적용한다.</li>
+  <li>orderBy: 지정한 속성으로 정렬을 한다. </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">ng-app=</span><span class="s">&quot;&quot;</span> <span class="na">ng-controller=</span><span class="s">&quot;namesCtrl&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;p&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;inputVal&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">&quot;x in names | filter:inputVal | orderBy:&#39;country&#39;&quot;</span><span class="nt">&gt;</span>
+    
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h1 id="xmlhttprequest">XMLHttpRequest</h1>
+
+<p>$http는 원격서버로 부터 데이터를 읽어 오기 위한 AngularJS Service 이다. </p>
+
+<ul>
+  <li>$http.get(url): url 서버로 부터 데이터를 가져오기 위한 메소드
+(기본적으로 json 포맷으로 받도록 되어져 있다. xml 이나 다른 포맷의 데이터를 사용하려면 
+http provider를 지정하여 사용하면 된다. )</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">ng-app=</span><span class="s">&quot;myApp&quot;</span> <span class="na">ng-controller=</span><span class="s">&quot;customersCtrl&quot;</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">&quot;x in names&quot;</span><span class="nt">&gt;</span>
+    
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;myApp&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;customersCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$http</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;http://www.w3schools.com/angular/customers.php&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">names</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">records</span><span class="p">;});</span>
+<span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></div>
+
+<ul>
+  <li>$scope는 customerCtrl Controller 을 의미한다. </li>
+  <li>$http.get()으로 원격서버로 부터 데이터를 가져와서 $scope.names에 저장한다. </li>
+</ul>
+
+<h1 id="tables">Tables</h1>
+
+<p>테이블 형태의 데이터를 출력할 때 &lt;tr&gt; 태그에 ng-repeat를 추가하여 데이터를 반복적으로 출력 할 수 있다.</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;table&gt;</span>
+  <span class="nt">&lt;tr</span> <span class="na">ng-repeat=</span><span class="s">&quot;x in names | orderBy : &#39;Country&#39;&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+    <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+  <span class="nt">&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span></code></pre></div>
+
+<p>위의 예제와 같이 파이를 사용하여 정렬하여 데이터를 출력할 수 있다.</p>
+
+<h1 id="html-dom">HTML DOM</h1>
+<p>HTML DOM elements의 attribute에 AngularJS 데이터를 바인딩하기 위한 Driective가 있다. </p>
+
+<ul>
+  <li>ng-disabled Directive
+element의 disabled attribute 데이터를 바인딩 해준다. </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">ng-app=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">ng-disabled=</span><span class="s">&quot;mySwitch&quot;</span><span class="nt">&gt;</span>Click Me!<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;mySwitch&quot;</span><span class="nt">&gt;</span>Button
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>checkbox mySwitch model과 버튼과 바인딩되어 checbox의 상태에 따라 버튼이 활성/비활성화 된다. </p>
+
+<ul>
+  <li>ng-show &amp; ng-hide Driective 
+element의 display 속성을 바인딩한다. </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">ng-app=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">ng-show=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>I am visible.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">ng-hide=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>I am not visible.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="section">참고 자료</h2>
+<blockquote>
+  <p>AngularJS API Doc: https://docs.angularjs.org/api<br />
+w3schools AngularJS: http://www.w3schools.com/angular/default.asp  </p>
+</blockquote>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">hyungwon ,Yoon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>hyungwon ,Yoon</li>
+          <li><a href="mailto:hyungwon.yoon@nhnent.com">hyungwon.yoon@nhnent.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iyoon">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">iyoon</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
