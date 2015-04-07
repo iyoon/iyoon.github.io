@@ -27,6 +27,14 @@ categories: jekyll update
 | None            |Q|Q         |Q                                  |Q           |Q                        |Q                   |Q                  |Q          |Q          |Q
 | <!DOCTYPE html> |Q     |S         |S                                  |S           |S                        | A                  |  A                | A         |          |
 |<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">                 | S    |S         |S                                  | S          |   S                     |   A                |       A           |   Q       |     Q     |
-이하 생략...
 
-> 참고: Handling of Some Doctypes in text/html https://hsivonen.fi/doctype/
+
+
+
+
+
+이하 생략 (링크 내 테이블 참고)...
+
+> 참고: [Handling of Some Doctypes in text/html][Handling of Some Doctypes in text/html]
+
+[Handling of Some Doctypes in text/html]:https://hsivonen.fi/doctype/

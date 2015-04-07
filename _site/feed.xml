@@ -6,8 +6,8 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 06 Apr 2015 09:27:55 +0900</pubDate>
-    <lastBuildDate>Mon, 06 Apr 2015 09:27:55 +0900</lastBuildDate>
+    <pubDate>Tue, 07 Apr 2015 10:39:38 +0900</pubDate>
+    <lastBuildDate>Tue, 07 Apr 2015 10:39:38 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -30,16 +30,71 @@
   &lt;li&gt;A : Almost Standard mode &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;| Doctype         | NS6 | Old Moz | Moz &amp;amp;Safari &amp;amp;Opera 10&amp;amp;IE10&amp;amp; HTML | Opera 9.0 | IE 8, IE 9 &amp;amp; Opera 9.5 | IE 7 &amp;amp; Opera 7.10 | IE 6 &amp;amp; Opera 7.0 | Mac IE 5 | Konq 3.2 |
-|—————–|—–|———|———————————-|———–|————————|——————-|——————|———-|———-|
-| None            |Q|Q         |Q                                  |Q           |Q                        |Q                   |Q                  |Q          |Q          |Q
-| &amp;lt;!DOCTYPE html&amp;gt; |Q     |S         |S                                  |S           |S                        | A                  |  A                | A         |          |
-|&amp;lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&amp;gt;                 | S    |S         |S                                  | S          |   S                     |   A                |       A           |   Q       |     Q     |
-이하 생략…&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Doctype&lt;/th&gt;
+      &lt;th&gt;NS6&lt;/th&gt;
+      &lt;th&gt;Old Moz&lt;/th&gt;
+      &lt;th&gt;Moz &amp;amp;Safari &amp;amp;Opera 10&amp;amp;IE10&amp;amp; HTML&lt;/th&gt;
+      &lt;th&gt;Opera 9.0&lt;/th&gt;
+      &lt;th&gt;IE 8, IE 9 &amp;amp; Opera 9.5&lt;/th&gt;
+      &lt;th&gt;IE 7 &amp;amp; Opera 7.10&lt;/th&gt;
+      &lt;th&gt;IE 6 &amp;amp; Opera 7.0&lt;/th&gt;
+      &lt;th&gt;Mac IE 5&lt;/th&gt;
+      &lt;th&gt;Konq 3.2&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;None&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&amp;gt;&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;S&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt;Q&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이하 생략 (링크 내 테이블 참고)…&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;참고: Handling of Some Doctypes in text/html https://hsivonen.fi/doctype/&lt;/p&gt;
+  &lt;p&gt;참고: &lt;a href=&quot;https://hsivonen.fi/doctype/&quot;&gt;Handling of Some Doctypes in text/html&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
+
 </description>
         <pubDate>Mon, 06 Apr 2015 03:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/04/06/htmldoctype.html</link>
