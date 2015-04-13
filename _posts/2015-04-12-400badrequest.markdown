@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "400 Bad request"
+date:   2015-04-12 18:00:00
+categories: jekyll update
+---
+
+설문 서비스를 개발하면서 설문지를 제출할 때 특정한 상황에서 계속해서 400 bad request가 발생하는 버그가 발생했다.  
+사용자가 작성한 동적인 설문지 폼이 생성되기 때문에 어떤 경우에 400 bad request가 발생하는지를 알아내기가 어려웠다. 
+
+로그를 확인하여 해당 에러가 발생하는 원인을 찾기로 하고, log4j 의 spring 프레임워크 logger를 debug 모드로 변경하였다. 
+
+{% highlight text %}
+[org.springframework.context.support.DefaultMessageSourceResolvable: codes [answerList.answerList[2].answerNumber,answerList[2].answerNumber]; arguments []; default message [answerList[2].answerNumber]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'int' for property 'answerList[2].answerNumber'; nested exception is java.lang.NumberFormatException: For input string: ""]
+{% endhighlight %}
+
+내용을 보니 answerList.answerNumber는 int형 프로퍼티인데 빈 문자열인 String "" 값이 input으로 오면서 Bind Error가 나오는 것을 확인 할 수 있었다.
+
+해당 버그는 이전에는 없었던 버그 내용인데 새로 발견되었으므로 최근에 작성한 소스코드에 문제가 있을 것이라 예상하여 
+최근에 작업했던 코드를 확인 해보았다. 
+
+문제가 발생했던 코드는 자바스크립트 코드에 있었다.
+
+특정상황에서 input 입력 컨트롤을 초기화하는 코드가 문제였다. 
+
+{% highlight javascript %}
+$("input").val("").removeAttr("checked"); 
+{% endhighlight %}
+
+text, textarea 같은 경우에는 빈 문자열로 초기화가 String형 프로퍼티에 바인딩 되어서 문제가 없었지만,
+checkbox, radio 같은 경우에는 정수형 프로퍼티에 빈문자열이 바인딩 되면서 에러가 발생한 것이다. 
+
+{% highlight javascript %}
+$("input[type=text], textarea").val("");
+$("input[type=checkbox], input[type=radio]").removeAttr("checked");
+{% endhighlight %}
+
+이렇게 따로 분리를 하여 초기화를 하니 해당 에러를 잡을 수 있었다.  
+에러의 원인은 간단하였는데 디버그 하는 과정이 어려웠던 경험이었다.
