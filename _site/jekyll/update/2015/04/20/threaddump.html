@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Thread Dump 생성하기</title>
+  <meta name="description" content="해당 포스트는 이상민 강사님의 트러블슈팅 가이드 강의를 듣고 작성하였습니다.덤프란 메모리상의 내용을 프린트나 파일로 출력하여 내용을 확인 할 수 있는 것을 말한다. 주로 오류 수정을 위해 원인을 파악하는데 이용이 된다. 장애가 발생하였을 때 원인을 파악하기 위해 덤프파일을 생성하는...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://iyoon.github.io/jekyll/update/2015/04/20/threaddump.html">
+  <link rel="alternate" type="application/rss+xml" title="hyungwon ,Yoon" href="http://iyoon.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">hyungwon ,Yoon</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Thread Dump 생성하기</h1>
+    <p class="post-meta">Apr 20, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <p>해당 포스트는 이상민 강사님의 트러블슈팅 가이드 강의를 듣고 작성하였습니다.<br />
+덤프란 메모리상의 내용을 프린트나 파일로 출력하여 내용을 확인 할 수 있는 것을 말한다. 주로 오류 수정을 위해 원인을 파악하는데 이용이 된다. 
+장애가 발생하였을 때 원인을 파악하기 위해 덤프파일을 생성하는 것이 중요하다.  </p>
+
+<h2 id="section">쓰레드 덤프</h2>
+
+<p>쓰레드의 스택과 상태 정보를 파일로 출력한다.<br />
+쓰레드 덤프를 생성하는 시점의 쓰레드의 스택과 상태를 저장한다는 점에 유의 해야 한다.<br />
+따라서 쓰레드의 상태변화를 확인하기 위해서는 10~20초 간격으로 적어도 5~10번 정도로 덤프를 생성해야 한다.  </p>
+
+<h2 id="section-1">쓰레드 덤프 생성 명령어</h2>
+
+<h1 id="kill-">kill 명령어</h1>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">kill</span> -3 pid 또는 <span class="nb">kill</span> -quit pid</code></pre></div>
+
+<p>덤프파일은 해당 프로세스가 실행되는 콘솔이나 로그파일에 출력된다.<br />
+WAS(Tomcat)의 경우에는 catalina.out 파일에 덤프가 출력되는 것을 확인 할 수 있다.</p>
+
+<p>맥용 터미널 프로그램인 iTerm을 사용하면 쉽게 덤프파일을 로컬 환경에 저장 할 수 있다. 
+	1. Shell &gt; log &gt; start
+	2. 덤프 로그파일이 저장 될 경로와 파일명을 지정 
+	3. 덤프 생성 명령어 수행 
+	4. Sheell &gt; log &gt; stop 
+	5. (2)에서 지정한 덤프 파일 경로에 덤프파일 확인 </p>
+
+<h2 id="pid---">pid 확인 하는 방법</h2>
+
+<h1 id="ps-">ps 명령어</h1>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">ps -ef <span class="p">|</span> grep java</code></pre></div>
+
+<p>ps 명령어는 현재 실행되고 있는 프로세스의 상태를 표시하는 명령어이다. 
+파이프로 grep 사용하여 “java” 문자열을 포함하는 프로세스를 찾는다. 
+- e: 모든 계쩡의 프로세스를 출력
+- f: 프로세스의 자세한 정보를 출력 </p>
+
+<p>UID/pid/PPID/CSTIME/TTY/TIME/CMD 포맷으로 출력되므로 두번째 탭의 숫자값이 pid이다. </p>
+
+<h1 id="jps-">jps 명령어</h1>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">jps pid</code></pre></div>
+
+<p>-v : 자세한 정보를 함께 출력
+ jsp 명령어를 쳤을 때 process 명이 출력되지 않는 경우에는<br />
+ temp 에 저장되는 프로세스 정보가 없을 때 그렇게 나오게 된다. <br />
+ /tmp/hsperfdata_계정명/pid 파일에 프로세스의 정보가 계속해서 업데이트 되어 저장 된다.<br />
+ 해당 파일이 삭제가 되거나 없다면 jps, jstat, jstack 과 같은 명령어을 사용 할 수 없다.</p>
+
+<p>쓰레드 덤프가 아래와 같이 출력된다.  </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">2015-04-19 20:34:53 
+Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>23.25-b01 mixed mode<span class="o">)</span>:
+
+<span class="s2">&quot;ajp-bio-8001-exec-16&quot;</span> daemon <span class="nv">prio</span><span class="o">=</span><span class="m">10</span> <span class="nv">tid</span><span class="o">=</span>0x00007fbded760000 <span class="nv">nid</span><span class="o">=</span>0x7fab waiting on condition <span class="o">[</span>0x00007fbe0c4b8000<span class="o">]</span>
+   java.lang.Thread.State: WAITING <span class="o">(</span>parking<span class="o">)</span>
+        at sun.misc.Unsafe.park<span class="o">(</span>Native Method<span class="o">)</span>
+        - parking to <span class="nb">wait </span><span class="k">for</span>  &lt;0x00000000e35ebca8&gt; <span class="o">(</span>a java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="nv">$ConditionObject</span><span class="o">)</span>
+        at java.util.concurrent.locks.LockSupport.park<span class="o">(</span>LockSupport.java:186<span class="o">)</span>
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="nv">$ConditionObject</span>.await<span class="o">(</span>
+
+        
+ ... <span class="o">(</span>중간 생략 <span class="o">)</span>
+
+<span class="s2">&quot;VM Thread&quot;</span> <span class="nv">prio</span><span class="o">=</span><span class="m">10</span> <span class="nv">tid</span><span class="o">=</span>0x00007fbe100b0000 <span class="nv">nid</span><span class="o">=</span>0x61be runnable 
+
+<span class="s2">&quot;VM Periodic Task Thread&quot;</span> <span class="nv">prio</span><span class="o">=</span><span class="m">10</span> <span class="nv">tid</span><span class="o">=</span>0x00007fbe10520000 <span class="nv">nid</span><span class="o">=</span>0x61d7 waiting on condition 
+
+JNI global references: 386
+
+Heap
+ def new generation   total 184320K, used 110783K <span class="o">[</span>0x00000000d5600000, 0x00000000e1e00000, 0x00000000e1e00000<span class="o">)</span>
+  eden space 163840K,  64% used <span class="o">[</span>0x00000000d5600000, 0x00000000dbc7b588, 0x00000000df600000<span class="o">)</span>
+  from space 20480K,  28% used <span class="o">[</span>0x00000000df600000, 0x00000000dfbb48d8, 0x00000000e0a00000<span class="o">)</span>
+  to   space 20480K,   0% used <span class="o">[</span>0x00000000e0a00000, 0x00000000e0a00000, 0x00000000e1e00000<span class="o">)</span>
+ tenured generation   total 409600K, used 33182K <span class="o">[</span>0x00000000e1e00000, 0x00000000fae00000, 0x00000000fae00000<span class="o">)</span>
+   the space 409600K,   8% used <span class="o">[</span>0x00000000e1e00000, 0x00000000e3e67938, 0x00000000e3e67a00, 0x00000000fae00000<span class="o">)</span>
+ compacting perm gen  total 52288K, used 52123K <span class="o">[</span>0x00000000fae00000, 0x00000000fe110000, 0x0000000100000000<span class="o">)</span>
+   the space 52288K,  99% used <span class="o">[</span>0x00000000fae00000, 0x00000000fe0e6f80, 0x00000000fe0e7000, 0x00000000fe110000<span class="o">)</span>
+No shared spaces configured.</code></pre></div>
+
+<p>쓰레드 덤프 생성 시간 / JVM 정보가 출력이 되고 공백 라인으로 구분하여 각 쓰레드의 정보가 출력이 된다. 
+마지막에는 Heap 영역 메모리의 사용현황이 출력된다. </p>
+
+<p>쓰레드 정보는 스페이스로 각 내용이 구분되어 진다.    </p>
+
+<ol>
+  <li>쓰레드 이름   </li>
+  <li>쓰레드 우선순위  </li>
+  <li>쓰레드 ID  </li>
+  <li>Natvie 쓰레드 ID  </li>
+  <li>쓰레드 상황  </li>
+  <li>쓰레드 스택 주소 범위 (from..to)  </li>
+  <li>쓰레드 스택 정보 (stack 이므로 가장 최근에 수행된 메소드가 상위에 위치한다. 가장 상위에 메소드가 수행 중인 상태에서 덤프가 시행된것.)  </li>
+</ol>
+
+<p>Heap 영역의 정보에는 Eden, Tenured, Perm 영역의 사용량을 확인 할 수 있다. 
+Eden 영역은 Young area 영역이라고도 하며, 객체가 생성되었을때 저장되는 heap 영역 중 일부이다. 
+해당 영역이 꽉차게 되면 Young GC가 발생하며 살아 남은 객체는 Tenured 영역 (Old Area)로 옮겨진다.
+Perm 영역은 로딩된 클래스, 메소드, meta 정보가 저장된다. </p>
+
+<p>Tenured, Perm 영역이 90% 이상으로 너무 높으면 out of memory error가 발생할 수 있다. </p>
+
+<h2 id="section-2">쓰레드 덤프 분석</h2>
+
+<p>thread logic (https://java.net/projects/threadlogic) 을 이용하면 덤프 파일 분석을 편리하게 할 수 있다.<br />
+thread logic 을 다운로드 받으면 jar 파일을 다운로드 받을 수 있다.<br />
+해당 jar 파일을 아래의 명령어로 실행하면 thread logic을 실행 할 수 있다.  </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">java -jar threadlogic.jar</code></pre></div>
+
+<blockquote>
+  <p>참고자료
+<a href="http://helloworld.naver.com/helloworld/textyle/10963">스레드 덤프 분석하기</a>
+<a href="https://java.net/downloads/threadlogic/ThreadLogic-v0.9.pdf">ThreadLogic Documentation</a>
+자바 트러블 슈팅 가이드 (이상민님)</p>
+</blockquote>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">hyungwon ,Yoon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>hyungwon ,Yoon</li>
+          <li><a href="mailto:hyungwon.yoon@nhnent.com">hyungwon.yoon@nhnent.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iyoon">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">iyoon</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
