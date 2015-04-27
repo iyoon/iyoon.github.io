@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>알면 유용한 jUnit 활용</title>
+  <meta name="description" content="Junit Kung Fu 내용을 보고 JUnit 활용에 대해 공부 할 겸 요약 및 정리한 내용이다. ">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://iyoon.github.io/jekyll/update/2015/03/03/jUnit.html">
+  <link rel="alternate" type="application/rss+xml" title="hyungwon ,Yoon" href="http://iyoon.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">hyungwon ,Yoon</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">알면 유용한 jUnit 활용</h1>
+    <p class="post-meta">Mar 3, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <p><a href="http://www.slideshare.net/wakaleo/junit-kung-fu-getting-more-out-of-your-unit-tests">Junit Kung Fu</a> 내용을 보고 JUnit 활용에 대해 공부 할 겸 요약 및 정리한 내용이다. </p>
+
+<blockquote>
+  <p>원글 보기 : <a href="http://www.slideshare.net/wakaleo/junit-kung-fu-getting-more-out-of-your-unit-tests">Junit Kung Fu</a></p>
+</blockquote>
+
+<h1 id="test-naming">Test Naming</h1>
+
+<h4 id="test---test---should--">Test의 메소드명은 무조건 test라 이름짓지 말고, should를 활용해서 작성하자.</h4>
+
+<p>예를 들어 돈을 입출금하는 작업에 대해서 입금처리를 하는 테스트 메소드을 naming 한다면 아래와 같이 작성 할 수 있다.
+입금이라는 작업을 한다는 것은 명확하지만 실제로 어떤 동작에 대해 테스트하는지에 대해서는 불명확하다. </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">testDeposit</span><span class="o">()</span></code></pre></div>
+
+<p>should를 활용하면 어떤 동작을 테스트하고자 하는 것인지 더 명확하게 표현 할 수 있다. </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">depositShouldAddAmountToAccountBalance</span><span class="o">()</span> <span class="c1">// 계좌에 금액을 더해야한다.</span></code></pre></div>
+
+<h4 id="test-class-----------">Test Class의 이름은 이 테스트 클래스가 어떤 상황에서 필요한지를 알 수 있도록 작성한다.</h4>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">WhenYouCreateACell</span><span class="o">.</span><span class="na">class</span>  
+<span class="o">-</span> <span class="n">aDeadCellShouldBePrintedAsAdot</span><span class="o">();</span>  
+<span class="o">-</span> <span class="n">aLiveCellShouldBePrintedAsAsterisk</span><span class="o">();</span>  
+<span class="o">...</span>  
+<span class="c1">// Grid에서 새로운 셀을 생성할 때 사용하지 않는 셀은 . (dot)로 표시, 사용하는 셀은 * (asterisk) 로 표시</span></code></pre></div>
+
+<pre><code>테스트 클래스명은 해당 테스트가 언제 사용되는지를 명시해주고(When~), 메소드명은 어떤 동작(should)을 테스트하는지 알 수 있도록 작성한다. 
+</code></pre>
+
+<h4 id="section">테스트 메소드는 일관된 형식으로 작성 한다.</h4>
+<p>보통 Given - When - Then 또는 Arrange - Act - Assert (AAA) 형식으로 작성한다. </p>
+
+<ol>
+  <li>Arrange 단계에서는 test 할 데이터와 expected 되는 데이터를 준비하도록 한다.   </li>
+  <li>Act 단계에서는 테스트하고자 하는 부분의 동작을 테스트 한다.   </li>
+  <li>Assert 단계에서는 Act 단계의 결과 값이 expected 데이터와 일치하는지 확인한다.   </li>
+</ol>
+
+<h4 id="section-1">테스트 코드는 결과물과 마찬가지 이다.</h4>
+<p>실제로 실행되는 프로그램이나 서비스만큼 테스트코드 또한 주요한 결과물 중에 하나이다. 따라서 항상 refactoring을 통해서 clean 한 코드를 유지하고, 
+읽기 쉬운 코드로 작성하도록 해야한다. </p>
+
+<h1 id="hamcrest-">Hamcrest 활용하기</h1>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.*;</span>
+<span class="o">...</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="mi">10000</span><span class="o">,</span> <span class="n">calculatedTax</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span></code></pre></div>
+
+<p>보통 실제 값과 기대 값이 일치하는지를 비교할 때 assertEquals를 많이 쓰게 된다. <br />
+assertEquals는 첫 번째 인자 값이 기대값이고, 두 번째 인자값이 실제 값이다. 마지막은 오차 허용범위값이다.<br />
+나는 매번 사용 할 때마다, 기대 값과 실제 값의 위치가 헷갈린다.<br />
+하지만, 두 파라미터의 순서를 바꿔도 테스트하는데 큰 오류는 없기에 순서를 고려하지 않은 경우가 많았다.  </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">hamcrest</span><span class="o">.</span><span class="na">Matchers</span><span class="o">.*;</span>
+<span class="o">...</span>
+<span class="n">assertThat</span><span class="o">(</span><span class="n">calculatedTax</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="mi">10000</span><span class="o">));</span><span class="err">￼</span></code></pre></div>
+
+<p>이 코드는 hamcrest 의 matcher를 사용한 코드이다. assertEquals를 사용한 코드와 동일한 동작을 하는 코드이다.
+하지만 첫 번째 코드에 비해 더 명확해보인다. 왜냐하면 cacculatedText is 10000 처럼 쉽게 이해가 되기 때문이다. </p>
+
+<p>assertThat() 은 첫 번째에 실제 값을 적고, 두 번째 인자값은 matcher를 추가한다. 
+실제 값이 matcher을 통과한 값이면 테스트코드가 통과하게 된다. </p>
+
+<p>뿐만 아니라 is() 과 같은 core matcher들을 사용하면 좀 더 명확하고 쉽게 테스트 코드를 작성 할 수 있으므로 테스트 코드 작성에 적극 활용하자.</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span><span class="o">[]</span> <span class="n">colors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span><span class="s">&quot;red&quot;</span><span class="o">,</span><span class="s">&quot;green&quot;</span><span class="o">,</span><span class="s">&quot;blue&quot;</span><span class="o">};</span>
+<span class="n">String</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;yellow&quot;</span><span class="o">;</span>
+<span class="n">assertThat</span><span class="o">(</span><span class="n">color</span><span class="o">,</span> <span class="n">not</span><span class="o">(</span><span class="n">isIn</span><span class="o">(</span><span class="n">colors</span><span class="o">)));</span>
+<span class="err">￼</span></code></pre></div>
+
+<p>위의 코드와 같이 여러 기본 matcher를 혼합하여 사용이 가능하기 때문에 다양한 유형의 assert 를 작성 할 수 있다. 
+또한 custom matcher를 개발자가 직접 개발 할 수 도 있다. </p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Core</strong></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>any()</td>
+      <td>Matches anything</td>
+    </tr>
+    <tr>
+      <td>is()</td>
+      <td>A matcher that checks if the given objects are equal.</td>
+    </tr>
+    <tr>
+      <td>describedAs()</td>
+      <td>Adds a descrption to a Matcher</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>Logical</strong></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>allOf()</td>
+      <td>Takes an array of matchers, and all matchers must match the target object.</td>
+    </tr>
+    <tr>
+      <td>anyOf()</td>
+      <td>Takes an array of matchers, and at least one of the matchers must report that it matches the target object.</td>
+    </tr>
+    <tr>
+      <td>not()</td>
+      <td>Negates the output of the previous matcher.</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>Object</strong></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>equalTo()</td>
+      <td>A matcher that checks if the given objects are equal.</td>
+    </tr>
+    <tr>
+      <td>instanceOf()</td>
+      <td>Checks if the given object is of type X or is compatible with type X</td>
+    </tr>
+    <tr>
+      <td>notNullValue()</td>
+      <td>Tests whether the given object is null or not null.</td>
+    </tr>
+    <tr>
+      <td>nullValue()</td>
+      <td>Tests whether the given object is null or not null.</td>
+    </tr>
+    <tr>
+      <td>sameInstance()</td>
+      <td>Tests if the given object is the exact same instance as another.</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>더 자세한 내용은 <a href="http://tutorials.jenkov.com/java-unit-testing/matchers.html">matchers</a> 참고! </p>
+</blockquote>
+
+<h1 id="junit-rules-">Junit Rules 활용하기</h1>
+
+<h4 id="the-temporary-folder-rule">The Temporary Folder Rule</h4>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.BufferedWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.Before</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Rule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.TemporaryFolder</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoadDynamicPropertiesTest</span> <span class="o">{</span>
+    
+    <span class="c1">// 임시 폴더를 생성한다. </span>
+	<span class="nd">@Rule</span>
+	<span class="kd">public</span> <span class="n">TemporaryFolder</span> <span class="n">folder</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">TemporaryFolder</span><span class="o">();</span> 
+	
+	<span class="kd">private</span> <span class="n">File</span> <span class="n">properties</span><span class="o">;</span>
+	
+	<span class="c1">// 테스트 수행 전 test 데이터를 준비한다. </span>
+	<span class="nd">@Before</span>	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">createTestData</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+	    <span class="n">properties</span> <span class="o">=</span> <span class="n">folder</span><span class="o">.</span><span class="na">newFile</span><span class="o">(</span><span class="s">&quot;messages.properties&quot;</span><span class="o">);</span>
+	    <span class="n">BufferedWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">BufferedWriter</span><span class="o">(</span><span class="k">new</span> <span class="nf">FileWriter</span><span class="o">(</span><span class="n">properties</span><span class="o">));</span>
+	    <span class="c1">// Set up the temporary file</span>
+	    <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="c1">// 테스트에서 해당 임시 폴더를 사용한다. </span>
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldLoadFromPropertiesFile</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">/var/folders/l0/w_28q17x06zgmd2xvs_nq73w0000gn/T/junit6045199402712718193/messages.properties</code></pre></div>
+
+<p>테스트를 위한 임시 폴더를 생성한다.<br />
+임시 폴더 이기때문에 테스트 후 해당 폴더는 삭제된다. </p>
+
+<h4 id="the-errorcontroller-rule">The ErrorController Rule</h4>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.junit.Rule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.ErrorCollector</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">hamcrest</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">StringContains</span><span class="o">.*;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">hamcrest</span><span class="o">.</span><span class="na">CoreMatchers</span><span class="o">.</span><span class="na">not</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorCollectorTest</span> <span class="o">{</span>
+   <span class="nd">@Rule</span>
+   <span class="kd">public</span> <span class="n">ErrorCollector</span> <span class="n">collector</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">ErrorCollector</span><span class="o">();</span>
+   
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSomething</span><span class="o">()</span> <span class="o">{</span>
+	   <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">doStuff</span><span class="o">();</span>
+	   <span class="n">collector</span><span class="o">.</span><span class="na">addError</span><span class="o">(</span><span class="k">new</span> <span class="nf">Throwable</span><span class="o">(</span><span class="s">&quot;first thing went wrong&quot;</span><span class="o">));</span>
+	   <span class="n">collector</span><span class="o">.</span><span class="na">addError</span><span class="o">(</span><span class="k">new</span> <span class="nf">Throwable</span><span class="o">(</span><span class="s">&quot;second thing went wrong&quot;</span><span class="o">));</span>
+	   <span class="n">collector</span><span class="o">.</span><span class="na">checkThat</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">not</span><span class="o">(</span><span class="n">containsString</span><span class="o">(</span><span class="s">&quot;Oh no, not again&quot;</span><span class="o">)));</span>
+
+	<span class="o">}</span>
+	
+	<span class="kd">private</span> <span class="n">String</span> <span class="nf">doStuff</span><span class="o">()</span> <span class="o">{</span>
+	       <span class="k">return</span> <span class="s">&quot;Oh no, not again&quot;</span><span class="o">;</span>
+	<span class="o">}</span> 
+<span class="o">}</span></code></pre></div>
+
+<p>테스트 실행 중 에러가 발생해도 실행을 중단하지 않고, 테스트 에러 발생결과를 출력한다. 
+first thing went wrong, second thing went wrong, Oh no, not again 모두 에러가 발생하는 코드이지만 
+결과 내용을 보면 에러가 발생하여도 중단하지 않고 모든 에러 리스트를 보여준다. </p>
+
+<h4 id="the-timeout-rule">The TimeOut Rule</h4>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.junit.Rule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.Timeout</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TaxCalculatorDataTest</span> <span class="o">{</span>
+	 <span class="nd">@Rule</span>
+	 <span class="kd">public</span> <span class="n">Timeout</span> <span class="n">globalTimeout</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Timeout</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	 
+	 <span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSomething</span><span class="o">()</span> <span class="o">{</span>
+	       <span class="k">for</span><span class="o">(;;);</span>
+	<span class="o">}</span>
+	
+	<span class="nd">@Test</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSomethingElse</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;test&quot;</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>비기능적인 요구사항으로 정해진 시간 이내에 처리되어야 할 메소드가 있다면, TimeOut Rule을 사용하면 된다. 
+위의 코드 내용대로 하면 1000ms내에  처리되지 않으면 테스트 코드가 실패하게 된다. </p>
+
+<h4 id="the-verifier-rule">The Verifier Rule</h4>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">hamcrest</span><span class="o">.</span><span class="na">CoreMatchers</span><span class="o">.</span><span class="na">is</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.Rule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.Verifier</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VerifierTest</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">systemErrorMessages</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+	<span class="nd">@Rule</span>
+	<span class="kd">public</span> <span class="n">Verifier</span> <span class="n">verifier</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Verifier</span><span class="o">(){</span>
+		<span class="nd">@Override</span>
+		<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">verify</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+			<span class="n">assertThat</span><span class="o">(</span><span class="n">systemErrorMessages</span><span class="o">.</span><span class="na">size</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
+		<span class="o">}</span>
+	<span class="o">};</span>
+	
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSomething</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">// ...</span>
+		<span class="n">systemErrorMessages</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Oh, bother!&quot;</span><span class="o">);</span>
+	<span class="o">}</span>
+
+<span class="o">}</span></code></pre></div>
+
+<p>각 테스트 메소드에 대해서 verify() 부분의 코드를 체크한다. <br />
+해당 테스트 코드는 systemErrorMessage에 내용이 있기 때문에 테스크코드가 실패한다. </p>
+
+<h4 id="the-watchman-rule">The Watchman Rule</h4>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TaxCalculatorDataTest</span> <span class="o">{</span>
+
+	<span class="nd">@Rule</span>
+	<span class="kd">public</span> <span class="n">TestWatchman</span> <span class="n">watchman</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">TestWatchman</span><span class="o">(){</span>
+		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">failed</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">,</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">runners</span><span class="o">.</span><span class="na">model</span><span class="o">.</span><span class="na">FrameworkMethod</span> <span class="n">method</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span> <span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+		<span class="o">}</span>
+		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">succeeded</span><span class="o">(</span><span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">runners</span><span class="o">.</span><span class="na">model</span><span class="o">.</span><span class="na">FrameworkMethod</span> <span class="n">method</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span> <span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="s">&quot;success!&quot;</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">};</span>
+	
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">fails</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">assertEquals</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+	<span class="o">}</span> 
+	
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">succeeds</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">assertEquals</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>각 메소드가 실패하거나 성공했을 때 실행 될 Call을 설정 할 수 있다. 
+fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 실행되며, succeeds() 테스트 코드는 성공하는 코드 이므로 succeeded() 가 실행된다. </p>
+
+<h4 id="junit-categories">jUnit Categories</h4>
+
+<p>각 클래스의 테스트를 카테고리별 나누어 실행 그룹을 설정 할 수 있다. 
+테스트 Annotation 기법으로 쉽게 그룹핑을 할 수 있다. </p>
+
+<p>적용하는 방법 3단계로 나누어진다.  </p>
+
+<ol>
+  <li>카테고리들을 정의한다. </li>
+</ol>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IntegrationTests</span> <span class="o">{}</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PerformanceTests</span> <span class="o">{}</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PerformanceTests</span> <span class="kd">extends</span> <span class="n">IntegrationTests</span> <span class="o">{}</span></code></pre></div>
+
+<p>예제에서는 통합테스트, 성능테스트로 카테고리를 지정하였고, extends를 통해 카테고리간의 상속관계도 지정 할 수 있다. </p>
+
+<ol>
+  <li>테스트 메소드 별로 annotation을 통해 카테고리를 지정해준다. </li>
+</ol>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CellTest</span> <span class="o">{</span>
+	
+	<span class="c1">// 성능 카테고리</span>
+	<span class="nd">@Category</span><span class="o">(</span><span class="n">PerformanceTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">aLivingCellShouldPrintAsAPlus</span><span class="o">()</span> <span class="o">{...}</span>
+
+	<span class="c1">// 통합 카테고리 </span>
+	<span class="nd">@Category</span><span class="o">(</span><span class="n">IntegrationTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">thePlusSymbolShouldProduceALivingCell</span><span class="o">()</span> <span class="o">{...}</span>
+    
+	<span class="c1">// 일반 테스트 메소드 </span>
+	<span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">theMinusSymbolShouldProduceADeadCell</span><span class="o">()</span> <span class="o">{...}</span>
+
+<span class="o">}</span></code></pre></div>
+
+<p>2-1. 테스트 클래스 전체 메소드에 카테고리를 지정하려면 테스트 클래스 위에 annotation을 작성한다. </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Category</span><span class="o">(</span><span class="n">IntegrationTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CellTest</span> <span class="o">{</span>
+	<span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+<p>3 . 카테고리별 테스트 클래스를 생성하여 카테고리 테스트를 한다. </p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.junit.experimental.categories.Categories.IncludeCategory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.runner.RunWith</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.runners.Suite.SuiteClasses</span><span class="o">;</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> 
+<span class="nd">@IncludeCategory</span><span class="o">(</span><span class="n">PerformanceTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="c1">// 성능 카테고리에 해당하는 테스트만 실행한다.</span>
+<span class="nd">@ExcludeCategory</span><span class="o">(</span><span class="n">PerformanceTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="c1">// 성능 카테고리에 해당하는 테스트들은 제외한다.</span>
+<span class="nd">@SuiteClasses</span><span class="o">(</span> <span class="o">{</span> <span class="n">CellTest</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">WhenYouCreateANewUniverse</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span> <span class="c1">// 어떤 테스트 클래스에 대해서 작업을 수행 할지 정해준다. </span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PerformanceTestSuite</span> <span class="o">{</span>
+<span class="err">￼￼</span><span class="c1">//....￼</span>
+<span class="o">}</span></code></pre></div>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">hyungwon ,Yoon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>hyungwon ,Yoon</li>
+          <li><a href="mailto:hyungwon.yoon@nhnent.com">hyungwon.yoon@nhnent.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iyoon">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">iyoon</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

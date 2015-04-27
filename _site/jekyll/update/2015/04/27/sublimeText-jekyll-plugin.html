@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>sublime-jekyll 플러그인 </title>
+  <meta name="description" content="블로그에 글을 올릴 때 에디터로 Sublime Text를 사용하고 있다. jekyll 플러그인이 있어 사용해보았다. ">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://iyoon.github.io/jekyll/update/2015/04/27/sublimeText-jekyll-plugin.html">
+  <link rel="alternate" type="application/rss+xml" title="hyungwon ,Yoon" href="http://iyoon.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">hyungwon ,Yoon</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">sublime-jekyll 플러그인 </h1>
+    <p class="post-meta">Apr 27, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <p>블로그에 글을 올릴 때 에디터로 Sublime Text를 사용하고 있다. jekyll 플러그인이 있어 사용해보았다. </p>
+
+<h2 id="sublime-jekyll-">sublime-jekyll 플러그인</h2>
+
+<h1 id="install-osx-">Install (OSX) 하기</h1>
+
+<ol>
+  <li>PackageControl을 연다. command + shift + p (Tools &gt; Commmand Palette menu) </li>
+  <li>Package Control : Install Package 선택 </li>
+  <li>Package Control이 없다면 Package Control부터 설치한다.<br />
+    <ul>
+      <li><a href="https://packagecontrol.io/installation">Install PackageControl</a> 에서 사용 중인 버전 (Sublime Text 2 Or Sublime Text3) 스크립트 복사 </li>
+      <li>View &gt; Show Console(Ctrl + ‘) 복사한 스크립트를 실행하 Package Control 이 설치된다.   </li>
+    </ul>
+  </li>
+  <li>Install Pacakcge 를 선택하면 나오는 검색 창에서 jekyll로 검색하여 나오는 jekyll을 설치한다. </li>
+</ol>
+
+<h1 id="section">설정하기</h1>
+
+<ol>
+  <li>
+    <p>Preference &gt; Pacakge Settings &gt; Jekyll &gt; Settings - Users</p>
+  </li>
+  <li>
+    <p>posts_path, drafts_path를 설정한다. 
+그외 default 설정이나 날짜 포맷 등을 필요에 따라 설정 할 수 있다. </p>
+  </li>
+</ol>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">{
+
+    // This should point to your &quot;_posts&quot; directory.
+    // NOTE: This should be an absolute path. Also, the path should
+    // match your system convention. For example, Windows machines should
+    // have a path similar to &quot;C:\\Users\\username\\site\\_posts&quot;.
+    // *nix systems should have a path similar to &quot;/Users/username/site/_posts&quot;.
+    &quot;posts_path&quot;: &quot;/Users/nhnent/iyoon.github.com/_posts&quot;,
+
+    // This should point to your &quot;_drafts&quot; directory.
+    // NOTE: This should be an absolute path. Also, the path should
+    // match your system convention. For example, Windows machines should
+    // have a path similar to &quot;C:\\Users\\username\\site\\_drafts&quot;.
+    // *nix systems should have a path similar to &quot;/Users/username/site/_drafts&quot;.
+    &quot;drafts_path&quot;: &quot;/Users/nhnent/iyoon.github.com/_drafts&quot;,
+
+    // If you have multiple Jekyll blogs, but don&#39;t use Sumblime Projects,
+    // you can optionally have sublime-jekyll look for the `_posts` or `_drafts`
+    // folders open in your sidebar. This should have a value of true or false.
+    &quot;automatically_find_paths&quot;: false,
+
+    // This string value should represent the default syntax for a new post.
+    // Valid options are: &quot;Markdown&quot;, &quot;Textile&quot;
+    &quot;default_post_syntax&quot;: &quot;Markdown&quot;,
+
+    /** *****************************************************************************
+     * Post Front-matter Defaults
+     *
+     * Set these values to make your life easier when composing new posts. This is
+     * similar to setting your defaults as part of the `_config.yml` file:
+     *
+     * http://jekyllrb.com/docs/configuration/#front-matter-defaults
+     * ******************************************************************************
+     */
+
+    // This string value should represent the default layout for new posts.
+    &quot;default_post_layout&quot;: &quot;&quot;,
+
+    // This value should represent the default categories for new posts.
+    // Each category should be entered as a list item in string format
+    // with commas separating values [&quot;cat1&quot;, &quot;cat2&quot;]. To remove this key
+    // from your front-matter completely, pass a value of `null`.
+    &quot;default_post_categories&quot;: [],
+
+    // This value should represent the default tags for new posts.
+    // Each tag should be entered as a list item in string format
+    // with commas separating values [&quot;tag1&quot;, &quot;tag2&quot;]. To remove this key
+    // from your front-matter completely, pass a value of `null`.
+    &quot;default_post_tags&quot;: [],
+
+    // A boolean specifying if you want new posts to be marked as published.
+    // To remove this key from your front-matter completely, pass a value of `null`.
+    &quot;default_post_published&quot;: true,
+
+    // If you need to add additional front-matter `key: value` information to
+    // your posts, you can store them in a dictionary object using a format
+    // like {&quot;foo&quot;: &quot;bar&quot;, &quot;baz&quot;: &quot;qux&quot;}. This dictionary will be appended to
+    // any of the enabled default keys above (Reminder: the `title` and `layout`
+    // keys will always be included, so **DO NOT** include them in the extras dictionary).
+    &quot;default_post_extras&quot;: {},
+
+    /** ***********************************************************************************
+     * If for some reason you want to change the way either the date
+     * or the datetime string is formatted, you can override those formats
+     * here using valid Python datetime.strftime() format codes.
+     *
+     * If you need a refresher on these codes, have a look at the Python
+     * documentation found here:
+     *
+     * http://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
+     * ******************************************************************************
+     */
+
+    // A valid Python strftime string
+    &quot;insert_date_format&quot;: &quot;%Y-%m-%d&quot;,
+
+    // A valid Python strftime string
+    &quot;insert_datetime_format&quot;: &quot;%Y-%m-%d %H:%M:%S&quot;
+
+}</code></pre></div>
+
+<h1 id="section-1">기능</h1>
+
+<p>Command + shift + p 에서 jekyll 플러그인의 기능을 사용 할 수 있다. </p>
+
+<ul>
+  <li>Jekyll: New post </li>
+  <li>Jekyll: New draft </li>
+  <li>Jekyll: Open post</li>
+  <li>Jekyll: Open draft</li>
+  <li>Jekyll: Insert current date </li>
+  <li>Jekyll: Insert current datetime </li>
+  <li>Jekyll: Promote draft to post</li>
+</ul>
+
+<h1 id="syntax-">Syntax 강조</h1>
+<p>Set Syntax:Markdown(Jekyll)</p>
+
+<h1 id="section-2">자동완성</h1>
+
+<p>축약형을 입력한 후 Tab을 누르면 자동완성이 된다.<br />
+hightlight + Tab = {% highlight %}{% endhighlight %} </p>
+
+<ul>
+  <li>assign: {% assign a = b %}</li>
+  <li>capture: {% capture %}{% endcapture %}</li>
+  <li>case: {% case %}{% endcase %}</li>
+  <li>comment: {% comment %}{% endcomment %}</li>
+</ul>
+
+<p>https://packagecontrol.io/packages/Jekyll Snippets </p>
+
+<blockquote>
+  <p>참고자료<br />
+<a href="https://packagecontrol.io/packages/Jekyll">sublime-jekyll</a> <br />
+<a href="https://packagecontrol.io/installation">Install PackageControl</a>  </p>
+</blockquote>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">hyungwon ,Yoon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>hyungwon ,Yoon</li>
+          <li><a href="mailto:hyungwon.yoon@nhnent.com">hyungwon.yoon@nhnent.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iyoon">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">iyoon</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

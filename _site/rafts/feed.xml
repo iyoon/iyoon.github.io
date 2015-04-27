@@ -6,171 +6,9 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Apr 2015 18:20:20 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Apr 2015 18:20:20 +0900</lastBuildDate>
+    <pubDate>Sun, 26 Apr 2015 02:16:57 +0900</pubDate>
+    <lastBuildDate>Sun, 26 Apr 2015 02:16:57 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
-    
-      <item>
-        <title>sublime-jekyll 플러그인 </title>
-        <description>&lt;p&gt;블로그에 글을 올릴 때 에디터로 Sublime Text를 사용하고 있다. jekyll 플러그인이 있어 사용해보았다. &lt;/p&gt;
-
-&lt;h2 id=&quot;sublime-jekyll-&quot;&gt;sublime-jekyll 플러그인&lt;/h2&gt;
-
-&lt;h1 id=&quot;install-osx-&quot;&gt;Install (OSX) 하기&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;PackageControl을 연다. command + shift + p (Tools &amp;gt; Commmand Palette menu) &lt;/li&gt;
-  &lt;li&gt;Package Control : Install Package 선택 &lt;/li&gt;
-  &lt;li&gt;Package Control이 없다면 Package Control부터 설치한다.&lt;br /&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://packagecontrol.io/installation&quot;&gt;Install PackageControl&lt;/a&gt; 에서 사용 중인 버전 (Sublime Text 2 Or Sublime Text3) 스크립트 복사 &lt;/li&gt;
-      &lt;li&gt;View &amp;gt; Show Console(Ctrl + ‘) 복사한 스크립트를 실행하 Package Control 이 설치된다.   &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Install Pacakcge 를 선택하면 나오는 검색 창에서 jekyll로 검색하여 나오는 jekyll을 설치한다. &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;section&quot;&gt;설정하기&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Preference &amp;gt; Pacakge Settings &amp;gt; Jekyll &amp;gt; Settings - Users&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;posts_path, drafts_path를 설정한다. 
-그외 default 설정이나 날짜 포맷 등을 필요에 따라 설정 할 수 있다. &lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;{
-
-    // This should point to your &amp;quot;_posts&amp;quot; directory.
-    // NOTE: This should be an absolute path. Also, the path should
-    // match your system convention. For example, Windows machines should
-    // have a path similar to &amp;quot;C:\\Users\\username\\site\\_posts&amp;quot;.
-    // *nix systems should have a path similar to &amp;quot;/Users/username/site/_posts&amp;quot;.
-    &amp;quot;posts_path&amp;quot;: &amp;quot;/Users/nhnent/iyoon.github.com/_posts&amp;quot;,
-
-    // This should point to your &amp;quot;_drafts&amp;quot; directory.
-    // NOTE: This should be an absolute path. Also, the path should
-    // match your system convention. For example, Windows machines should
-    // have a path similar to &amp;quot;C:\\Users\\username\\site\\_drafts&amp;quot;.
-    // *nix systems should have a path similar to &amp;quot;/Users/username/site/_drafts&amp;quot;.
-    &amp;quot;drafts_path&amp;quot;: &amp;quot;/Users/nhnent/iyoon.github.com/_drafts&amp;quot;,
-
-    // If you have multiple Jekyll blogs, but don&amp;#39;t use Sumblime Projects,
-    // you can optionally have sublime-jekyll look for the `_posts` or `_drafts`
-    // folders open in your sidebar. This should have a value of true or false.
-    &amp;quot;automatically_find_paths&amp;quot;: false,
-
-    // This string value should represent the default syntax for a new post.
-    // Valid options are: &amp;quot;Markdown&amp;quot;, &amp;quot;Textile&amp;quot;
-    &amp;quot;default_post_syntax&amp;quot;: &amp;quot;Markdown&amp;quot;,
-
-    /** *****************************************************************************
-     * Post Front-matter Defaults
-     *
-     * Set these values to make your life easier when composing new posts. This is
-     * similar to setting your defaults as part of the `_config.yml` file:
-     *
-     * http://jekyllrb.com/docs/configuration/#front-matter-defaults
-     * ******************************************************************************
-     */
-
-    // This string value should represent the default layout for new posts.
-    &amp;quot;default_post_layout&amp;quot;: &amp;quot;&amp;quot;,
-
-    // This value should represent the default categories for new posts.
-    // Each category should be entered as a list item in string format
-    // with commas separating values [&amp;quot;cat1&amp;quot;, &amp;quot;cat2&amp;quot;]. To remove this key
-    // from your front-matter completely, pass a value of `null`.
-    &amp;quot;default_post_categories&amp;quot;: [],
-
-    // This value should represent the default tags for new posts.
-    // Each tag should be entered as a list item in string format
-    // with commas separating values [&amp;quot;tag1&amp;quot;, &amp;quot;tag2&amp;quot;]. To remove this key
-    // from your front-matter completely, pass a value of `null`.
-    &amp;quot;default_post_tags&amp;quot;: [],
-
-    // A boolean specifying if you want new posts to be marked as published.
-    // To remove this key from your front-matter completely, pass a value of `null`.
-    &amp;quot;default_post_published&amp;quot;: true,
-
-    // If you need to add additional front-matter `key: value` information to
-    // your posts, you can store them in a dictionary object using a format
-    // like {&amp;quot;foo&amp;quot;: &amp;quot;bar&amp;quot;, &amp;quot;baz&amp;quot;: &amp;quot;qux&amp;quot;}. This dictionary will be appended to
-    // any of the enabled default keys above (Reminder: the `title` and `layout`
-    // keys will always be included, so **DO NOT** include them in the extras dictionary).
-    &amp;quot;default_post_extras&amp;quot;: {},
-
-    /** ***********************************************************************************
-     * If for some reason you want to change the way either the date
-     * or the datetime string is formatted, you can override those formats
-     * here using valid Python datetime.strftime() format codes.
-     *
-     * If you need a refresher on these codes, have a look at the Python
-     * documentation found here:
-     *
-     * http://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
-     * ******************************************************************************
-     */
-
-    // A valid Python strftime string
-    &amp;quot;insert_date_format&amp;quot;: &amp;quot;%Y-%m-%d&amp;quot;,
-
-    // A valid Python strftime string
-    &amp;quot;insert_datetime_format&amp;quot;: &amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;
-
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;section-1&quot;&gt;기능&lt;/h1&gt;
-
-&lt;p&gt;Command + shift + p 에서 jekyll 플러그인의 기능을 사용 할 수 있다. &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Jekyll: New post &lt;/li&gt;
-  &lt;li&gt;Jekyll: New draft &lt;/li&gt;
-  &lt;li&gt;Jekyll: Open post&lt;/li&gt;
-  &lt;li&gt;Jekyll: Open draft&lt;/li&gt;
-  &lt;li&gt;Jekyll: Insert current date &lt;/li&gt;
-  &lt;li&gt;Jekyll: Insert current datetime &lt;/li&gt;
-  &lt;li&gt;Jekyll: Promote draft to post&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;syntax-&quot;&gt;Syntax 강조&lt;/h1&gt;
-&lt;p&gt;Set Syntax:Markdown(Jekyll)&lt;/p&gt;
-
-&lt;h1 id=&quot;section-2&quot;&gt;자동완성&lt;/h1&gt;
-
-&lt;p&gt;축약형을 입력한 후 Tab을 누르면 자동완성이 된다.&lt;br /&gt;
-hightlight + Tab = {% highlight %}{% endhighlight %} &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;assign: {% assign a = b %}&lt;/li&gt;
-  &lt;li&gt;capture: {% capture %}{% endcapture %}&lt;/li&gt;
-  &lt;li&gt;case: {% case %}{% endcase %}&lt;/li&gt;
-  &lt;li&gt;comment: {% comment %}{% endcomment %}&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;https://packagecontrol.io/packages/Jekyll Snippets &lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;참고자료&lt;br /&gt;
-&lt;a href=&quot;https://packagecontrol.io/packages/Jekyll&quot;&gt;sublime-jekyll&lt;/a&gt; &lt;br /&gt;
-&lt;a href=&quot;https://packagecontrol.io/installation&quot;&gt;Install PackageControl&lt;/a&gt;  &lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Mon, 27 Apr 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/04/27/sublimeText-jekyll-plugin.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/27/sublimeText-jekyll-plugin.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
     
       <item>
         <title>Thread Dump 생성하기</title>
@@ -1366,6 +1204,102 @@ fails() 테스트 코드의 경우 실패하는 코드 이므로 failed() 가 �
         <pubDate>Tue, 03 Mar 2015 03:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/03/03/jUnit.html</link>
         <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/03/03/jUnit.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>(OSX) Apache Tomcat 연동하기</title>
+        <description>&lt;p&gt;개발환경에서 웹 프로젝트를 실행 할 때 보통 Tomcat Server만 설치하여 사용하는 경우가 많다.&lt;br /&gt;
+하지만, 개발을 하다보면 개발환경에서 Apache가 필요한 경우가 있다.  &lt;/p&gt;
+
+&lt;p&gt;대부분의 OS에는 Apache를 별도로 설치해야하지만 OSX에는 기본으로 Apache가 깔려있다.
+(이하 내용은 OSX Yosemite 10.10.1 버전 기준으로 작성 되었습니다. )&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Apache 설치 경로&lt;/strong&gt;&lt;br /&gt;
+/etc/apache2&lt;/p&gt;
+
+&lt;p&gt;├── extra&lt;br /&gt;
+│   ├── httpd-autoindex.conf&lt;br /&gt;
+│   ├── httpd-dav.conf&lt;br /&gt;
+│   ├── httpd-default.conf&lt;br /&gt;
+│   ├── httpd-info.conf&lt;br /&gt;
+│   ├── httpd-languages.conf&lt;br /&gt;
+│   ├── httpd-manual.conf&lt;br /&gt;
+│   ├── httpd-mpm.conf&lt;br /&gt;
+│   ├── httpd-multilang-errordoc.conf&lt;br /&gt;
+│   ├── httpd-ssl.conf&lt;br /&gt;
+│   ├── httpd-ssl.conf~orig&lt;br /&gt;
+│   ├── httpd-userdir.conf&lt;br /&gt;
+│   ├── httpd-vhosts.conf&lt;br /&gt;
+│   ├── mod_hgc.conf&lt;br /&gt;
+│   └── proxy-html.conf&lt;br /&gt;
+├── httpd.conf&lt;br /&gt;
+└── workers.properties&lt;br /&gt;
+… (생략)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Apache Log&lt;/strong&gt;&lt;br /&gt;
+/private/var/log/apache2&lt;/p&gt;
+
+&lt;p&gt;먼저 Apache와 Tomcat 연동을 위해서는 mod_jk(tomcat connector)를 설치 해야 한다. &lt;br /&gt;
+http://tomcat.apache.org/connectors-doc/ 에서 다운로드 한다. &lt;/p&gt;
+
+&lt;p&gt;받은 파일은 source 파일이므로 컴파일을 하여서 mod_jk.so 파일을 만들어야한다. &lt;/p&gt;
+
+&lt;p&gt;다운로드 받은 파일을 압축을 풀고 아래 내용을 실행한다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;./configure
+sudo make  
+sudo make install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;mod_jk.so 파일을 apache module이 저장되어 있는 경로로 /usr/libexec/apache2 이동 시킨다. &lt;/p&gt;
+
+&lt;p&gt;/etc/apache2/httpd.conf 에 아래 내용을 추가한다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;LoadModule jk_module libexec/apache2/mod_jk.so
+
+&amp;lt;IfModule mod_jk.c&amp;gt;
+JkMount /* tomcat
+JkWorkersFile &lt;span class=&quot;s2&quot;&gt;&amp;quot;/etc/apache2/workers.properties&amp;quot;&lt;/span&gt;
+JkLogFile &lt;span class=&quot;s2&quot;&gt;&amp;quot;/private/var/log/apache2/mod_jk.log&amp;quot;&lt;/span&gt;
+JkLogLevel error
+&amp;lt;/IfModule&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;/* 모든 하위 실행에 대해서 tomcat이라는 worker로 보내겠다는 의미이다.&lt;br /&gt;
+tomcat 은 workers.properties에 정의 되어있다. &lt;/p&gt;
+
+&lt;p&gt;/etc/apache2/workers.properties 위치에 workers.properties 파일을 생성한다. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;workers.properties&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;worker.list&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tomcat
+worker.tomcat.type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ajp13
+worker.tomcat.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8009
+worker.tomcat.socket_timeout&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10
+worker.tomcat.connection_pool_timeout&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apache를 재시작하기 위해 먼저 Apache를 stop 한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apachectl stop&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apache를 시작하기 전에 config 파일이 제대로 작성되었는지 검사를 한다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;apachectl -t&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;config 파일에 문제가 없으면 apache를 시작한다.  &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apachectl start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;그럼 끝! &lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 26 Feb 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/02/26/apache-tomcat-modjk.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/02/26/apache-tomcat-modjk.html</guid>
         
         
         <category>jekyll</category>
