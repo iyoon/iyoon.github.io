@@ -1,0 +1,92 @@
+---
+layout: post
+title:  "rsync 설정하기"
+date:   2015-05-10 18:00:00
+categories: jekyll update
+---
+## rsync 설정하기
+서버 간 파일의 동기화를 할 때 rsync 설정으로 간단히 동기화를 할 수 있다.  
+이번 포스트에서 설정 방법에 대해서 정리를 해보았다.  
+
+
+##[서버 설정]
+
+#rsync 설정파일 추가 
+
+{% highlight bash %}
+vi /etc/rsyncd.conf
+{% endhighlight %}
+
+{% highlight bash %}
+# 서비스명 
+[sample-service]
+# 동기화 할 디렉토리 경로 
+path=/path/file
+uid=root
+gid=root
+use chroot=yes
+readonly=yes
+# 호스트(클라이언트)IP  
+hosts allow=192.168.0.1 
+{% endhighlight %}
+
+# xinetd rsync 설정파일 수정 
+{% highlight bash %}
+vi /etc/xinetd.d/rsync
+{% endhighlight %}
+
+{% highlight bash %}
+#disable = yes 
+disable = no 
+{% endhighlight %}
+  
+# xinetd 재구동하기 
+{% highlight bash %}
+/etc/init.d/xinetd stop 
+/etc/init.d/xinetd start 
+{% endhighlight %}
+
+# 방화벽 열기 
+rsync를 통해 서버와 클라이언트간 동기화 할 때 사용되는 포트를 방화벽에서 열어준다.  
+{% highlight bash %}
+vi /etc/sysconfig/iptables
+{% endhighlight %}
+
+{% highlight text %}
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 873 -j ACCEPT
+{% endhighlight %}
+
+# 방화벽 재시작하기 
+{% highlight bash %}
+/etc/init.d/iptables stop 
+/etc/init.d/iptables start
+{% endhighlight %}
+
+##[클라이언트 설정]
+
+주기적으로 동기화를 하기위해서 crontab에 rsync 명령을 추가한다. 
+
+{% highlight bash %}
+vi crontab - e 
+{% endhighlight %}
+
+{% highlight text %}
+ * * * * * rsync -avz 192.168.0.2::sample-service /path/file
+{% endhighlight %}
+
+이렇게 설정 하면 192.168.0.2 (서버IP)에서 sample-service 이라는 서비스(서버의 rsyncd.conf에 정의됨)에 설정된 디렉토리의 파일을 
+클라이언트의 /path/file 디렉토리의 파일을 동기화 해준다. 
+
+
+> 참고자료  
+[서버들간 데이터 동기화 방안 중 가장 간단한 rsync 설정방법][서버들간 데이터 동기화 방안 중 가장 간단한 rsync 설정방법]  
+[Rsync 설치하기][Rsync 설치하기]  
+
+[서버들간 데이터 동기화 방안 중 가장 간단한 rsync 설정방법]: http://calflove.tistory.com/337
+[Rsync 설치하기]: http://fruitdev.tistory.com/38
+
+
+
+
+
+
