@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Javascript Template Engine (jQuert tmpl)</title>
+  <title>Javascript Template Engine (jQuery tmpl)</title>
   <meta name="description" content="DOM에 데이터를 추가 할 때 아래와같이 append()로 데이터를 추가하게 된다. ">
 
   <link rel="stylesheet" href="/css/main.css">
@@ -57,7 +57,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Javascript Template Engine (jQuert tmpl)</h1>
+    <h1 class="post-title">Javascript Template Engine (jQuery tmpl)</h1>
     <p class="post-meta">Feb 16, 2015</p>
   </header>
 
@@ -107,15 +107,15 @@ $("#list").append(appendData);
 
 <p>javascript template engine 중 하나인 jquery tmpl을 사용해보았다. </p>
 
-<p>list.html 
-	<script id="template-tel" type="text/j-query-tmpl">
-	    &lt;tr&gt;
-	        &lt;td&gt;${name}&lt;/td&gt;
-	        &lt;td&gt;${tel}&lt;/td&gt;
-	    &lt;tr&gt;
-	</script></p>
+<h1 id="listhtml-1">list.html</h1>
+<pre><code>&lt;script id="template-tel" type="text/j-query-tmpl"&gt;
+    &lt;tr&gt;
+        &lt;td&gt;${name}&lt;/td&gt;
+        &lt;td&gt;${tel}&lt;/td&gt;
+    &lt;tr&gt;
+&lt;/script&gt;
 
-<pre><code>&lt;table&gt;
+&lt;table&gt;
     &lt;caption&gt;연락처(template)&lt;/caption&gt;
     &lt;thead&gt;
         &lt;tr&gt;

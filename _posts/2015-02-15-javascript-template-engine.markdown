@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Javascript Template Engine (jQuert tmpl)
+title:  Javascript Template Engine (jQuery tmpl)
 date:   2015-02-15 20:00:00
 categories: jekyll update
 ---
@@ -48,7 +48,7 @@ DOM에 데이터를 추가 할 때 아래와같이 append()로 데이터를 추�
 
 javascript template engine 중 하나인 jquery tmpl을 사용해보았다. 
 
-list.html 
+#list.html 
 	<script id="template-tel" type="text/j-query-tmpl">
 	    <tr>
 	        <td>${name}</td>
