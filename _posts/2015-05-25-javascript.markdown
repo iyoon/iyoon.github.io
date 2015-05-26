@@ -36,7 +36,7 @@ categories: jekyll update
 {% highlight html %}
  <script language="JavaScript"> ... </script> 
 {% endhighlight %}
-- language는 최근 브라우저에서는 아예 값을 무시한다.
+- language는 최근 브라우저에서는 아예 값을 무시한다.(폐기됨)
 
 {% highlight html %}
 <script type="text/javascript">  ... </script>
@@ -52,12 +52,31 @@ categories: jekyll update
 - 다른 도메인의 스크립트 파일도 사용이 가능하다.
 - src 속성을 추가하면 스크립트 내부에는 주석으로 사용이 가능하다.
 
-# <script> 요소
+# \<script\> 요소
 
 - ```<script>``` 요소 내부에서는 위에서 아래로 차례로 해석 
 - ```<script>``` 요소 내부의 코드를 전체 평가하기 전에는 페이지의 나머지 콘텐츠는 불러오거나 표시하지 않는다.
 - 외부파일의 경우 외부 파일을 다운로드를 받고 파일 전체를 해석하는 동안 페이지 렌더링이 시작되지 않는다.
 - ```<body>``` 요소 만나면서 페이지 렌더링이 시작되므로 페이지가 로드 이후에 사용될 스크립트는 ```<body>``` 요소의 페이지 콘텐츠 마지막에 쓴다. 
+
+# \<script\> 속성 
+
+***defer***  
+{% highlight html %}
+<script type="text/javascript" async src="example.js"></script>
+{% endhighlight %}
+
+- 코드는 즉시 내려받지만 실행은 </html> 을 만날 때 까지 지연 한다.
+
+***async***  
+{% highlight html %}
+<script type="text/javascript" async src="example.js"></script>
+{% endhighlight %}
+
+- 코드는 즉시 내려받지만 실행은 </html> 을 만날 때 까지 지연 한다.
+- 스크립트가 마크업 순서대로 실행됨을 보장하지 않는다. 
+
+__위의 2개 속성은 ```src``` 속성이 있는 경우에만 유효합니다.__ 
 
 
 # 자바스크립트를 외부 파일로 관리하면 얻는 이점?
@@ -126,6 +145,13 @@ var n = null;				// null
 var o = new Object();			// object
 var a = function(){ alert('test');}; 	// function
 {% endhighlight %}
+- 원시 값에는 동적 프로퍼티가 없다. 
+
+{% highlight javascript %}
+var person = "hyungwon";
+person.age = 27; 
+alert(person.age); // Undefined
+{% endhighlight %}
 
 
 
@@ -144,19 +170,17 @@ alert(obj2.name);	// hyungwon
 - ```instanceof``` 을 통해 참조 값의 참조 데이터형을 알 수 있다. 
 
 {% highlight javascript %}
-alert(person instanceof Object);
-alert(colors instanceof Array);
-alert(pattern instanceof RegExp);
+alert(person instanceof Object);	// true 
+alert(colors instanceof Array);		// false
+alert(pattern instanceof RegExp);	// true
 {% endhighlight %}
 
-
-동적 프로퍼티: 
-
+- 참조형에서는 ```동적 프로퍼티``` 추가/삭제/변경이 가능하다.
+{% highlight javascript %}
 var person = new Object();
-person.name="hyungwon"; // hyungwon
-
-var person = "hyungwon";
-person.age = 27; // Undefined
+person.name="hyungwon"; 
+alert(person.name); // hyungwon
+{% endhighlight %}
 
 
 # 함수에서의 매개변수 전달 
@@ -170,7 +194,7 @@ person.age = 27; // Undefined
 
 {% highlight javascript %}
 function setName(obj){
-	obj.name = "hyungwon";
+	obj.name = "hyungwon";	// obj가 가르키는 것은 힙 메모리의 전역 객체 
 }
 
 var person = new Object();
@@ -189,7 +213,7 @@ function setName(obj){
 
 var person = new Object();
 setName(person);
-alert(person.name);
+alert(person.name);	// hyungwon
 {% endhighlight %}
 
 ***ECAMScript의 함수 매개변수는 지역변수와 다를 것이 없다고 생각하면 쉽다.***
@@ -324,12 +348,12 @@ function problem(){
 }
 {% endhighlight %}
 
-각 object가 서로를 참조 하므로 참조하므로 메모리 해제 된다.
+각 object의 프로퍼티에서 서로를 참조하면서 참조 카운팅이 0이 안되기 때문에 메모리 해제가 안된다. 
 
 
 ***결론은....***  
 
-코드실행에 필요한 데이터만 유지하기 위해서는 필요 없어진 데이터는 null을 할당하여 참조를 제거하는 편이 좋다.   
+코드실행에 필요한 데이터만 유지하기 위해서는 필요 없어진 데이터는 ```null``` 을 할당하여 참조를 제거하는 편이 좋다.   
 지역 변수의 경우에는 컨텍스트가 파괴될 때 같이 참조가 제거 되지만, 전역 변수나 전역 객체의 프로퍼티를 위주로 삭제하면 된다.
 
 

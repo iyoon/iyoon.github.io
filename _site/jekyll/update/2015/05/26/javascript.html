@@ -111,7 +111,7 @@
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;JavaScript&quot;</span><span class="nt">&gt;</span> <span class="p">...</span> <span class="nt">&lt;/script&gt;</span></code></pre></div>
 
 <ul>
-  <li>language는 최근 브라우저에서는 아예 값을 무시한다.</li>
+  <li>language는 최근 브라우저에서는 아예 값을 무시한다.(폐기됨)</li>
 </ul>
 
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>  <span class="p">...</span> <span class="nt">&lt;/script&gt;</span></code></pre></div>
@@ -129,7 +129,7 @@
   <li>src 속성을 추가하면 스크립트 내부에는 주석으로 사용이 가능하다.</li>
 </ul>
 
-<h1 id="script-"><script> 요소</script></h1>
+<h1 id="script-">&lt;script&gt; 요소</h1>
 
 <ul>
   <li><code>&lt;script&gt;</code> 요소 내부에서는 위에서 아래로 차례로 해석 </li>
@@ -137,6 +137,27 @@
   <li>외부파일의 경우 외부 파일을 다운로드를 받고 파일 전체를 해석하는 동안 페이지 렌더링이 시작되지 않는다.</li>
   <li><code>&lt;body&gt;</code> 요소 만나면서 페이지 렌더링이 시작되므로 페이지가 로드 이후에 사용될 스크립트는 <code>&lt;body&gt;</code> 요소의 페이지 콘텐츠 마지막에 쓴다. </li>
 </ul>
+
+<h1 id="script--1">&lt;script&gt; 속성</h1>
+
+<p><strong><em>defer</em></strong>  </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">async</span> <span class="na">src=</span><span class="s">&quot;example.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+
+<ul>
+  <li>코드는 즉시 내려받지만 실행은 &lt;/html&gt; 을 만날 때 까지 지연 한다.</li>
+</ul>
+
+<p><strong><em>async</em></strong>  </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">async</span> <span class="na">src=</span><span class="s">&quot;example.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+
+<ul>
+  <li>코드는 즉시 내려받지만 실행은 &lt;/html&gt; 을 만날 때 까지 지연 한다.</li>
+  <li>스크립트가 마크업 순서대로 실행됨을 보장하지 않는다. </li>
+</ul>
+
+<p><strong>위의 2개 속성은 <code>src</code> 속성이 있는 경우에만 유효합니다.</strong> </p>
 
 <h1 id="section-3">자바스크립트를 외부 파일로 관리하면 얻는 이점?</h1>
 <ol>
@@ -206,6 +227,14 @@
 <span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>			<span class="c1">// object</span>
 <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);};</span> 	<span class="c1">// function</span></code></pre></div>
 
+<ul>
+  <li>원시 값에는 동적 프로퍼티가 없다. </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">27</span><span class="p">;</span> 
+<span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span> <span class="c1">// Undefined</span></code></pre></div>
+
 <p><strong>참조값</strong>  </p>
 
 <ul>
@@ -224,17 +253,17 @@
   <li><code>instanceof</code> 을 통해 참조 값의 참조 데이터형을 알 수 있다. </li>
 </ul>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="nx">person</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">);</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">colors</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">);</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">pattern</span> <span class="k">instanceof</span> <span class="nb">RegExp</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="nx">person</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">);</span>	<span class="c1">// true </span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">colors</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">);</span>		<span class="c1">// false</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">pattern</span> <span class="k">instanceof</span> <span class="nb">RegExp</span><span class="p">);</span>	<span class="c1">// true</span></code></pre></div>
 
-<p>동적 프로퍼티: </p>
+<ul>
+  <li>참조형에서는 <code>동적 프로퍼티</code> 추가/삭제/변경이 가능하다.</li>
+</ul>
 
-<p>var person = new Object();
-person.name=”hyungwon”; // hyungwon</p>
-
-<p>var person = “hyungwon”;
-person.age = 27; // Undefined</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span> 
+<span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// hyungwon</span></code></pre></div>
 
 <h1 id="section-7">함수에서의 매개변수 전달</h1>
 
@@ -248,7 +277,7 @@ person.age = 27; // Undefined</p>
 </ul>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">setName</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
-	<span class="nx">obj</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span>
+	<span class="nx">obj</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span>	<span class="c1">// obj가 가르키는 것은 힙 메모리의 전역 객체 </span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
@@ -265,7 +294,7 @@ person.age = 27; // Undefined</p>
 
 <span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
 <span class="nx">setName</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span></code></pre></div>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>	<span class="c1">// hyungwon</span></code></pre></div>
 
 <p><strong><em>ECAMScript의 함수 매개변수는 지역변수와 다를 것이 없다고 생각하면 쉽다.</em></strong></p>
 
@@ -399,11 +428,11 @@ person.age = 27; // Undefined</p>
 	<span class="nx">objectB</span><span class="p">.</span><span class="nx">anotherObject</span> <span class="o">=</span> <span class="nx">objectA</span><span class="p">;</span> <span class="c1">// objectA : 2 </span>
 <span class="p">}</span></code></pre></div>
 
-<p>각 object가 서로를 참조 하므로 참조하므로 메모리 해제 된다.</p>
+<p>각 object의 프로퍼티에서 서로를 참조하면서 참조 카운팅이 0이 안되기 때문에 메모리 해제가 안된다. </p>
 
 <p><strong><em>결론은….</em></strong>  </p>
 
-<p>코드실행에 필요한 데이터만 유지하기 위해서는 필요 없어진 데이터는 null을 할당하여 참조를 제거하는 편이 좋다. <br />
+<p>코드실행에 필요한 데이터만 유지하기 위해서는 필요 없어진 데이터는 <code>null</code> 을 할당하여 참조를 제거하는 편이 좋다. <br />
 지역 변수의 경우에는 컨텍스트가 파괴될 때 같이 참조가 제거 되지만, 전역 변수나 전역 객체의 프로퍼티를 위주로 삭제하면 된다.</p>
 
 
