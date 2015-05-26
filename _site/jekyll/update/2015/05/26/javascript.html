@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Javascript 정복하기1</title>
+  <meta name="description" content="  프론트엔드 개발자를 위한 자바스크립트 프로그래밍 JavaScript for Web Developers (저자: 니콜라스 자카스)을 읽고 공부한 내용입니다. ">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://iyoon.github.io/jekyll/update/2015/05/26/javascript.html">
+  <link rel="alternate" type="application/rss+xml" title="hyungwon ,Yoon" href="http://iyoon.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">hyungwon ,Yoon</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Javascript 정복하기1</h1>
+    <p class="post-meta">May 26, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <blockquote>
+  <p>프론트엔드 개발자를 위한 자바스크립트 프로그래밍 JavaScript for Web Developers (저자: 니콜라스 자카스)을 읽고 공부한 내용입니다. </p>
+</blockquote>
+
+<h2 id="section">1장. 자바스크립트란 무엇인가</h2>
+
+<h1 id="section-1">자바스크립트의 탄생</h1>
+<ul>
+  <li>모뎀 시절 서버를 통한 유효성 검사는 네트워크 성능이 너무 안좋았기 때문에 오랜 시간이 걸리는 문제가 있었다
+    <ul>
+      <li>넷스케이프와 선 마이크로시스템즈의 협력으로 자바스크립트 1.0 탄생  </li>
+      <li>넷스케이프의 자바스크립트 vs 마이크로소프트의 JScript  </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="ecmascript">ECMAScript</h1>
+<ul>
+  <li>두 가지 버전의 자바스크립트는 업계에 큰 혼란을 가져왔고, 자바스크립트의 표준화의 필요성을 대두시켰다. </li>
+  <li>ECMAScript의 탄생
+    <ul>
+      <li>문법과 의미를 표준화 하여 플랫폼/제조사에 중립인 스크립트 언어</li>
+      <li>ECMAScript는 문법/타입/선언문/키워드와 같은 언어의 저수준 부분을 정의</li>
+      <li>‘판’ 으로 버전을 관리 <code>ECMA-262 3판</code> 부터 프로그래밍 언어로서의 면모를 갖추기 시작하였다. </li>
+      <li>최신판은 ECMAScript 5판 </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="javascript">Javascript</h1>
+<ul>
+  <li>Javascript는 ECMAScript를 기반으로 구현한 스크립트 언어</li>
+  <li>Javascript = <code>ECMAScript</code> + <code>DOM</code> + <code>BOM</code> 
+    <ul>
+      <li><code>DOM</code> 은 XML을 HTML로 사용 할 수 있도록 확장하여 노드를 조작할 수 있도록 한다.</li>
+      <li><code>BOM</code> 은 브라우저 창의 접근과 제어를 할 수 있도록 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="html--">2장. HTML 속의 스크립트</h2>
+
+<h1 id="section-2">자바 스크립트 추가하기</h1>
+
+<p><strong>페이지에 직접 작성하는 방법</strong></p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;JavaScript&quot;</span><span class="nt">&gt;</span> <span class="p">...</span> <span class="nt">&lt;/script&gt;</span></code></pre></div>
+
+<ul>
+  <li>language는 최근 브라우저에서는 아예 값을 무시한다.</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>  <span class="p">...</span> <span class="nt">&lt;/script&gt;</span></code></pre></div>
+
+<ul>
+  <li>“text/javascript”가 기본값이므로 생략해도 무방하다.</li>
+</ul>
+
+<p><strong>외부파일로 추가하는 방법</strong></p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../common.js&quot;</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span><span class="nt">&gt;</span>  <span class="p">...</span> <span class="nt">&lt;/script&gt;</span></code></pre></div>
+
+<ul>
+  <li>다른 도메인의 스크립트 파일도 사용이 가능하다.</li>
+  <li>src 속성을 추가하면 스크립트 내부에는 주석으로 사용이 가능하다.</li>
+</ul>
+
+<h1 id="script-"><script> 요소</script></h1>
+
+<ul>
+  <li><code>&lt;script&gt;</code> 요소 내부에서는 위에서 아래로 차례로 해석 </li>
+  <li><code>&lt;script&gt;</code> 요소 내부의 코드를 전체 평가하기 전에는 페이지의 나머지 콘텐츠는 불러오거나 표시하지 않는다.</li>
+  <li>외부파일의 경우 외부 파일을 다운로드를 받고 파일 전체를 해석하는 동안 페이지 렌더링이 시작되지 않는다.</li>
+  <li><code>&lt;body&gt;</code> 요소 만나면서 페이지 렌더링이 시작되므로 페이지가 로드 이후에 사용될 스크립트는 <code>&lt;body&gt;</code> 요소의 페이지 콘텐츠 마지막에 쓴다. </li>
+</ul>
+
+<h1 id="section-3">자바스크립트를 외부 파일로 관리하면 얻는 이점?</h1>
+<ol>
+  <li>
+    <p><strong>관리하기가 쉽다.</strong> <br />
+ 외부파일로 분리하지 않으면 html 페이지에 자바스크립트 코드와 마크업이 섞이므로 관리가 어렵다.</p>
+  </li>
+  <li>
+    <p><strong>캐싱 활용</strong> <br />
+ 브라우저는 외부에서 연결된 자바스크립트 파일을 모두 캐시한다. 서로 다른 페이지에서 같은 자바스크립트 파일을 사용할 때 캐시에서 불러오므로 
+ 페이지를 불러오는 시간이 짧아진다.</p>
+  </li>
+  <li>
+    <p><strong>xhtml에서 CDATA 섹션이나 주석 편법을 쓰지 않아도 된다.</strong>  </p>
+  </li>
+</ol>
+
+<h1 id="section-4">주석 편법</h1>
+
+<p><code>&lt;script&gt;</code> 요소가 처음 도입이 되었을 때 <code>&lt;script&gt;</code> 요소를 지원하지 않는 브라우저는 <code>&lt;script&gt;</code> 요소의 콘텐츠를 페이지에 그대로 출력하는 문제가 있었다.<br />
+<code>&lt;script&gt;</code> 요소를 지원하지 않는 브라우저에서는 콘텐츠를 표시하지 않도록 하기 위해 아래와 같은 방법을 사용한다. </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script&gt;</span>
+<span class="c">&lt;!--</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+	<span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//--&gt;</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></div>
+
+<h1 id="noscript">&lt;noscript&gt;요소</h1>
+<p>브라우저가 자바스크립트를 지원하지 않을 때 대체 콘텐츠를 제공하기 위해 만들어졌다.  </p>
+
+<ul>
+  <li>브라우저가 스크립트를 지원하지 않을 때  </li>
+  <li>브라우저의 스크립트 지원이 꺼져 있을 때 </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;noscript&gt;</span>
+		<span class="nt">&lt;h1&gt;</span> This page requires a javascript-enabled browser. <span class="nt">&lt;/h1&gt;</span>
+	<span class="nt">&lt;/noscript&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span></code></pre></div>
+
+<h2 id="section-5">4장. 변수와 스코프, 메모리</h2>
+
+<h1 id="ecmascript--">ECMAScript 변수의 특징</h1>
+<p>자바스크립트의 변수의 값과 데이터 타입은 느슨한 타입을 취하므로 실행 도중 언제든지 바뀔 수 있다. </p>
+
+<h1 id="section-6">원시 값과 참조 값</h1>
+
+<p><strong>원시값</strong>  </p>
+
+<ul>
+  <li>5가지 원시 데이터 (undefined, null, boolean, number, string) 가 있다.</li>
+  <li>Stack</li>
+  <li>값 복사: 저장된 값을 새로 생성 후 새로운 변수에 복사 </li>
+  <li><code>typeof</code> 을 통해 원시값의 타입을 알 수 있다.</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span>			<span class="c1">// string </span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>				<span class="c1">// boolean</span>
+<span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">22</span><span class="p">;</span>				<span class="c1">// number</span>
+<span class="kd">var</span> <span class="nx">u</span><span class="p">;</span>					<span class="c1">// undefined</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>				<span class="c1">// null</span>
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>			<span class="c1">// object</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);};</span> 	<span class="c1">// function</span></code></pre></div>
+
+<p><strong>참조값</strong>  </p>
+
+<ul>
+  <li>객체를 가르키는 참조를 저장하는 변수 </li>
+  <li>Heap</li>
+  <li>값 복사: 힙에 저장된 객체를 가르키는 포인터를 복사한다. 참조만 저장 할 뿐 객체 자체를 복사하는 건 아니다!</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="nx">obj1</span><span class="p">;</span> 
+<span class="nx">obj1</span><span class="p">.</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">obj1</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>	<span class="c1">// hyungwon</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">obj2</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>	<span class="c1">// hyungwon</span></code></pre></div>
+
+<ul>
+  <li><code>instanceof</code> 을 통해 참조 값의 참조 데이터형을 알 수 있다. </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="nx">person</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">colors</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">pattern</span> <span class="k">instanceof</span> <span class="nb">RegExp</span><span class="p">);</span></code></pre></div>
+
+<p>동적 프로퍼티: </p>
+
+<p>var person = new Object();
+person.name=”hyungwon”; // hyungwon</p>
+
+<p>var person = “hyungwon”;
+person.age = 27; // Undefined</p>
+
+<h1 id="section-7">함수에서의 매개변수 전달</h1>
+
+<ul>
+  <li>ECMAScript의 함수 매개변수는 모두 값으로 전달한다. 
+    <ul>
+      <li>함수 외부에 있는 값은 함수 내부의 매개변수로 복사 된다. </li>
+    </ul>
+  </li>
+  <li>참조 값인 경우에는? 매개 변수가 참조 형태로 전달 된다?? <strong><em>No!!</em></strong></li>
+</ul>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">setName</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+	<span class="nx">obj</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">setName</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>		<span class="c1">// hyungwon</span></code></pre></div>
+
+<p>얼핏 보면 참조 변수의 값을 변경하는 것 같다. 하지만 다음의 예제를 보자.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">setName</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+	<span class="nx">obj</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span>
+	<span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+	<span class="nx">obj</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;yoon&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">setName</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span></code></pre></div>
+
+<p><strong><em>ECAMScript의 함수 매개변수는 지역변수와 다를 것이 없다고 생각하면 쉽다.</em></strong></p>
+
+<h1 id="section-8">실행 컨텍스트</h1>
+
+<ul>
+  <li>
+    <p><code>실행 컨텍스트</code> 는 변수나 함수에 접근 할 수 있는지 어떻게 행동하는지를 규정한다.</p>
+  </li>
+  <li>
+    <p>가장 바깥쪽에 존재하는 <code>실행 컨텍스트</code> 는 <code>전역 컨텍스트</code> 이다. 웹 브라우저에서 <code>window</code> 라 부른다. </p>
+  </li>
+</ul>
+
+<h1 id="life">실행 컨텍스트의 life</h1>
+
+<ul>
+  <li>함수를 호출하면 독자적인 <code>실행 컨텍스트</code> 가 생성 된다.   </li>
+  <li><code>실행 컨텍스트</code> 는 <code>스택</code> 에 쌓인다.</li>
+  <li>함수 실행이 끝나면 해당 컨텍스트는 스택에서 꺼내고 컨텍스트 내부에서 정의된 변수와 함수를 모두 파괴한다.</li>
+  <li>컨트롤을 이전 컨텍스트 반환한다. </li>
+  <li><code>전역 컨텍스트</code> 의 경우 웹페이지에서 나가거나 브라우저가 닫힐 때 까지 유지된다.  </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">){</span>
+	<span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+	<span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">add</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span></code></pre></div>
+
+<h1 id="section-9">컨텍스트의 내부</h1>
+<p>컨텍스트에는 <code>Variable Object</code>, <code>Scope Chain</code>, <code>this value</code> 가 있다.</p>
+
+<p><strong><em>Varialble Obejct</em></strong><br />
+로컬 변수와 함수 매개변수(arguments) 정보를 포함한다.</p>
+
+<ul>
+  <li>num1 : 10</li>
+  <li>num2 : 20 </li>
+  <li>arguments : {0:10, 1:20}</li>
+  <li>sum : 30 </li>
+</ul>
+
+<p><strong><em>Scope Chain</em></strong>  </p>
+
+<ul>
+  <li>실행 컨텍스트가 접근 할 수 있는 모든 변수와 함수에 순서를 정의 한다. </li>
+  <li>함수 실행 중 로컬변수를 만나면 아래와 같은 순서로 찾아간다. 
+    <ul>
+      <li>현재 스코프 활성화 객체(activation object) -&gt; 부모 컨텍스트 -&gt; 부모의 부모 컨텍스트 -&gt; … -&gt; 전역 컨텍스트   </li>
+    </ul>
+  </li>
+  <li>컨텍스트는 스코프 체인을 따라 상위 컨테스트에서 변수나 함수를 검색 할 수 있다. </li>
+  <li>그 반대로 상위 컨텍스트에서 하위 컨텍스트 참조는 불가능하다.</li>
+</ul>
+
+<p><strong><em>this value</em></strong>  </p>
+
+<ul>
+  <li>실행 컨텍스트를 가르키는 것. 일반 객체언어에서 객체의 this, self 와 비슷 </li>
+</ul>
+
+<h1 id="section-10">자바스크립트에서 주의 해야 할 스코프</h1>
+
+<p><strong><em>자바스크립트에는 블록 레벨 스코프가 없다.</em></strong> </p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+	<span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">color</span><span class="p">);</span>	<span class="c1">// blue</span></code></pre></div>
+
+<p>보통 C,Java와 같은 언어에는 블록마다 스코프가 생성 되어 블록이 끝나면 파괴된다.<br />
+하지만, 자바스크립트에서는 블록 레벨 스코프가 없으므로 블록 내 지역변수가 파괴되지 않는다. </p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+	<span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// 10</span></code></pre></div>
+
+<p><strong><em>지역 변수는 <code>var</code> 키워드로 선언 하자.</em></strong>  </p>
+
+<p><code>var</code> 키워드로 변수를 선언하면 함수의 가장 가까운 로컬 컨텍스트에 변수가 추가 된다.<br />
+<code>var</code> 가 없다면 <code>전역 컨텍스트</code> 에 변수가 추가된다.  </p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">){</span>
+	<span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+	<span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span> <span class="c1">// undefined</span></code></pre></div>
+
+<h1 id="section-11">식별자 검색</h1>
+<p>컨텍스트 안에서 식별자를 참조 하면 검색을 하게 되는데 검색은 현재 컨텍스트 부터 스코프 체인을 따라 검색한다. 
+식별자를 찾으면 더 이상 검색을 하지 않기 때문에 부모 컨텍스트에 해당 식별자가 있더라도 참조 할 수 없다. 
+전역 컨텍스트의 변수를 참조하려면 window.color 와 같이 명시해야 한다. </p>
+
+<h1 id="section-12">가비지 콜렉션</h1>
+<p>웹 브라우저에서 사용 할 수 있는 메모리는 일반적인 데스크톱 애플리케이션의 가용 메모리에 비해 매우 적다.<br />
+자바스크립트가 시스템 메모리를 전부 사용해서 운영체제를 다운시키는 일을 방지 하기 위해서 이다.<br />
+따라서 성능에 영향을 최소화하면서 주기적으로 메모리 정리를 하는 가비지콜레터가 중요하다.  </p>
+
+<h1 id="section-13">가비지콜렉터의 2가지 방식: 표시하고 지우기, 참조 카운팅</h1>
+
+<p><strong><em>표시하고 지우기</em></strong>  </p>
+
+<p>1.가비지 컬렉터가 작동하면 메모리에 저장된 변수 전체에 표시를 한다.(on)</p>
+
+<p>2.해당 변수가 있는 컨텍스트의 변수와 컨텍스트에 있는 변수가 참조하는 변수는 표시를 제거한다.</p>
+
+<p>3.표시가 남아 있는 변수는 삭제 </p>
+
+<p><strong><em>참조카운팅</em></strong>   </p>
+
+<p>1.변수를 선언하고 참조 값이 할당되면 참조 카운트 = 1</p>
+
+<p>2.다른 변수에 같은 참조 값이 할당 되면 참조 카운트 + 1</p>
+
+<p>3.다른 참조 값으로 덮어씌워 지면 참조 카운트 - 1</p>
+
+<p>4.참조 값이 0이 되면 어떤 변수에서도 참조하지 않는 값이므로 삭제한다. </p>
+
+<p>참조 카운팅은 <code>순환 참조</code> 문제가 있다. </p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">problem</span><span class="p">(){</span>
+	<span class="kd">var</span> <span class="nx">objectA</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span> <span class="c1">// objectA: 1</span>
+	<span class="kd">var</span> <span class="nx">objectB</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span> <span class="c1">// objectB: 1</span>
+	<span class="nx">objectA</span><span class="p">.</span><span class="nx">someOtherObject</span> <span class="o">=</span> <span class="nx">objectB</span><span class="p">;</span> <span class="c1">// objectB : 2</span>
+	<span class="nx">objectB</span><span class="p">.</span><span class="nx">anotherObject</span> <span class="o">=</span> <span class="nx">objectA</span><span class="p">;</span> <span class="c1">// objectA : 2 </span>
+<span class="p">}</span></code></pre></div>
+
+<p>각 object가 서로를 참조 하므로 참조하므로 메모리 해제 된다.</p>
+
+<p><strong><em>결론은….</em></strong>  </p>
+
+<p>코드실행에 필요한 데이터만 유지하기 위해서는 필요 없어진 데이터는 null을 할당하여 참조를 제거하는 편이 좋다. <br />
+지역 변수의 경우에는 컨텍스트가 파괴될 때 같이 참조가 제거 되지만, 전역 변수나 전역 객체의 프로퍼티를 위주로 삭제하면 된다.</p>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">hyungwon ,Yoon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>hyungwon ,Yoon</li>
+          <li><a href="mailto:hyungwon.yoon@nhnent.com">hyungwon.yoon@nhnent.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iyoon">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">iyoon</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
