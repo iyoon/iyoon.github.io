@@ -157,7 +157,7 @@
   <li>스크립트가 마크업 순서대로 실행됨을 보장하지 않는다. </li>
 </ul>
 
-<p><strong>위의 2개 속성은 <code>src</code> 속성이 있는 경우에만 유효합니다.</strong> </p>
+<p><strong>※ 위의 2개 속성은 <code>src</code> 속성이 있는 경우에만 유효합니다.</strong> </p>
 
 <h1 id="section-3">자바스크립트를 외부 파일로 관리하면 얻는 이점?</h1>
 <ol>
@@ -174,6 +174,24 @@
     <p><strong>xhtml에서 CDATA 섹션이나 주석 편법을 쓰지 않아도 된다.</strong>  </p>
   </li>
 </ol>
+
+<h1 id="xhtml-cdata-">xhtml과 CDATA 섹션</h1>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script&gt;</span>
+<span class="o">&lt;!</span><span class="p">[</span><span class="nx">CDATA</span><span class="p">[</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">input</span><span class="p">){</span>
+	<span class="k">if</span><span class="p">(</span><span class="nx">input</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+		<span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;양수&#39;</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">input</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+		<span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;음수&#39;</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span><span class="p">{</span>
+		<span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">]]</span><span class="o">&gt;</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></div>
 
 <h1 id="section-4">주석 편법</h1>
 
@@ -398,7 +416,7 @@
 <h1 id="section-12">식별자 검색</h1>
 <p>컨텍스트 안에서 식별자를 참조 하면 검색을 하게 되는데 검색은 현재 컨텍스트 부터 스코프 체인을 따라 검색한다.<br />
 식별자를 찾으면 더 이상 검색을 하지 않기 때문에 부모 컨텍스트에 해당 식별자가 있더라도 참조 할 수 없다.<br />
-전역 컨텍스트의 변수를 참조하려면 window.color 와 같이 명시해야 한다.  </p>
+전역 컨텍스트의 변수를 참조하려면 <code>window.color</code> 와 같이 명시해야 한다.  </p>
 
 <h1 id="section-13">가비지 콜렉션</h1>
 <p>웹 브라우저에서 사용 할 수 있는 메모리는 일반적인 데스크톱 애플리케이션의 가용 메모리에 비해 매우 적다.<br />

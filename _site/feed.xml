@@ -6,8 +6,8 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 Jun 2015 15:11:58 +0900</pubDate>
-    <lastBuildDate>Fri, 05 Jun 2015 15:11:58 +0900</lastBuildDate>
+    <pubDate>Fri, 05 Jun 2015 15:19:45 +0900</pubDate>
+    <lastBuildDate>Fri, 05 Jun 2015 15:19:45 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -228,7 +228,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
   &lt;li&gt;스크립트가 마크업 순서대로 실행됨을 보장하지 않는다. &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;위의 2개 속성은 &lt;code&gt;src&lt;/code&gt; 속성이 있는 경우에만 유효합니다.&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;※ 위의 2개 속성은 &lt;code&gt;src&lt;/code&gt; 속성이 있는 경우에만 유효합니다.&lt;/strong&gt; &lt;/p&gt;
 
 &lt;h1 id=&quot;section-3&quot;&gt;자바스크립트를 외부 파일로 관리하면 얻는 이점?&lt;/h1&gt;
 &lt;ol&gt;
@@ -245,6 +245,24 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
     &lt;p&gt;&lt;strong&gt;xhtml에서 CDATA 섹션이나 주석 편법을 쓰지 않아도 된다.&lt;/strong&gt;  &lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h1 id=&quot;xhtml-cdata-&quot;&gt;xhtml과 CDATA 섹션&lt;/h1&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CDATA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;양수&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;음수&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h1 id=&quot;section-4&quot;&gt;주석 편법&lt;/h1&gt;
 
@@ -469,7 +487,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 &lt;h1 id=&quot;section-12&quot;&gt;식별자 검색&lt;/h1&gt;
 &lt;p&gt;컨텍스트 안에서 식별자를 참조 하면 검색을 하게 되는데 검색은 현재 컨텍스트 부터 스코프 체인을 따라 검색한다.&lt;br /&gt;
 식별자를 찾으면 더 이상 검색을 하지 않기 때문에 부모 컨텍스트에 해당 식별자가 있더라도 참조 할 수 없다.&lt;br /&gt;
-전역 컨텍스트의 변수를 참조하려면 window.color 와 같이 명시해야 한다.  &lt;/p&gt;
+전역 컨텍스트의 변수를 참조하려면 &lt;code&gt;window.color&lt;/code&gt; 와 같이 명시해야 한다.  &lt;/p&gt;
 
 &lt;h1 id=&quot;section-13&quot;&gt;가비지 콜렉션&lt;/h1&gt;
 &lt;p&gt;웹 브라우저에서 사용 할 수 있는 메모리는 일반적인 데스크톱 애플리케이션의 가용 메모리에 비해 매우 적다.&lt;br /&gt;
