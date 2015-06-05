@@ -6,8 +6,8 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 Jun 2015 15:19:45 +0900</pubDate>
-    <lastBuildDate>Fri, 05 Jun 2015 15:19:45 +0900</lastBuildDate>
+    <pubDate>Fri, 05 Jun 2015 15:40:21 +0900</pubDate>
+    <lastBuildDate>Fri, 05 Jun 2015 15:40:21 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -407,7 +407,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 
 &lt;ul&gt;
   &lt;li&gt;함수를 호출하면 독자적인 &lt;code&gt;실행 컨텍스트&lt;/code&gt; 가 생성 된다.   &lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;실행 컨텍스트&lt;/code&gt; 는 &lt;code&gt;스택&lt;/code&gt; 에 쌓인다.&lt;/li&gt;
+  &lt;li&gt;코드 실행이 함수로 들어 갈 때 마다 &lt;code&gt;함수 컨텍스트&lt;/code&gt; 가 &lt;code&gt;스택&lt;/code&gt; 에 쌓인다.&lt;/li&gt;
   &lt;li&gt;함수 실행이 끝나면 해당 컨텍스트는 스택에서 꺼내고 컨텍스트 내부에서 정의된 변수와 함수를 모두 파괴한다.&lt;/li&gt;
   &lt;li&gt;컨트롤을 이전 컨텍스트 반환한다. &lt;/li&gt;
   &lt;li&gt;&lt;code&gt;전역 컨텍스트&lt;/code&gt; 의 경우 웹페이지에서 나가거나 브라우저가 닫힐 때 까지 유지된다.  &lt;/li&gt;
