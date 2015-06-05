@@ -142,7 +142,7 @@
 
 <p><strong><em>defer</em></strong>  </p>
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">async</span> <span class="na">src=</span><span class="s">&quot;example.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">defer</span> <span class="na">src=</span><span class="s">&quot;example.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
 
 <ul>
   <li>코드는 즉시 내려받지만 실행은 &lt;/html&gt; 을 만날 때 까지 지연 한다.</li>
@@ -178,7 +178,7 @@
 <h1 id="section-4">주석 편법</h1>
 
 <p><code>&lt;script&gt;</code> 요소가 처음 도입이 되었을 때 <code>&lt;script&gt;</code> 요소를 지원하지 않는 브라우저는 <code>&lt;script&gt;</code> 요소의 콘텐츠를 페이지에 그대로 출력하는 문제가 있었다.<br />
-<code>&lt;script&gt;</code> 요소를 지원하지 않는 브라우저에서는 콘텐츠를 표시하지 않도록 하기 위해 아래와 같은 방법을 사용한다. </p>
+<code>&lt;script&gt;</code> 요소를 지원하지 않는 브라우저에서는 콘텐츠를 표시하지 않도록 하기 위해 아래와 같이 <code>&lt;!-- //--&gt;</code>로 묶는 방법을 사용한다. </p>
 
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script&gt;</span>
 <span class="c">&lt;!--</span>
@@ -187,6 +187,11 @@
 <span class="p">}</span>
 <span class="c1">//--&gt;</span>
 <span class="nt">&lt;/script&gt;</span></code></pre></div>
+
+<h1 id="section-5">문서모드</h1>
+<blockquote>
+  <p><a href="http://iyoon.github.io/jekyll/update/2015/04/05/htmldoctype.html">브라우저 문서모드</a> 는 이 링크를 확인하세요. </p>
+</blockquote>
 
 <h1 id="noscript">&lt;noscript&gt;요소</h1>
 <p>브라우저가 자바스크립트를 지원하지 않을 때 대체 콘텐츠를 제공하기 위해 만들어졌다.  </p>
@@ -203,12 +208,12 @@
 
 <span class="nt">&lt;/body&gt;</span></code></pre></div>
 
-<h2 id="section-5">4장. 변수와 스코프, 메모리</h2>
+<h2 id="section-6">4장. 변수와 스코프, 메모리</h2>
 
 <h1 id="ecmascript--">ECMAScript 변수의 특징</h1>
 <p>자바스크립트의 변수의 값과 데이터 타입은 느슨한 타입을 취하므로 실행 도중 언제든지 바뀔 수 있다. </p>
 
-<h1 id="section-6">원시 값과 참조 값</h1>
+<h1 id="section-7">원시 값과 참조 값</h1>
 
 <p><strong>원시값</strong>  </p>
 
@@ -265,7 +270,7 @@
 <span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;hyungwon&quot;</span><span class="p">;</span> 
 <span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// hyungwon</span></code></pre></div>
 
-<h1 id="section-7">함수에서의 매개변수 전달</h1>
+<h1 id="section-8">함수에서의 매개변수 전달</h1>
 
 <ul>
   <li>ECMAScript의 함수 매개변수는 모두 값으로 전달한다. 
@@ -298,7 +303,7 @@
 
 <p><strong><em>ECAMScript의 함수 매개변수는 지역변수와 다를 것이 없다고 생각하면 쉽다.</em></strong></p>
 
-<h1 id="section-8">실행 컨텍스트</h1>
+<h1 id="section-9">실행 컨텍스트</h1>
 
 <ul>
   <li>
@@ -309,7 +314,7 @@
   </li>
 </ul>
 
-<h1 id="life">실행 컨텍스트의 life</h1>
+<h1 id="life-cycle">실행 컨텍스트의 life cycle</h1>
 
 <ul>
   <li>함수를 호출하면 독자적인 <code>실행 컨텍스트</code> 가 생성 된다.   </li>
@@ -319,14 +324,14 @@
   <li><code>전역 컨텍스트</code> 의 경우 웹페이지에서 나가거나 브라우저가 닫힐 때 까지 유지된다.  </li>
 </ul>
 
+<h1 id="section-10">컨텍스트의 내부</h1>
+<p>컨텍스트에는 <code>Variable Object</code>, <code>Scope Chain</code>, <code>this value</code> 가 있다.</p>
+
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">){</span>
 	<span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
 	<span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="nx">add</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span></code></pre></div>
-
-<h1 id="section-9">컨텍스트의 내부</h1>
-<p>컨텍스트에는 <code>Variable Object</code>, <code>Scope Chain</code>, <code>this value</code> 가 있다.</p>
 
 <p><strong><em>Varialble Obejct</em></strong><br />
 로컬 변수와 함수 매개변수(arguments) 정보를 포함한다.</p>
@@ -357,9 +362,9 @@
   <li>실행 컨텍스트를 가르키는 것. 일반 객체언어에서 객체의 this, self 와 비슷 </li>
 </ul>
 
-<h1 id="section-10">자바스크립트에서 주의 해야 할 스코프</h1>
+<h1 id="section-11">자바스크립트에서 주의 해야 할 스코프</h1>
 
-<p><strong><em>자바스크립트에는 블록 레벨 스코프가 없다.</em></strong> </p>
+<p><strong>자바스크립트에는 블록 레벨 스코프가 없다.</strong> </p>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
 	<span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span>
@@ -376,7 +381,7 @@
 
 <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// 10</span></code></pre></div>
 
-<p><strong><em>지역 변수는 <code>var</code> 키워드로 선언 하자.</em></strong>  </p>
+<p><strong>지역 변수는 <code>var</code> 키워드로 선언 하자.</strong>  </p>
 
 <p><code>var</code> 키워드로 변수를 선언하면 함수의 가장 가까운 로컬 컨텍스트에 변수가 추가 된다.<br />
 <code>var</code> 가 없다면 <code>전역 컨텍스트</code> 에 변수가 추가된다.  </p>
@@ -387,21 +392,22 @@
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span> <span class="c1">// undefined</span></code></pre></div>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span> 		<span class="c1">// undefined</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>		<span class="c1">// 30</span></code></pre></div>
 
-<h1 id="section-11">식별자 검색</h1>
-<p>컨텍스트 안에서 식별자를 참조 하면 검색을 하게 되는데 검색은 현재 컨텍스트 부터 스코프 체인을 따라 검색한다. 
-식별자를 찾으면 더 이상 검색을 하지 않기 때문에 부모 컨텍스트에 해당 식별자가 있더라도 참조 할 수 없다. 
-전역 컨텍스트의 변수를 참조하려면 window.color 와 같이 명시해야 한다. </p>
+<h1 id="section-12">식별자 검색</h1>
+<p>컨텍스트 안에서 식별자를 참조 하면 검색을 하게 되는데 검색은 현재 컨텍스트 부터 스코프 체인을 따라 검색한다.<br />
+식별자를 찾으면 더 이상 검색을 하지 않기 때문에 부모 컨텍스트에 해당 식별자가 있더라도 참조 할 수 없다.<br />
+전역 컨텍스트의 변수를 참조하려면 window.color 와 같이 명시해야 한다.  </p>
 
-<h1 id="section-12">가비지 콜렉션</h1>
+<h1 id="section-13">가비지 콜렉션</h1>
 <p>웹 브라우저에서 사용 할 수 있는 메모리는 일반적인 데스크톱 애플리케이션의 가용 메모리에 비해 매우 적다.<br />
 자바스크립트가 시스템 메모리를 전부 사용해서 운영체제를 다운시키는 일을 방지 하기 위해서 이다.<br />
 따라서 성능에 영향을 최소화하면서 주기적으로 메모리 정리를 하는 가비지콜레터가 중요하다.  </p>
 
-<h1 id="section-13">가비지콜렉터의 2가지 방식: 표시하고 지우기, 참조 카운팅</h1>
+<h1 id="section-14">가비지콜렉터의 2가지 방식: 표시하고 지우기, 참조 카운팅</h1>
 
-<p><strong><em>표시하고 지우기</em></strong>  </p>
+<p><strong>표시하고 지우기</strong>  </p>
 
 <p>1.가비지 컬렉터가 작동하면 메모리에 저장된 변수 전체에 표시를 한다.(on)</p>
 
@@ -409,7 +415,7 @@
 
 <p>3.표시가 남아 있는 변수는 삭제 </p>
 
-<p><strong><em>참조카운팅</em></strong>   </p>
+<p><strong>참조카운팅</strong>   </p>
 
 <p>1.변수를 선언하고 참조 값이 할당되면 참조 카운트 = 1</p>
 
@@ -430,7 +436,7 @@
 
 <p>각 object의 프로퍼티에서 서로를 참조하면서 참조 카운팅이 0이 안되기 때문에 메모리 해제가 안된다. </p>
 
-<p><strong><em>결론은….</em></strong>  </p>
+<p><strong>결론은….</strong> </p>
 
 <p>코드실행에 필요한 데이터만 유지하기 위해서는 필요 없어진 데이터는 <code>null</code> 을 할당하여 참조를 제거하는 편이 좋다. <br />
 지역 변수의 경우에는 컨텍스트가 파괴될 때 같이 참조가 제거 되지만, 전역 변수나 전역 객체의 프로퍼티를 위주로 삭제하면 된다.</p>

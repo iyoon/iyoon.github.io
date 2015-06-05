@@ -6,8 +6,8 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 03 Jun 2015 22:00:57 +0900</pubDate>
-    <lastBuildDate>Wed, 03 Jun 2015 22:00:57 +0900</lastBuildDate>
+    <pubDate>Fri, 05 Jun 2015 15:11:58 +0900</pubDate>
+    <lastBuildDate>Fri, 05 Jun 2015 15:11:58 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -213,7 +213,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;defer&lt;/em&gt;&lt;/strong&gt;  &lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;example.js&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;defer&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;example.js&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;코드는 즉시 내려받지만 실행은 &amp;lt;/html&amp;gt; 을 만날 때 까지 지연 한다.&lt;/li&gt;
@@ -249,7 +249,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 &lt;h1 id=&quot;section-4&quot;&gt;주석 편법&lt;/h1&gt;
 
 &lt;p&gt;&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 요소가 처음 도입이 되었을 때 &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 요소를 지원하지 않는 브라우저는 &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 요소의 콘텐츠를 페이지에 그대로 출력하는 문제가 있었다.&lt;br /&gt;
-&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 요소를 지원하지 않는 브라우저에서는 콘텐츠를 표시하지 않도록 하기 위해 아래와 같은 방법을 사용한다. &lt;/p&gt;
+&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 요소를 지원하지 않는 브라우저에서는 콘텐츠를 표시하지 않도록 하기 위해 아래와 같이 &lt;code&gt;&amp;lt;!-- //--&amp;gt;&lt;/code&gt;로 묶는 방법을 사용한다. &lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt;
@@ -258,6 +258,11 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;//--&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;문서모드&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://iyoon.github.io/jekyll/update/2015/04/05/htmldoctype.html&quot;&gt;브라우저 문서모드&lt;/a&gt; 는 이 링크를 확인하세요. &lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h1 id=&quot;noscript&quot;&gt;&amp;lt;noscript&amp;gt;요소&lt;/h1&gt;
 &lt;p&gt;브라우저가 자바스크립트를 지원하지 않을 때 대체 콘텐츠를 제공하기 위해 만들어졌다.  &lt;/p&gt;
@@ -274,12 +279,12 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;4장. 변수와 스코프, 메모리&lt;/h2&gt;
+&lt;h2 id=&quot;section-6&quot;&gt;4장. 변수와 스코프, 메모리&lt;/h2&gt;
 
 &lt;h1 id=&quot;ecmascript--&quot;&gt;ECMAScript 변수의 특징&lt;/h1&gt;
 &lt;p&gt;자바스크립트의 변수의 값과 데이터 타입은 느슨한 타입을 취하므로 실행 도중 언제든지 바뀔 수 있다. &lt;/p&gt;
 
-&lt;h1 id=&quot;section-6&quot;&gt;원시 값과 참조 값&lt;/h1&gt;
+&lt;h1 id=&quot;section-7&quot;&gt;원시 값과 참조 값&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;원시값&lt;/strong&gt;  &lt;/p&gt;
 
@@ -336,7 +341,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 &lt;span class=&quot;nx&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;hyungwon&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
 &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// hyungwon&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;section-7&quot;&gt;함수에서의 매개변수 전달&lt;/h1&gt;
+&lt;h1 id=&quot;section-8&quot;&gt;함수에서의 매개변수 전달&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;ECMAScript의 함수 매개변수는 모두 값으로 전달한다. 
@@ -369,7 +374,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;ECAMScript의 함수 매개변수는 지역변수와 다를 것이 없다고 생각하면 쉽다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;section-8&quot;&gt;실행 컨텍스트&lt;/h1&gt;
+&lt;h1 id=&quot;section-9&quot;&gt;실행 컨텍스트&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -380,7 +385,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;life&quot;&gt;실행 컨텍스트의 life&lt;/h1&gt;
+&lt;h1 id=&quot;life-cycle&quot;&gt;실행 컨텍스트의 life cycle&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;함수를 호출하면 독자적인 &lt;code&gt;실행 컨텍스트&lt;/code&gt; 가 생성 된다.   &lt;/li&gt;
@@ -390,14 +395,14 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
   &lt;li&gt;&lt;code&gt;전역 컨텍스트&lt;/code&gt; 의 경우 웹페이지에서 나가거나 브라우저가 닫힐 때 까지 유지된다.  &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h1 id=&quot;section-10&quot;&gt;컨텍스트의 내부&lt;/h1&gt;
+&lt;p&gt;컨텍스트에는 &lt;code&gt;Variable Object&lt;/code&gt;, &lt;code&gt;Scope Chain&lt;/code&gt;, &lt;code&gt;this value&lt;/code&gt; 가 있다.&lt;/p&gt;
+
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
 	&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;section-9&quot;&gt;컨텍스트의 내부&lt;/h1&gt;
-&lt;p&gt;컨텍스트에는 &lt;code&gt;Variable Object&lt;/code&gt;, &lt;code&gt;Scope Chain&lt;/code&gt;, &lt;code&gt;this value&lt;/code&gt; 가 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Varialble Obejct&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
 로컬 변수와 함수 매개변수(arguments) 정보를 포함한다.&lt;/p&gt;
@@ -428,9 +433,9 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
   &lt;li&gt;실행 컨텍스트를 가르키는 것. 일반 객체언어에서 객체의 this, self 와 비슷 &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;section-10&quot;&gt;자바스크립트에서 주의 해야 할 스코프&lt;/h1&gt;
+&lt;h1 id=&quot;section-11&quot;&gt;자바스크립트에서 주의 해야 할 스코프&lt;/h1&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;자바스크립트에는 블록 레벨 스코프가 없다.&lt;/em&gt;&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;자바스크립트에는 블록 레벨 스코프가 없다.&lt;/strong&gt; &lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
 	&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -447,7 +452,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 
 &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;지역 변수는 &lt;code&gt;var&lt;/code&gt; 키워드로 선언 하자.&lt;/em&gt;&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;지역 변수는 &lt;code&gt;var&lt;/code&gt; 키워드로 선언 하자.&lt;/strong&gt;  &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;var&lt;/code&gt; 키워드로 변수를 선언하면 함수의 가장 가까운 로컬 컨텍스트에 변수가 추가 된다.&lt;br /&gt;
 &lt;code&gt;var&lt;/code&gt; 가 없다면 &lt;code&gt;전역 컨텍스트&lt;/code&gt; 에 변수가 추가된다.  &lt;/p&gt;
@@ -458,21 +463,22 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 		&lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;// 30&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;section-11&quot;&gt;식별자 검색&lt;/h1&gt;
-&lt;p&gt;컨텍스트 안에서 식별자를 참조 하면 검색을 하게 되는데 검색은 현재 컨텍스트 부터 스코프 체인을 따라 검색한다. 
-식별자를 찾으면 더 이상 검색을 하지 않기 때문에 부모 컨텍스트에 해당 식별자가 있더라도 참조 할 수 없다. 
-전역 컨텍스트의 변수를 참조하려면 window.color 와 같이 명시해야 한다. &lt;/p&gt;
+&lt;h1 id=&quot;section-12&quot;&gt;식별자 검색&lt;/h1&gt;
+&lt;p&gt;컨텍스트 안에서 식별자를 참조 하면 검색을 하게 되는데 검색은 현재 컨텍스트 부터 스코프 체인을 따라 검색한다.&lt;br /&gt;
+식별자를 찾으면 더 이상 검색을 하지 않기 때문에 부모 컨텍스트에 해당 식별자가 있더라도 참조 할 수 없다.&lt;br /&gt;
+전역 컨텍스트의 변수를 참조하려면 window.color 와 같이 명시해야 한다.  &lt;/p&gt;
 
-&lt;h1 id=&quot;section-12&quot;&gt;가비지 콜렉션&lt;/h1&gt;
+&lt;h1 id=&quot;section-13&quot;&gt;가비지 콜렉션&lt;/h1&gt;
 &lt;p&gt;웹 브라우저에서 사용 할 수 있는 메모리는 일반적인 데스크톱 애플리케이션의 가용 메모리에 비해 매우 적다.&lt;br /&gt;
 자바스크립트가 시스템 메모리를 전부 사용해서 운영체제를 다운시키는 일을 방지 하기 위해서 이다.&lt;br /&gt;
 따라서 성능에 영향을 최소화하면서 주기적으로 메모리 정리를 하는 가비지콜레터가 중요하다.  &lt;/p&gt;
 
-&lt;h1 id=&quot;section-13&quot;&gt;가비지콜렉터의 2가지 방식: 표시하고 지우기, 참조 카운팅&lt;/h1&gt;
+&lt;h1 id=&quot;section-14&quot;&gt;가비지콜렉터의 2가지 방식: 표시하고 지우기, 참조 카운팅&lt;/h1&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;표시하고 지우기&lt;/em&gt;&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;표시하고 지우기&lt;/strong&gt;  &lt;/p&gt;
 
 &lt;p&gt;1.가비지 컬렉터가 작동하면 메모리에 저장된 변수 전체에 표시를 한다.(on)&lt;/p&gt;
 
@@ -480,7 +486,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 
 &lt;p&gt;3.표시가 남아 있는 변수는 삭제 &lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;참조카운팅&lt;/em&gt;&lt;/strong&gt;   &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;참조카운팅&lt;/strong&gt;   &lt;/p&gt;
 
 &lt;p&gt;1.변수를 선언하고 참조 값이 할당되면 참조 카운트 = 1&lt;/p&gt;
 
@@ -501,7 +507,7 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
 
 &lt;p&gt;각 object의 프로퍼티에서 서로를 참조하면서 참조 카운팅이 0이 안되기 때문에 메모리 해제가 안된다. &lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;결론은….&lt;/em&gt;&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;결론은….&lt;/strong&gt; &lt;/p&gt;
 
 &lt;p&gt;코드실행에 필요한 데이터만 유지하기 위해서는 필요 없어진 데이터는 &lt;code&gt;null&lt;/code&gt; 을 할당하여 참조를 제거하는 편이 좋다. &lt;br /&gt;
 지역 변수의 경우에는 컨텍스트가 파괴될 때 같이 참조가 제거 되지만, 전역 변수나 전역 객체의 프로퍼티를 위주로 삭제하면 된다.&lt;/p&gt;
@@ -1075,14 +1081,14 @@ checkbox, radio 같은 경우에는 정수형 프로퍼티에 빈문자열이 �
 하지만 오래된 웹 페이지의 경우에는 최신 브라우저에서 깨져 보이거나 브라우저마다 다르게 표시되는 문제가 있다. &lt;/p&gt;
 
 &lt;p&gt;이런 문제를 해결하고자 임시 방편으로 문서 모드라는 것을 사용하여 두 가지 렌더링 모드를 지원하게 되었다.&lt;br /&gt;
+두 가지 렌더링 모드에는 표준모드와 쿽스모드(quirks mode)가 있다.&lt;br /&gt;
 쿽스 모드는 구식의 코드(웹 표준을 지키지 않은) 가 최신 브라우저에서 정상적으로 표시하기 위한 목적으로 생겼다.&lt;br /&gt;
-문서모드에는 표준모드와 쿽스모드(quirks mode)가 있다.&lt;br /&gt;
 브라우저는 소스코드에 doctype에 따라 두 가지 모드 중에 선택하여 페이지를 렌더링 하게 된다.  &lt;/p&gt;
 
 &lt;p&gt;모드를 선택하는 방법은 각 브라우저 마다 DTD에 따라 문서모드가 선택된다. &lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Q : 쿼크모드(Quirks mode)&lt;/li&gt;
+  &lt;li&gt;Q : 쿽스모드(Quirks mode)&lt;/li&gt;
   &lt;li&gt;S : 표준모드(Standard mode)&lt;/li&gt;
   &lt;li&gt;A : Almost Standard mode &lt;/li&gt;
 &lt;/ul&gt;
