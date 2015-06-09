@@ -6,9 +6,59 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 Jun 2015 15:40:21 +0900</pubDate>
-    <lastBuildDate>Fri, 05 Jun 2015 15:40:21 +0900</lastBuildDate>
+    <pubDate>Tue, 09 Jun 2015 13:37:52 +0900</pubDate>
+    <lastBuildDate>Tue, 09 Jun 2015 13:37:52 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>shell script에서 date 연산하기</title>
+        <description>&lt;p&gt;특정 기간에 해당하는 데이터를 이전하는 배치작업이 있어 쉘 스크립트를 작성하였다.&lt;br /&gt;
+아래와 같이 3일 간격으로 배치를 수행하도록 스크립트를 작성하였다.&lt;br /&gt;
+2015-06-01 ~ 2015-06-04 &lt;br /&gt;
+2015-06-05 ~ 2015-06-08 &lt;br /&gt;
+…  &lt;/p&gt;
+
+&lt;p&gt;쉘 스크립트에서 날짜 연산을 하려면 date 함수를 이용하면 된다. &lt;br /&gt;
+자세한 사용방법은 date –help 를 확인하였다.  &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;사용&lt;/strong&gt;&lt;br /&gt;
+Usage: date [OPTION]… [+FORMAT]&lt;br /&gt;
+  or:  date [-u|–utc|–universal] [MMDDhhmm[[CC]YY][.ss]]  &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;옵션&lt;/strong&gt; &lt;br /&gt;
+-d, –date=STRING         display time described by STRING, not `now’  &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;날짜 포맷&lt;/strong&gt;  &lt;/p&gt;
+
+&lt;p&gt;%Y   year
+  %m   month (01..12)
+  %d   day of month (e.g, 01)
+  %H   hour (00..23)
+  %M   minute (00..59)&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;INPUT_FROM_DATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;`cat date.dat`&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;INPUT_FROM_DATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;date +%Y%m%d -d &lt;span class=&quot;nv&quot;&gt;$INPUT_FROM_DATE&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39; +1days&amp;#39;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$INPUT_FROM_DATE&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;INPUT_TO_DATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;date +%Y%m%d -d &lt;span class=&quot;nv&quot;&gt;$INPUT_FROM_DATE&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39; +3days&amp;#39;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$INPUT_TO_DATE&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$INPUT_TO_DATE&lt;/span&gt; &amp;gt; date.dat&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;배치가 수행되고나면 어느 날짜 까지 수행되었는지 저장하기 위해 date.dat 파일에 해당 날짜를 저장 하였다.&lt;br /&gt;
+그리고 배치가 수행 될 때마다 date.dat 파일의 날짜를 읽어 3일씩 더하는 연산을 하도록 하였다.&lt;br /&gt;
+날짜 연산은 + 3days 이런식으로 연산을 하는데 연산 단위에 따라 year(s), month, day, hour, minute 를 쓰면 된다.&lt;br /&gt;
+예를 들어 3일 5시간 후는  + 3days 5hour 로 연산하면 된다.    &lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 01 Jun 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/06/01/shellscript_date.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/06/01/shellscript_date.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>Apache Tika로 MIME Type 알아내기</title>
@@ -1180,144 +1230,6 @@ checkbox, radio 같은 경우에는 정수형 프로퍼티에 빈문자열이 �
         <pubDate>Mon, 06 Apr 2015 03:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/04/06/htmldoctype.html</link>
         <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/06/htmldoctype.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>AngularJS2</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;http://www.w3schools.com/angular/default.asp&quot;&gt;W3school Tutorial&lt;/a&gt; 따라 해보기 &lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;angularjs-filter&quot;&gt;AngularJS Filter&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;pipe(&lt;/td&gt;
-      &lt;td&gt;)를 표현식에 사용하여 Filter를 적용 할 수 있다.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;uppercase : 대문자&lt;br /&gt;
-{{ person.name | uppercase}}&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;lowercase : 소문자&lt;br /&gt;
-{{ person.name | uppercase}}&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;currency : 통화 표시 &lt;br /&gt;
-{{ quantity * price | currency }}&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;통화 표시는 기본적으로는 웹 서버의 locale에 따라 표시가 된다. 
-통화 표시를 지정하려면 이와 같이 해준다.&lt;br /&gt;
-{{ quantity * price | currency : “원” }}&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Filter: 필터를 적용한다.&lt;/li&gt;
-  &lt;li&gt;orderBy: 지정한 속성으로 정렬을 한다. &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-controller=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;namesCtrl&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;inputVal&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-repeat=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x in names | filter:inputVal | orderBy:&amp;#39;country&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;xmlhttprequest&quot;&gt;XMLHttpRequest&lt;/h1&gt;
-
-&lt;p&gt;$http는 원격서버로 부터 데이터를 읽어 오기 위한 AngularJS Service 이다. &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$http.get(url): url 서버로 부터 데이터를 가져오기 위한 메소드
-(기본적으로 json 포맷으로 받도록 되어져 있다. xml 이나 다른 포맷의 데이터를 사용하려면 
-http provider를 지정하여 사용하면 된다. )&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;myApp&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-controller=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;customersCtrl&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-repeat=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x in names&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;myApp&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;customersCtrl&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://www.w3schools.com/angular/customers.php&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;names&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;records&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$scope는 customerCtrl Controller 을 의미한다. &lt;/li&gt;
-  &lt;li&gt;$http.get()으로 원격서버로 부터 데이터를 가져와서 $scope.names에 저장한다. &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;tables&quot;&gt;Tables&lt;/h1&gt;
-
-&lt;p&gt;테이블 형태의 데이터를 출력할 때 &amp;lt;tr&amp;gt; 태그에 ng-repeat를 추가하여 데이터를 반복적으로 출력 할 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;table&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;tr&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-repeat=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x in names | orderBy : &amp;#39;Country&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;위의 예제와 같이 파이를 사용하여 정렬하여 데이터를 출력할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;html-dom&quot;&gt;HTML DOM&lt;/h1&gt;
-&lt;p&gt;HTML DOM elements의 attribute에 AngularJS 데이터를 바인딩하기 위한 Driective가 있다. &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ng-disabled Directive
-element의 disabled attribute 데이터를 바인딩 해준다. &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-disabled=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;mySwitch&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Click Me!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;checkbox&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;mySwitch&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Button
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;checkbox mySwitch model과 버튼과 바인딩되어 checbox의 상태에 따라 버튼이 활성/비활성화 된다. &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ng-show &amp;amp; ng-hide Driective 
-element의 display 속성을 바인딩한다. &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-app=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-show=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;I am visible.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-hide=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;I am not visible.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;참고 자료&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;AngularJS API Doc: https://docs.angularjs.org/api&lt;br /&gt;
-w3schools AngularJS: http://www.w3schools.com/angular/default.asp  &lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Mon, 06 Apr 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/04/06/angularjs2.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/06/angularjs2.html</guid>
         
         
         <category>jekyll</category>
