@@ -6,9 +6,255 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 09 Jun 2015 13:37:52 +0900</pubDate>
-    <lastBuildDate>Tue, 09 Jun 2015 13:37:52 +0900</lastBuildDate>
+    <pubDate>Sun, 21 Jun 2015 21:01:39 +0900</pubDate>
+    <lastBuildDate>Sun, 21 Jun 2015 21:01:39 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>[CUBRID] 날짜 데이터 다루기 </title>
+        <description>&lt;h2 id=&quot;cubrid---&quot;&gt;CUBRID 날짜 데이터 다루기&lt;/h2&gt;
+&lt;p&gt;최근 날짜 데이터를 사용하는 쿼리를 자주 작성하면서 자주 사용하는 함수와 주의 할 점에 대해서 알아 보았다. &lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;날짜 데이터 타입의 종류&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;DATE : 일 단위 &lt;/li&gt;
+  &lt;li&gt;DATETIME: 밀리초 단위 &lt;/li&gt;
+  &lt;li&gt;TIMESTAMP: 초 단위&lt;/li&gt;
+  &lt;li&gt;TIME: 초 단위 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;timestamp--datetime-&quot;&gt;TIMESTAMP 와 DATETIME 차이&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TIMESTAMP 데이터 타입은 날짜와 시간을 저장 할 수 있는 데이터 타입 이다. &lt;/li&gt;
+  &lt;li&gt;TIMESTAMP 데이터 타입은 GMT 1970-01-01 00:00:01 ~ 2038-01-19 03:14:07 까지의 범위를 저장 할 수 있다. &lt;/li&gt;
+  &lt;li&gt;DATETIME 데이터타입은 TIMESTAMP의 범위를 초과 하거나 밀리초 단위까지의 시간을 저장 해야 하는 경우 사용한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;날짜 변환&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;날짜 문자열 → 날짜 데이터 타입&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TO_CHAR(date, formatter)
+날짜 데이터 형 타입을 포맷 기준으로 문자열로 변경한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_CHAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyy-mm-dd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- Result: 2015-06-21&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;날짜 데이터 타입 → 날짜 문자열&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TO_DATE(date, formatter)
+날짜 문자열을 포맷 기준으로 Date 데이터 타입으로 변경한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;2015-06-01&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyy-mm-dd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;--  Result: 2015-06-01&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TO_DATETIME()
+날자 문자열을 포맷 기준으로 DateTime 데이터 타입으로 변경한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;2015-06-01 15:30:10&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyy-mm-dd hh24:mi:ss&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;--  Result: - 2015-06-01 15:30:10.000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;날짜 연산하기&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;년도 연산&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ADDDATE( SYSDATETIME , INTERVAL ± YEAR)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ADDDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INTERVAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;YEAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- Result: 2015-06-21 20:00:37.342 		2018-06-21 20:00:37.342&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;월 연산&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ADDDATE( SYSDATETIME , INTERVAL ± MONTH)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ADDDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INTERVAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;MONTH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- Result: 2015-06-21 20:00:37.342	2018-06-21 20:00:37.342&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;일 연산&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ADDDATE( SYSDATETIME , INTERVAL ± DAY)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ADDDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INTERVAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DAY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- Result: 2015-06-21 20:01:45.638	2015-06-18 20:01:45.638&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;시간 연산&lt;/strong&gt; &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ADDDATE( SYSDATETIME , INTERVAL ± HOUR)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ADDDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INTERVAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HOUR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- Result: 2015-06-21 20:02:14.367	2015-06-21 17:02:14.367&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;** DATETIME 데이터타입의 연산 **&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DATETIME 데이터 타입간에 - 연산을 할 수 있다. (뺄셈만 허용)&lt;/li&gt;
+  &lt;li&gt;연산 결과는 BIGINT 데이터 타입의 정수 값으로 결과값이 나온다. &lt;/li&gt;
+  &lt;li&gt;결과값에서 1000ms = 1초 이므로, 시간으로 계산하려면 60 * 60 * 1000 으로 나누면 시간 값을 계산 할 수 있다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;날짜 차이 구하기&lt;/h2&gt;
+&lt;p&gt;두 날짜 간의 일(day) 차이를 구할 때는 datediff를 이용하면 편리하다. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DATEDIFF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SYSDATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;2015-06-20&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- Result:  2015-06-21 20:19:17.459	   1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;인덱스 제대로 이용하기&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;비교 연산시 
+# 부정형 비교 연산은 인덱스를 타지 않는 것에 주의 한다. &lt;/li&gt;
+  &lt;li&gt;INDEX가 =이나 &amp;lt;, &amp;gt; , BETWEEN 조건에서만 인덱스를 탄다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;인덱스 컬럼은 형 변환을 하지 않는다.&lt;/h1&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- (1) &lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inputDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyymmdd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;20150601&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;-- (2) &lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputDate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;20150601&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;date 데이터 타입의 inputDate가 인덱스로 걸려 있다면 (2)의 쿼리 처럼 비교 대상의 날짜 데이터를 DATE 타입으로 변형해야 인덱스를 사용하게 된다. &lt;/p&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;인덱스와 비교대상의 데이터 형을 일치 한다.&lt;/h1&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;c1&quot;&gt;--(1)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputDateTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;20150601&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyymmdd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+
+&lt;span class=&quot;c1&quot;&gt;--(2)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputDateTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;20150601&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyymmdd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputDateTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;20150630&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyymmdd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+
+&lt;span class=&quot;c1&quot;&gt;--(3)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputDateTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;20150601&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyymmdd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputDateTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TO_DATETIME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;20150630&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;yyyymmdd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;inputDateTime의 데이터 타입이 DATETIME 일 때, 
+(1) 처럼 비교 하면 20150601의 문자열이 DATE 데이터 타입으로 변환하고, 비교 대상이 DATETIME 형식이기 때문에 DATETIME 데이터 타입으로 변형한다.  &lt;/p&gt;
+
+&lt;p&gt;하지만, inputDateTime 과 비교하면서 2015-06-01 DATE가 DATETIME 데이터 타입으로 형환 된다면 
+inputDateTime = 2015-06-01 00:00:00 와 비교하므로 2015-06-01 00:00:01 ~ 2015-06:01 23:59:59 데이터는 조회가 되지 않을 수 있음에 주의 해야한다. &lt;/p&gt;
+
+&lt;p&gt;(2) 처럼 비교 대상의 날짜가 DATE 데이터 타입으로 비교 하면 DATETIME 데이터 타입으로 형 변환 한다. 
+비교 하는 데이터 타입을 일치 해줘야 형 변환이 일어 나지 않고 인덱스를 제대로 탈 수 있다. &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;참고 자료 &lt;br /&gt;
+http://www.iamcorean.net/159&lt;br /&gt;
+http://www.cubrid.org/manual/91/ko/sql/function/arithmetic_op.html&lt;br /&gt;
+http://www.cubrid.org/manual/91/ko/sql/function/datetime_fn.html  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Mon, 22 Jun 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/06/22/cubrid_date.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/06/22/cubrid_date.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>[CUBRID] rounum limit절</title>
+        <description>&lt;p&gt;일정 기간이 지난 데이터를 삭제하는 작업을 하게되었는데, 데이터가 많은 테이블이었기 때문에 나누어서 삭제를 해야했다.&lt;br /&gt;
+HA구조에서 데이터를 대량으로 삭제를 할 경우, 5000 QPS(Query Per Seconde)을 넘는 경우에는 복제지연이 발생 할 수 있기 때문이다.
+복제지연은 Master / Slave 간 동기화가 지연되는 현상을 말한다.   &lt;/p&gt;
+
+&lt;p&gt;데이터를 나누어서 삭제하기 위해 레코드를 출력을 제한할 수 있는 쿼리를 작성하기 위해 ROWNUM 함수와 LIMIT 절에 대해서 알아보았다.   &lt;/p&gt;
+
+&lt;h1 id=&quot;rownum&quot;&gt;ROWNUM&lt;/h1&gt;
+
+&lt;p&gt;ROWNUM함수는 결과 레코드에 대한 순서의 번호를 반환한다.&lt;br /&gt;
+SELECT 절에서는 ROWNUM, INST_NUM() 함수를 통해 레코드 순서를 출력 할 수 있으며,
+GROUP BY절을 포함한 SELECT 에서는 GROUPBY_NUM() 함수로 레코드의 순서를 알 수 있다.   &lt;/p&gt;
+
+&lt;p&gt;SELECT 문에 ORDER BY 절이 포함된 경우 WHERE절에 사용되는 &lt;strong&gt;ROWNUM은 정렬이 되기 전 생성된 순서 값&lt;/strong&gt;이므로 주의를 해야한다.   &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;c1&quot;&gt;--Unexpected results : ROWNUM operated before ORDER BY&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROWNUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nation_code&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;participant&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host_year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1988&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROWNUM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gold&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;rownum&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;nation_code&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;===================================&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;ZIM&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;ZAM&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;ZAI&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;YMD&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 예제를 보면 4개의 데이터를 gold로 내림차순 정렬 하여 출력하고 있지만, 정렬되지 않은 상태에서의 ROWNUM이 5보다 작은 데이터를 조건으로 출력하기 때문에
+예상하지 못한 결과를 받을 수 있다.  &lt;/p&gt;
+
+&lt;p&gt;따라서, 정렬된 데이터에서 레코드 순서로 데이터를 가져 오려면 아래의 예제 처럼 ORDERBY_NUM() 함수를 이용해야 한다.   &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;c1&quot;&gt;--Limiting 4 rows using FOR ORDERBY_NUM()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROWNUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nation_code&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;participant&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host_year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1988&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gold&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FOR&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ORDERBY_NUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;rownum&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;nation_code&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;===================================&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;156&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;URS&amp;#39;&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;155&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;GDR&amp;#39;&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;154&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;USA&amp;#39;&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;153&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;KOR&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;limit&quot;&gt;LIMIT절&lt;/h1&gt;
+
+&lt;p&gt;LIMIT 절은 출력되는 레코드의 개수를 제한 할 때 사용한다. &lt;br /&gt;
+LIMIT 절과 ROWNUM의 차이는 LIMIT은 정렬 연산을 완료 한 후 최종 레코드 출력의 개수를 제한하고, 
+ROWNUM은 정렬 연산 이전에 레코드 순서를 기준으로 출력을 제한하는 차이점이 있다. &lt;br /&gt;
+결과적으로 위의 예제에서 ORDERBY_NUM()을 사용하여 출력을 제한한 것과 LIMIT절의 연산과 같다.  &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;c1&quot;&gt;--Limiting 4 rows using LIMIT&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROWNUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nation_code&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;participant&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host_year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1988&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gold&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;rownum&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;nation_code&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;===================================&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;156&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;URS&amp;#39;&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;155&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;GDR&amp;#39;&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;154&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;USA&amp;#39;&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;153&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;KOR&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;따라서 아래의 예제는 위의 ORDERBY_NUM()을 사용한 쿼리 결과값이 같음을 확인 할 수 있다.  &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;참고자료 &lt;br /&gt;
+http://www.cubrid.org/manual/93/ko/sql/function/rownum_fn.html
+http://www.gurubee.net/m/lecture/2021&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Mon, 15 Jun 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/06/15/cubrid_query_limit.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/06/15/cubrid_query_limit.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>shell script에서 date 연산하기</title>
@@ -1093,143 +1339,6 @@ thread logic 을 다운로드 받으면 jar 파일을 다운로드 받을 수 �
         <pubDate>Mon, 20 Apr 2015 03:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/04/20/threaddump.html</link>
         <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/20/threaddump.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>400 Bad request</title>
-        <description>&lt;p&gt;설문 서비스를 개발하면서 설문지를 제출할 때 특정한 상황에서 계속해서 400 bad request가 발생하는 버그가 발생했다.&lt;br /&gt;
-사용자가 작성한 동적인 설문지 폼이 생성되기 때문에 어떤 경우에 400 bad request가 발생하는지를 알아내기가 어려웠다. &lt;/p&gt;
-
-&lt;p&gt;로그를 확인하여 해당 에러가 발생하는 원인을 찾기로 하고, log4j 의 spring 프레임워크 logger를 debug 모드로 변경하였다. &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[org.springframework.context.support.DefaultMessageSourceResolvable: codes [answerList.answerList[2].answerNumber,answerList[2].answerNumber]; arguments []; default message [answerList[2].answerNumber]]; default message [Failed to convert property value of type &amp;#39;java.lang.String&amp;#39; to required type &amp;#39;int&amp;#39; for property &amp;#39;answerList[2].answerNumber&amp;#39;; nested exception is java.lang.NumberFormatException: For input string: &amp;quot;&amp;quot;]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;내용을 보니 answerList.answerNumber는 int형 프로퍼티인데 빈 문자열인 String “” 값이 input으로 오면서 Bind Error가 나오는 것을 확인 할 수 있었다.&lt;/p&gt;
-
-&lt;p&gt;해당 버그는 이전에는 없었던 버그 내용인데 새로 발견되었으므로 최근에 작성한 소스코드에 문제가 있을 것이라 예상하여 
-최근에 작업했던 코드를 확인 해보았다. &lt;/p&gt;
-
-&lt;p&gt;문제가 발생했던 코드는 자바스크립트 코드에 있었다.&lt;/p&gt;
-
-&lt;p&gt;특정상황에서 input 입력 컨트롤을 초기화하는 코드가 문제였다. &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;input&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeAttr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;checked&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;text, textarea 같은 경우에는 빈 문자열로 초기화가 String형 프로퍼티에 바인딩 되어서 문제가 없었지만,
-checkbox, radio 같은 경우에는 정수형 프로퍼티에 빈문자열이 바인딩 되면서 에러가 발생한 것이다. &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;input[type=text], textarea&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;input[type=checkbox], input[type=radio]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeAttr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;checked&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;이렇게 따로 분리를 하여 초기화를 하니 해당 에러를 잡을 수 있었다.&lt;br /&gt;
-에러의 원인은 간단하였는데 디버그 하는 과정이 어려웠던 경험이었다.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 13 Apr 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/04/13/400badrequest.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/13/400badrequest.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>브라우저 문서모드</title>
-        <description>&lt;p&gt;과거 웹 표준이 정해져 있지 않았을 때 각 브라우저마다 페이지를 표시하는 렌더링이 규칙이 달랐고, 이 때문에 같은 소스코드 임에도 불구하고 페이지가 다르게 표시되는 문제가 있다.  &lt;/p&gt;
-
-&lt;p&gt;최근에는 웹 표준을 지켜 코드를 작성하기 때문에 최신 브라우저라면 어떤 브라우저에서나 같은 페이지를 표시 할 수 있다.&lt;br /&gt;
-하지만 오래된 웹 페이지의 경우에는 최신 브라우저에서 깨져 보이거나 브라우저마다 다르게 표시되는 문제가 있다. &lt;/p&gt;
-
-&lt;p&gt;이런 문제를 해결하고자 임시 방편으로 문서 모드라는 것을 사용하여 두 가지 렌더링 모드를 지원하게 되었다.&lt;br /&gt;
-두 가지 렌더링 모드에는 표준모드와 쿽스모드(quirks mode)가 있다.&lt;br /&gt;
-쿽스 모드는 구식의 코드(웹 표준을 지키지 않은) 가 최신 브라우저에서 정상적으로 표시하기 위한 목적으로 생겼다.&lt;br /&gt;
-브라우저는 소스코드에 doctype에 따라 두 가지 모드 중에 선택하여 페이지를 렌더링 하게 된다.  &lt;/p&gt;
-
-&lt;p&gt;모드를 선택하는 방법은 각 브라우저 마다 DTD에 따라 문서모드가 선택된다. &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Q : 쿽스모드(Quirks mode)&lt;/li&gt;
-  &lt;li&gt;S : 표준모드(Standard mode)&lt;/li&gt;
-  &lt;li&gt;A : Almost Standard mode &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Doctype&lt;/th&gt;
-      &lt;th&gt;NS6&lt;/th&gt;
-      &lt;th&gt;Old Moz&lt;/th&gt;
-      &lt;th&gt;Moz &amp;amp;Safari &amp;amp;Opera 10&amp;amp;IE10&amp;amp; HTML&lt;/th&gt;
-      &lt;th&gt;Opera 9.0&lt;/th&gt;
-      &lt;th&gt;IE 8, IE 9 &amp;amp; Opera 9.5&lt;/th&gt;
-      &lt;th&gt;IE 7 &amp;amp; Opera 7.10&lt;/th&gt;
-      &lt;th&gt;IE 6 &amp;amp; Opera 7.0&lt;/th&gt;
-      &lt;th&gt;Mac IE 5&lt;/th&gt;
-      &lt;th&gt;Konq 3.2&lt;/th&gt;
-      &lt;th&gt; &lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;None&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&amp;lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&amp;gt;&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;이하 생략 (링크 내 테이블 참고)…&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;참고: &lt;a href=&quot;https://hsivonen.fi/doctype/&quot;&gt;Handling of Some Doctypes in text/html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Mon, 06 Apr 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/04/06/htmldoctype.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/06/htmldoctype.html</guid>
         
         
         <category>jekyll</category>
