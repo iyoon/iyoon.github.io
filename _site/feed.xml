@@ -6,9 +6,132 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Jun 2015 21:01:39 +0900</pubDate>
-    <lastBuildDate>Sun, 21 Jun 2015 21:01:39 +0900</lastBuildDate>
+    <pubDate>Sun, 28 Jun 2015 21:31:46 +0900</pubDate>
+    <lastBuildDate>Sun, 28 Jun 2015 21:31:46 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>읽기 좋은 코드가 좋은 코드다</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;읽기 좋은 코드가 좋은 코드다.&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;더 나은 코드를 작성하는 간단하고 실전적인 테크닉 더스틴 보즈웰, 트레버 파우커 지음 임백준 옮김 &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;코드는 이해하기 쉬워야 한다.&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;코드는 간결하게 작성하는것도 중요하지만 가독성이 좋아야한다. &lt;/li&gt;
+  &lt;li&gt;누가, 언제 다시 읽던지 간에 이해하기 쉬워야 한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;표면적 수준에서의 개선이 필요하다.&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;표면적 수준이란?&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
+- 좋은 이름을 짓고, 좋은 설명을 달고, 코드를 보기 좋게 정렬하는 따위 &lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;이름에 정보를 담아내라&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;특정한 단어 고르기&lt;/em&gt;&lt;/strong&gt;   &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;매우 구체적인 단어를 선택하여 무의미한 단어를 피하는 것이다. &lt;/li&gt;
+  &lt;li&gt;getPage() –&amp;gt; fetchPage(),DownloadPage()&lt;/li&gt;
+  &lt;li&gt;size() –&amp;gt; width(), height() &lt;/li&gt;
+  &lt;li&gt;stop() – &amp;gt; kill()&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;화려한 단어 고르기&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;상황에 더 적합한 화려한 단어를 선택하라 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;send –&amp;gt; deliver, dispatch, annonuce, route 
+ start –&amp;gt; launch, create, begin, open &lt;/p&gt;
+
+&lt;h1 id=&quot;temp-&quot;&gt;temp 변수명&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;temp 는 그야말로 임시 저장소외에 다른 용도가 없는 경우에만 사용하도록 한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;추상적인 이름보다 구체적인 이름을 선호하자.&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;추가적인 정보를 이름에 추가하기&lt;/em&gt;&lt;/strong&gt; &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;단위를 포함하는 경우 시간은 ms, sec, hour 용량은 mb, gb 와 같은 단위를 포함하여 이름을 짓는다. &lt;/li&gt;
+  &lt;li&gt;다른 중요한 속성 포함하기 
+예) password &lt;/li&gt;
+  &lt;li&gt;plainPassword (암호화 되지 않은 암호 문자열)&lt;/li&gt;
+  &lt;li&gt;encyptPassword (암호화된 문자열)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;구체적으로 적는 것도 좋지만 너무 길면 좋지 않다.&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;지역적으로 사용되는 변수에는 짧은 이름을 사용한다. &lt;/li&gt;
+  &lt;li&gt;긴 이름입력은 자동완성 기능을 이용하면 오타를 줄일 수 있다. &lt;/li&gt;
+  &lt;li&gt;약어와 축약형은 매우 보편적인 의미의 축양형이 아니라면 사용하지 말것
+ ex) String -&amp;gt; str 와 같이 보편적인 축약형은 사용해도 된다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;오해 할 수 없는 이름들을 선택하자.&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;예시) filter() &lt;/li&gt;
+  &lt;li&gt;filter 조건의 내용을 선택한다는 건지 제거 한다는지 의미가 모호하다.  &lt;/li&gt;
+  &lt;li&gt;대상을 고르는 기능이라면 select()로 이름을 짓는다. &lt;/li&gt;
+  &lt;li&gt;대상을 제거하는 기능이라면 exclude()로 이름을 짓는다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;경계값 변수명&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;경계를 포함하는 한계값을 다룰 때는 min, max 와 같은 변수명을 짓는다. &lt;/li&gt;
+  &lt;li&gt;경계를 포함하는 범위에는 first, last 와 같은 변수명을 짓는다.&lt;/li&gt;
+  &lt;li&gt;경계를 포함하고/배제하는 범위에는 begin, end 와 같은 변수명을 짓는다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-9&quot;&gt;불리언 변수 이름 짓기&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;의마가 명확하지 않게 짓기 &lt;/li&gt;
+  &lt;li&gt;부정하는 용어는 피하는 것 (부정시 한번 더 부정해서 생각해야 되기 때문에 헷갈림)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;get---&quot;&gt;get으로 시작하는 메소드 주의&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;getXX() 프로퍼티 getter로 생각 할 수 있으니 유의 할것.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-10&quot;&gt;미학적코드 만들기!&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;같은 반복적인, 규칙적인 코드 스타일이 있다면 줄과 위치를 규칙적으로 하여 코드를 읽기 쉽게 하자 .&lt;/li&gt;
+  &lt;li&gt;줄이 너무 길고 반복적인 작업이라면 헬퍼 메소르를 만들어서 사용하자. 헬퍼메소드는 그냥 같은 작업을 하는 템플릿형 메소드 인듯? &lt;/li&gt;
+  &lt;li&gt;프로퍼티, 메소드 선언 코드들은 관련 잇는 것끼리 그룹으로 묶어서 정리 &lt;/li&gt;
+  &lt;li&gt;일관성이 있는 코드를 작성 (올바른 스타일보바도 일관성 유지가 중요)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-11&quot;&gt;적절한 주석달기&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;필요없는 주석: 뻔한 주석 (생성자, 설정, 값 세팅  이런것들 )&lt;/li&gt;
+  &lt;li&gt;코드 내용과 똑같은 내용의 주석은 필요없음. (주요한 세부사항을 적는 편이 낫다)&lt;/li&gt;
+  &lt;li&gt;적어야할 주석: 소스코드에서 의심적은 부분이나 생각을 적어두면 나중에 다른 사람이 볼때 수정해도 되는 메소드임을 알릴 수 있다. &lt;/li&gt;
+  &lt;li&gt;코드의 결함을 설명하자. 
+    &lt;ul&gt;
+      &lt;li&gt;ex : //TODO:  더 빠른 알고리즘 을 적용해야한다. &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;# 상수에 대한 설명달기 
+ - 특정한 값으로 상수값을 정했다면 왜 이렇게 정했는지 이유를 주석에 설명한다. &lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 29 Jun 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/06/29/easy_code.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/06/29/easy_code.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>[CUBRID] 날짜 데이터 다루기 </title>
@@ -1207,138 +1330,6 @@ hightlight + Tab = {% highlight %}{% endhighlight %} &lt;/p&gt;
         <pubDate>Mon, 27 Apr 2015 03:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/04/27/sublimeText-jekyll-plugin.html</link>
         <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/27/sublimeText-jekyll-plugin.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>Thread Dump 생성하기</title>
-        <description>&lt;p&gt;해당 포스트는 이상민 강사님의 트러블슈팅 가이드 강의를 듣고 작성하였습니다.&lt;br /&gt;
-덤프란 메모리상의 내용을 프린트나 파일로 출력하여 내용을 확인 할 수 있는 것을 말한다. 주로 오류 수정을 위해 원인을 파악하는데 이용이 된다. 
-장애가 발생하였을 때 원인을 파악하기 위해 덤프파일을 생성하는 것이 중요하다.  &lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;쓰레드 덤프&lt;/h2&gt;
-
-&lt;p&gt;쓰레드의 스택과 상태 정보를 파일로 출력한다.&lt;br /&gt;
-쓰레드 덤프를 생성하는 시점의 쓰레드의 스택과 상태를 저장한다는 점에 유의 해야 한다.&lt;br /&gt;
-따라서 쓰레드의 상태변화를 확인하기 위해서는 10~20초 간격으로 적어도 5~10번 정도로 덤프를 생성해야 한다.  &lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;쓰레드 덤프 생성 명령어&lt;/h2&gt;
-
-&lt;h1 id=&quot;kill-&quot;&gt;kill 명령어&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;kill&lt;/span&gt; -3 pid 또는 &lt;span class=&quot;nb&quot;&gt;kill&lt;/span&gt; -quit pid&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;덤프파일은 해당 프로세스가 실행되는 콘솔이나 로그파일에 출력된다.&lt;br /&gt;
-WAS(Tomcat)의 경우에는 catalina.out 파일에 덤프가 출력되는 것을 확인 할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;맥용 터미널 프로그램인 iTerm을 사용하면 쉽게 덤프파일을 로컬 환경에 저장 할 수 있다. 
-	1. Shell &amp;gt; log &amp;gt; start
-	2. 덤프 로그파일이 저장 될 경로와 파일명을 지정 
-	3. 덤프 생성 명령어 수행 
-	4. Sheell &amp;gt; log &amp;gt; stop 
-	5. (2)에서 지정한 덤프 파일 경로에 덤프파일 확인 &lt;/p&gt;
-
-&lt;h2 id=&quot;pid---&quot;&gt;pid 확인 하는 방법&lt;/h2&gt;
-
-&lt;h1 id=&quot;ps-&quot;&gt;ps 명령어&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ps -ef &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; grep java&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;ps 명령어는 현재 실행되고 있는 프로세스의 상태를 표시하는 명령어이다. 
-파이프로 grep 사용하여 “java” 문자열을 포함하는 프로세스를 찾는다. 
-- e: 모든 계쩡의 프로세스를 출력
-- f: 프로세스의 자세한 정보를 출력 &lt;/p&gt;
-
-&lt;p&gt;UID/pid/PPID/CSTIME/TTY/TIME/CMD 포맷으로 출력되므로 두번째 탭의 숫자값이 pid이다. &lt;/p&gt;
-
-&lt;h1 id=&quot;jps-&quot;&gt;jps 명령어&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jps pid&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;-v : 자세한 정보를 함께 출력
- jsp 명령어를 쳤을 때 process 명이 출력되지 않는 경우에는&lt;br /&gt;
- temp 에 저장되는 프로세스 정보가 없을 때 그렇게 나오게 된다. &lt;br /&gt;
- /tmp/hsperfdata_계정명/pid 파일에 프로세스의 정보가 계속해서 업데이트 되어 저장 된다.&lt;br /&gt;
- 해당 파일이 삭제가 되거나 없다면 jps, jstat, jstack 과 같은 명령어을 사용 할 수 없다.&lt;/p&gt;
-
-&lt;p&gt;쓰레드 덤프가 아래와 같이 출력된다.  &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;2015-04-19 20:34:53 
-Full thread dump Java HotSpot&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;TM&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 64-Bit Server VM &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;23.25-b01 mixed mode&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-
-&lt;span class=&quot;s2&quot;&gt;&amp;quot;ajp-bio-8001-exec-16&amp;quot;&lt;/span&gt; daemon &lt;span class=&quot;nv&quot;&gt;prio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0x00007fbded760000 &lt;span class=&quot;nv&quot;&gt;nid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0x7fab waiting on condition &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00007fbe0c4b8000&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-   java.lang.Thread.State: WAITING &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;parking&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        at sun.misc.Unsafe.park&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Native Method&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        - parking to &lt;span class=&quot;nb&quot;&gt;wait &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;  &amp;lt;0x00000000e35ebca8&amp;gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;a java.util.concurrent.locks.AbstractQueuedSynchronizer&lt;span class=&quot;nv&quot;&gt;$ConditionObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        at java.util.concurrent.locks.LockSupport.park&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;LockSupport.java:186&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        at java.util.concurrent.locks.AbstractQueuedSynchronizer&lt;span class=&quot;nv&quot;&gt;$ConditionObject&lt;/span&gt;.await&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-
-        
- ... &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;중간 생략 &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;s2&quot;&gt;&amp;quot;VM Thread&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;prio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0x00007fbe100b0000 &lt;span class=&quot;nv&quot;&gt;nid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0x61be runnable 
-
-&lt;span class=&quot;s2&quot;&gt;&amp;quot;VM Periodic Task Thread&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;prio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0x00007fbe10520000 &lt;span class=&quot;nv&quot;&gt;nid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0x61d7 waiting on condition 
-
-JNI global references: 386
-
-Heap
- def new generation   total 184320K, used 110783K &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000d5600000, 0x00000000e1e00000, 0x00000000e1e00000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  eden space 163840K,  64% used &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000d5600000, 0x00000000dbc7b588, 0x00000000df600000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  from space 20480K,  28% used &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000df600000, 0x00000000dfbb48d8, 0x00000000e0a00000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  to   space 20480K,   0% used &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000e0a00000, 0x00000000e0a00000, 0x00000000e1e00000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
- tenured generation   total 409600K, used 33182K &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000e1e00000, 0x00000000fae00000, 0x00000000fae00000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-   the space 409600K,   8% used &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000e1e00000, 0x00000000e3e67938, 0x00000000e3e67a00, 0x00000000fae00000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
- compacting perm gen  total 52288K, used 52123K &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000fae00000, 0x00000000fe110000, 0x0000000100000000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-   the space 52288K,  99% used &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0x00000000fae00000, 0x00000000fe0e6f80, 0x00000000fe0e7000, 0x00000000fe110000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-No shared spaces configured.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;쓰레드 덤프 생성 시간 / JVM 정보가 출력이 되고 공백 라인으로 구분하여 각 쓰레드의 정보가 출력이 된다. 
-마지막에는 Heap 영역 메모리의 사용현황이 출력된다. &lt;/p&gt;
-
-&lt;p&gt;쓰레드 정보는 스페이스로 각 내용이 구분되어 진다.    &lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;쓰레드 이름   &lt;/li&gt;
-  &lt;li&gt;쓰레드 우선순위  &lt;/li&gt;
-  &lt;li&gt;쓰레드 ID  &lt;/li&gt;
-  &lt;li&gt;Natvie 쓰레드 ID  &lt;/li&gt;
-  &lt;li&gt;쓰레드 상황  &lt;/li&gt;
-  &lt;li&gt;쓰레드 스택 주소 범위 (from..to)  &lt;/li&gt;
-  &lt;li&gt;쓰레드 스택 정보 (stack 이므로 가장 최근에 수행된 메소드가 상위에 위치한다. 가장 상위에 메소드가 수행 중인 상태에서 덤프가 시행된것.)  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Heap 영역의 정보에는 Eden, Tenured, Perm 영역의 사용량을 확인 할 수 있다. 
-Eden 영역은 Young area 영역이라고도 하며, 객체가 생성되었을때 저장되는 heap 영역 중 일부이다. 
-해당 영역이 꽉차게 되면 Young GC가 발생하며 살아 남은 객체는 Tenured 영역 (Old Area)로 옮겨진다.
-Perm 영역은 로딩된 클래스, 메소드, meta 정보가 저장된다. &lt;/p&gt;
-
-&lt;p&gt;Tenured, Perm 영역이 90% 이상으로 너무 높으면 out of memory error가 발생할 수 있다. &lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;쓰레드 덤프 분석&lt;/h2&gt;
-
-&lt;p&gt;thread logic (https://java.net/projects/threadlogic) 을 이용하면 덤프 파일 분석을 편리하게 할 수 있다.&lt;br /&gt;
-thread logic 을 다운로드 받으면 jar 파일을 다운로드 받을 수 있다.&lt;br /&gt;
-해당 jar 파일을 아래의 명령어로 실행하면 thread logic을 실행 할 수 있다.  &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;java -jar threadlogic.jar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;참고자료
-&lt;a href=&quot;http://helloworld.naver.com/helloworld/textyle/10963&quot;&gt;스레드 덤프 분석하기&lt;/a&gt;
-&lt;a href=&quot;https://java.net/downloads/threadlogic/ThreadLogic-v0.9.pdf&quot;&gt;ThreadLogic Documentation&lt;/a&gt;
-자바 트러블 슈팅 가이드 (이상민님)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Mon, 20 Apr 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/04/20/threaddump.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/04/20/threaddump.html</guid>
         
         
         <category>jekyll</category>
