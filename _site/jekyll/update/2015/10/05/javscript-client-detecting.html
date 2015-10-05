@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>자바스크립트 클라이언트 탐지와 DOM</title>
+  <meta name="description" content="9장 클라이언트 탐지">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://iyoon.github.io/jekyll/update/2015/10/05/javscript-client-detecting.html">
+  <link rel="alternate" type="application/rss+xml" title="hyungwon ,Yoon" href="http://iyoon.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">hyungwon ,Yoon</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">자바스크립트 클라이언트 탐지와 DOM</h1>
+    <p class="post-meta">Oct 5, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">9장 클라이언트 탐지</h1>
+
+<h1 id="section-1">클라이언트 탐지의 필요성</h1>
+<p>플랫폼별, 브라우저별, 브라우저의 버전별로 동일한 자바스크립트의 동작이 보장 되지 않는다.
+모든 브라우저에서 공통인 기능을 최소화 하여 개발하거나 클라이언트 탐지 방법을 통해 동작하지 않는 코드는 우회할 수 있도록 개발해야 한다. </p>
+
+<h1 id="section-2">기능탐지</h1>
+
+<ol>
+  <li>메소드를 클라이언트의 브라우저에서 직접 실행 해본다.</li>
+  <li>해당 코드의 프로퍼티 혹은 메소드가 존재하지 않거나 수행이 안될 경우 우회 할 다른 메소드를 이용한다.</li>
+</ol>
+
+<p>예를 들어 DOM에서 element를 찾는 (IE+6)document.getElemementById는 익스플로러 버전6부터 지원한다. 
+그 이하의 버전에서는 (IE 5-)document.all 메소드를 통해 같은 기능을 지원한다.</p>
+
+<p><code>
+function getElemeny(id){
+	// 코드 실행의 능률 향상을 위해 가장 일반적인 case를 조건문의 첫번째로 비교한다. 
+	if(document.elementById){
+		return document.getElementById(id);
+	}
+	else if(document.all){
+		return document.all[id];
+	}
+	else{
+		throw new Error("No way to retieve element");
+	}
+}
+</code></p>
+
+<h1 id="section-3">잘못된 기능 탐지</h1>
+
+<p>기능탐지 방법을 통해 브라우저를 탐지 하려하면 안된다. </p>
+
+<p>파이어폭스 브라우저 탐지 코드 </p>
+
+<p><code>
+var isFireFox = !!(navigator.vendor &amp;&amp; navigator.vendorSub);
+</code>
+과거에는 navigator.vendor 와 navigator.venderSub만 체크하면 파이어폭스 브라우저임을 알 수 있었지만 
+현재는 사파리, 크롬 등도 해당 프로퍼티를 사용하고 있다. </p>
+
+<p>익스플로러 브라우저 탐지 코드 </p>
+
+<p><code>
+var isIE = !! (document.all &amp;&amp; document.uniqueID);
+</code>
+미래에도 해당 프로퍼티 혹은 메소드가 존재 할 지 단정지을 수 없다. </p>
+
+<h1 id="section-4">브라우저 그룹</h1>
+
+<p><code>
+var hasDOM1 = !!(document.getElementById &amp;&amp; document.createElement &amp;&amp; document.getElementByTagName);
+</code></p>
+
+<p>DOM Level1 의 기능을 지원하는지를 체크하는 기능탐지는 반복적인 기능탐지 코드를 사용하지 않아도 되므로 추천!</p>
+
+<h1 id="section-5">브라우저 탐지</h1>
+
+<p>브라우저의 사용자 <code>에이전트문자열</code>을 통해 어떤 브라우저에서 실행 중인지를 확인하는 방법이다. 
+해당 브라우저 탐지 방법은 항상 신뢰 할 수가 없다. 
+그 이유는 브라우저가 에이전트 문자열을 통해 서버를 속이는 행위 지속해왔기 때문이다. </p>
+
+<h1 id="section-6">서버를 속이는 행위 ?</h1>
+<p>넷스케이프 커뮤니테이션즈 (이하 넷스케이프) 는 모질라(“모자이크 킬러의 의미”)라는 코드네임을 따서 사용자 에이전트 문자열을 다음과 같이 정의했다.</p>
+
+<p><code>
+Mozilla/Version [Laugage] (Platform; Encryption)
+</code></p>
+
+<p>후속 주자로서 넷스케이프를 따라 잡으려 했던 익스플로러3의 에이전트 문자열은 다음과 같이 정의 했다. </p>
+
+<p><code>
+Mozilar/2.0 (compatible; MSIE Version; Operating System)
+</code></p>
+
+<p>MSIE 라는 문자열을 통해 IE 인지는 알겠지만… 왠 경쟁사의 Mozilar 코드네임을 사용할 수 밖에 없었을까? </p>
+
+<p>그 이유는 많은 웹 페이지의 서버에는 페이지를 전송하기 전 넷스케이프사의 브라우저인지를 확인하려고 한다.
+서버가 브라우저를 판단하지 못할 경우 페이지가 깨지는 문제가 발생하게 되었다. </p>
+
+<p>따라서, 익스플로러는 넷스케이프사 브라우저 인 것 처럼 서버를 속일 수 있는 
+넷스케이프사의 에이전트 문자열과 호환 될 수 있는 문자열을 정의 한 것이다. </p>
+
+<p>크롬의 에이전트 문자열 </p>
+
+<p><code>
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36"
+</code></p>
+
+<h1 id="dom">10장 DOM</h1>
+
+<h1 id="dom-1">DOM</h1>
+<p>DOM(Document Object Model)은 HTML과 XML문서에 대한 애플리케이션 프로그래밍 인터페이스(API) 이다. 
+DOM은 노드의 계층 구조로 이루어져 있다. </p>
+
+<h1 id="node-">Node 타입</h1>
+
+<p>노드는 12개의 노드 타입으로 구성되어있고, nodeType 프로퍼티를 통해 알 수 있다. </p>
+
+<ul>
+  <li>Node.ELEMENT_NODE (1)</li>
+  <li>Node.ATTRIBUTE_NODE (2) … </li>
+</ul>
+
+<p>(익스플로러는 Node 타입 생성자를 인터페이스에 노출하지 않으므로 상수 값으로 비교해야한다.)</p>
+
+<h1 id="nodename-nodevalue">nodeName과 nodeValue</h1>
+
+<p>nodeName과 nodeValue 프로퍼티는 해당 노드의 정보를 제공한다. 
+각 노드 타입에 따라 프로퍼티값이 다르다. 
+Node.ELEMENT_NODE는 nodeName은 요소의 태그이름과 일치하며 nodeValue는 null을 갖는다. </p>
+
+<h1 id="childnodes">childNodes</h1>
+
+<p>각 노드에는 childNodes 프로퍼티가 있다. 이 프로퍼티에는 NodeList가 저장된다.
+NodeList 객체는 DOM 구조에 대한 쿼리 결과이며 문서가 바뀌면 NodeList 객체에도 자동적으로 반영된다. 
+계속 바뀌므로 살아있는 객체라고 부르기도 한다. </p>
+
+<h1 id="section-7">노드 조작</h1>
+
+<p>appendChild() : childNodes 목록에 노드를 추가한다. 
+insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (true=deep, false=shallow copy)</p>
+
+<p>jQuery의 append() 메소드 구현 </p>
+
+<p>```
+	append: function() {
+		return this.domManip( arguments, function( elem ) {
+			// nodeType(1): ELEMENT_NODE, (11): DOCUMENT_FRAGMENT_NODE (9):DOCUMENT_NODE
+			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+				var target = manipulationTarget( this, elem );
+				target.appendChild( elem );
+			}
+		});
+	},</p>
+
+<pre><code>prepend: function() {
+	return this.domManip( arguments, function( elem ) {
+		if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+			var target = manipulationTarget( this, elem );
+			target.insertBefore( elem, target.firstChild );
+		}
+	});
+},
+</code></pre>
+
+<p>```</p>
+
+<p>```
+// Support: IE&lt;8
+// Manipulating tables requires a tbody
+function manipulationTarget( elem, content ) {
+	return jQuery.nodeName( elem, “table” ) &amp;&amp;
+		jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, “tr” ) ?</p>
+
+<pre><code>	elem.getElementsByTagName("tbody")[0] ||
+		elem.appendChild( elem.ownerDocument.createElement("tbody") ) :
+	elem; } ```
+</code></pre>
+
+<h1 id="document-">Document 타입</h1>
+
+<p>document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 
+document.documentElement: &lt;html&gt;에 대한 참조를 얻는다. 
+document.body: &lt;body&gt;에 대한 참조를 얻는다. 
+document.doctype:  &lt;!DOCTYPE&gt; 에 대한 참조를 얻는다. </p>
+
+<h1 id="section-8">문서 정보</h1>
+<p>document.title : <title>
+document.URL: 페이지의 URL 
+document.domain: www.nhnent.com 의 경우 nhnent.com
+document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 </title></p>
+
+<h1 id="section-9">요소 위치</h1>
+<p>document.getElementById(“myDiv”);
+document.getElementByTageName(“div”);
+namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. </p>
+
+<h1 id="section-10">속성 얻기 / 조작</h1>
+<p>element.getAttribute(“속성명”);
+- 찾지 못한 경우 null반환 
+- 커스텀 속성 값을 가져오는 경우에 사용 가능 (커스텀 속성 값은 프로퍼티로 접근이 불가)</p>
+
+<p>element.setAttribute(“속성명”, “변경할 값”);
+- 속성명이 존재 하지 않을 경우에는 속성을 새로 정의하고 값을 설정한다. </p>
+
+<p>element.removeAttribute(“속성명”);
+속성명은 대소문자를 구분하지 않는다. </p>
+
+<h1 id="attribute-node-">attribute Node 타입</h1>
+<p>nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다. 
+Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. 
+- getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.
+- removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. 
+- setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프포러피에 따라 색인 ?
+- item(pos): 인덱스가 pos 인 노드를 반환한다. </p>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">hyungwon ,Yoon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>hyungwon ,Yoon</li>
+          <li><a href="mailto:hyungwon.yoon@nhnent.com">hyungwon.yoon@nhnent.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iyoon">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">iyoon</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -6,9 +6,222 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 13 Jul 2015 23:50:11 +0900</pubDate>
-    <lastBuildDate>Mon, 13 Jul 2015 23:50:11 +0900</lastBuildDate>
+    <pubDate>Mon, 05 Oct 2015 09:09:36 +0900</pubDate>
+    <lastBuildDate>Mon, 05 Oct 2015 09:09:36 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>자바스크립트 클라이언트 탐지와 DOM</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;9장 클라이언트 탐지&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;클라이언트 탐지의 필요성&lt;/h1&gt;
+&lt;p&gt;플랫폼별, 브라우저별, 브라우저의 버전별로 동일한 자바스크립트의 동작이 보장 되지 않는다.
+모든 브라우저에서 공통인 기능을 최소화 하여 개발하거나 클라이언트 탐지 방법을 통해 동작하지 않는 코드는 우회할 수 있도록 개발해야 한다. &lt;/p&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;기능탐지&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;메소드를 클라이언트의 브라우저에서 직접 실행 해본다.&lt;/li&gt;
+  &lt;li&gt;해당 코드의 프로퍼티 혹은 메소드가 존재하지 않거나 수행이 안될 경우 우회 할 다른 메소드를 이용한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;예를 들어 DOM에서 element를 찾는 (IE+6)document.getElemementById는 익스플로러 버전6부터 지원한다. 
+그 이하의 버전에서는 (IE 5-)document.all 메소드를 통해 같은 기능을 지원한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+function getElemeny(id){
+	// 코드 실행의 능률 향상을 위해 가장 일반적인 case를 조건문의 첫번째로 비교한다. 
+	if(document.elementById){
+		return document.getElementById(id);
+	}
+	else if(document.all){
+		return document.all[id];
+	}
+	else{
+		throw new Error(&quot;No way to retieve element&quot;);
+	}
+}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;잘못된 기능 탐지&lt;/h1&gt;
+
+&lt;p&gt;기능탐지 방법을 통해 브라우저를 탐지 하려하면 안된다. &lt;/p&gt;
+
+&lt;p&gt;파이어폭스 브라우저 탐지 코드 &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+var isFireFox = !!(navigator.vendor &amp;amp;&amp;amp; navigator.vendorSub);
+&lt;/code&gt;
+과거에는 navigator.vendor 와 navigator.venderSub만 체크하면 파이어폭스 브라우저임을 알 수 있었지만 
+현재는 사파리, 크롬 등도 해당 프로퍼티를 사용하고 있다. &lt;/p&gt;
+
+&lt;p&gt;익스플로러 브라우저 탐지 코드 &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+var isIE = !! (document.all &amp;amp;&amp;amp; document.uniqueID);
+&lt;/code&gt;
+미래에도 해당 프로퍼티 혹은 메소드가 존재 할 지 단정지을 수 없다. &lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;브라우저 그룹&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;
+var hasDOM1 = !!(document.getElementById &amp;amp;&amp;amp; document.createElement &amp;amp;&amp;amp; document.getElementByTagName);
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;DOM Level1 의 기능을 지원하는지를 체크하는 기능탐지는 반복적인 기능탐지 코드를 사용하지 않아도 되므로 추천!&lt;/p&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;브라우저 탐지&lt;/h1&gt;
+
+&lt;p&gt;브라우저의 사용자 &lt;code&gt;에이전트문자열&lt;/code&gt;을 통해 어떤 브라우저에서 실행 중인지를 확인하는 방법이다. 
+해당 브라우저 탐지 방법은 항상 신뢰 할 수가 없다. 
+그 이유는 브라우저가 에이전트 문자열을 통해 서버를 속이는 행위 지속해왔기 때문이다. &lt;/p&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;서버를 속이는 행위 ?&lt;/h1&gt;
+&lt;p&gt;넷스케이프 커뮤니테이션즈 (이하 넷스케이프) 는 모질라(“모자이크 킬러의 의미”)라는 코드네임을 따서 사용자 에이전트 문자열을 다음과 같이 정의했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+Mozilla/Version [Laugage] (Platform; Encryption)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;후속 주자로서 넷스케이프를 따라 잡으려 했던 익스플로러3의 에이전트 문자열은 다음과 같이 정의 했다. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+Mozilar/2.0 (compatible; MSIE Version; Operating System)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;MSIE 라는 문자열을 통해 IE 인지는 알겠지만… 왠 경쟁사의 Mozilar 코드네임을 사용할 수 밖에 없었을까? &lt;/p&gt;
+
+&lt;p&gt;그 이유는 많은 웹 페이지의 서버에는 페이지를 전송하기 전 넷스케이프사의 브라우저인지를 확인하려고 한다.
+서버가 브라우저를 판단하지 못할 경우 페이지가 깨지는 문제가 발생하게 되었다. &lt;/p&gt;
+
+&lt;p&gt;따라서, 익스플로러는 넷스케이프사 브라우저 인 것 처럼 서버를 속일 수 있는 
+넷스케이프사의 에이전트 문자열과 호환 될 수 있는 문자열을 정의 한 것이다. &lt;/p&gt;
+
+&lt;p&gt;크롬의 에이전트 문자열 &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&quot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;dom&quot;&gt;10장 DOM&lt;/h1&gt;
+
+&lt;h1 id=&quot;dom-1&quot;&gt;DOM&lt;/h1&gt;
+&lt;p&gt;DOM(Document Object Model)은 HTML과 XML문서에 대한 애플리케이션 프로그래밍 인터페이스(API) 이다. 
+DOM은 노드의 계층 구조로 이루어져 있다. &lt;/p&gt;
+
+&lt;h1 id=&quot;node-&quot;&gt;Node 타입&lt;/h1&gt;
+
+&lt;p&gt;노드는 12개의 노드 타입으로 구성되어있고, nodeType 프로퍼티를 통해 알 수 있다. &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Node.ELEMENT_NODE (1)&lt;/li&gt;
+  &lt;li&gt;Node.ATTRIBUTE_NODE (2) … &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(익스플로러는 Node 타입 생성자를 인터페이스에 노출하지 않으므로 상수 값으로 비교해야한다.)&lt;/p&gt;
+
+&lt;h1 id=&quot;nodename-nodevalue&quot;&gt;nodeName과 nodeValue&lt;/h1&gt;
+
+&lt;p&gt;nodeName과 nodeValue 프로퍼티는 해당 노드의 정보를 제공한다. 
+각 노드 타입에 따라 프로퍼티값이 다르다. 
+Node.ELEMENT_NODE는 nodeName은 요소의 태그이름과 일치하며 nodeValue는 null을 갖는다. &lt;/p&gt;
+
+&lt;h1 id=&quot;childnodes&quot;&gt;childNodes&lt;/h1&gt;
+
+&lt;p&gt;각 노드에는 childNodes 프로퍼티가 있다. 이 프로퍼티에는 NodeList가 저장된다.
+NodeList 객체는 DOM 구조에 대한 쿼리 결과이며 문서가 바뀌면 NodeList 객체에도 자동적으로 반영된다. 
+계속 바뀌므로 살아있는 객체라고 부르기도 한다. &lt;/p&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;노드 조작&lt;/h1&gt;
+
+&lt;p&gt;appendChild() : childNodes 목록에 노드를 추가한다. 
+insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (true=deep, false=shallow copy)&lt;/p&gt;
+
+&lt;p&gt;jQuery의 append() 메소드 구현 &lt;/p&gt;
+
+&lt;p&gt;```
+	append: function() {
+		return this.domManip( arguments, function( elem ) {
+			// nodeType(1): ELEMENT_NODE, (11): DOCUMENT_FRAGMENT_NODE (9):DOCUMENT_NODE
+			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+				var target = manipulationTarget( this, elem );
+				target.appendChild( elem );
+			}
+		});
+	},&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;prepend: function() {
+	return this.domManip( arguments, function( elem ) {
+		if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+			var target = manipulationTarget( this, elem );
+			target.insertBefore( elem, target.firstChild );
+		}
+	});
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;```
+// Support: IE&amp;lt;8
+// Manipulating tables requires a tbody
+function manipulationTarget( elem, content ) {
+	return jQuery.nodeName( elem, “table” ) &amp;amp;&amp;amp;
+		jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, “tr” ) ?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	elem.getElementsByTagName(&quot;tbody&quot;)[0] ||
+		elem.appendChild( elem.ownerDocument.createElement(&quot;tbody&quot;) ) :
+	elem; } ```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;document-&quot;&gt;Document 타입&lt;/h1&gt;
+
+&lt;p&gt;document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 
+document.documentElement: &amp;lt;html&amp;gt;에 대한 참조를 얻는다. 
+document.body: &amp;lt;body&amp;gt;에 대한 참조를 얻는다. 
+document.doctype:  &amp;lt;!DOCTYPE&amp;gt; 에 대한 참조를 얻는다. &lt;/p&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;문서 정보&lt;/h1&gt;
+&lt;p&gt;document.title : &lt;title&gt;
+document.URL: 페이지의 URL 
+document.domain: www.nhnent.com 의 경우 nhnent.com
+document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 &lt;/title&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-9&quot;&gt;요소 위치&lt;/h1&gt;
+&lt;p&gt;document.getElementById(“myDiv”);
+document.getElementByTageName(“div”);
+namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. &lt;/p&gt;
+
+&lt;h1 id=&quot;section-10&quot;&gt;속성 얻기 / 조작&lt;/h1&gt;
+&lt;p&gt;element.getAttribute(“속성명”);
+- 찾지 못한 경우 null반환 
+- 커스텀 속성 값을 가져오는 경우에 사용 가능 (커스텀 속성 값은 프로퍼티로 접근이 불가)&lt;/p&gt;
+
+&lt;p&gt;element.setAttribute(“속성명”, “변경할 값”);
+- 속성명이 존재 하지 않을 경우에는 속성을 새로 정의하고 값을 설정한다. &lt;/p&gt;
+
+&lt;p&gt;element.removeAttribute(“속성명”);
+속성명은 대소문자를 구분하지 않는다. &lt;/p&gt;
+
+&lt;h1 id=&quot;attribute-node-&quot;&gt;attribute Node 타입&lt;/h1&gt;
+&lt;p&gt;nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다. 
+Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. 
+- getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.
+- removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. 
+- setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프포러피에 따라 색인 ?
+- item(pos): 인덱스가 pos 인 노드를 반환한다. &lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 05 Oct 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/10/05/javscript-client-detecting.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/10/05/javscript-client-detecting.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>자바스크립트의 객체지향 프로그래밍</title>
@@ -1293,38 +1506,6 @@ hosts &lt;span class=&quot;nv&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&
         <pubDate>Mon, 11 May 2015 03:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/05/11/rsync.html</link>
         <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/05/11/rsync.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>SQL Tuning</title>
-        <description>&lt;h1 id=&quot;issue&quot;&gt;Issue&lt;/h1&gt;
-&lt;p&gt;특정 페이지의 조회가 매우 느리다는 유지보수 건을 처리하게 되었다.
-서비스 페이지에서 확인 해본 결과 조회를 하는데 1분이상 걸리고 때로는 time out이 났다. &lt;/p&gt;
-
-&lt;h1 id=&quot;section&quot;&gt;확인&lt;/h1&gt;
-&lt;p&gt;페이지 조회의 쿼리를 질의브라우저에서 실행해본 결과 질의 시간도 5초이내로 수행되고 검색결과도 많지 않았다. 
-쿼리에 문제가 없는 것으로 생각하고 Java에서 lock이 걸리는 것이 있는지 확인을 해보았지만 lock이 걸린것도 아니었다. 
-실행 결과 수도 100건이하였고, 단순히 리스트를 조회하여 화면에 출력하는 부분이어서 처리 수행시간이 오래 걸릴 부분이 아니었다.  &lt;/p&gt;
-
-&lt;h1 id=&quot;section-1&quot;&gt;원인&lt;/h1&gt;
-&lt;p&gt;DBA님을 통해 확인해본 결과 큐브리드는 DB에 직접 연결을 하는것이 아니라 브로커(broker)를 통해서 질의를 수행하고 처리결과를 사용자에게 준다. 
-각 브로커는 접속포트별로 있으며, 브로커별로 별도의 쿼리플랜을 캐쉬에 저장한다고 한다. 
-따라서 서비스단의 브로커의 쿼리플랜이 질의 브라우저에서 수행한 브로커의 쿼리플랜과 달라서 수행시간에 차이가 있었던 것이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;section-2&quot;&gt;해결&lt;/h1&gt;
-&lt;p&gt;쿼리 플랜을 확인 해본 결과 데이터가 많은 매핑테이블에서 full scan이 있었다.
-index scan이 될 수 있도록 index를 변경하였지만 그럼에도 플랜이 full scan이 되는 문제가 있었다.
-플랜을 수정하기 위해  /&lt;em&gt;+USE_IDX ORDERED&lt;/em&gt;/ 쿼리 힌트를 추가하고 나니 질의 속도가 매우 빨라졌고 해당 이슈를 해결 할 수 있었다. &lt;/p&gt;
-</description>
-        <pubDate>Mon, 04 May 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/05/04/SQLTuning.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/05/04/SQLTuning.html</guid>
         
         
         <category>jekyll</category>
