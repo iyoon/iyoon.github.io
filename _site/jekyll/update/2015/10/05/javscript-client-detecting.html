@@ -170,10 +170,17 @@ Node.ELEMENT_NODE는 nodeName은 요소의 태그이름과 일치하며 nodeValu
 NodeList 객체는 DOM 구조에 대한 쿼리 결과이며 문서가 바뀌면 NodeList 객체에도 자동적으로 반영된다. 
 계속 바뀌므로 살아있는 객체라고 부르기도 한다. </p>
 
+<p><img src="http://s27.postimg.org/w1db9jzpd/node.png" alt="javascript 노드구조" /></p>
+
 <h1 id="section-7">노드 조작</h1>
 
-<p>appendChild() : childNodes 목록에 노드를 추가한다. 
-insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (true=deep, false=shallow copy)</p>
+<ul>
+  <li>appendChild() : childNodes 목록에 노드를 추가한다. </li>
+  <li>insertBefore()</li>
+  <li>replaceChild()</li>
+  <li>removeChild()</li>
+  <li>cloneChilde(boolean copyType) (true=deep, false=shallow copy)</li>
+</ul>
 
 <p>jQuery의 append() 메소드 구현 </p>
 
@@ -209,21 +216,32 @@ insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (t
 
 <h1 id="document-">Document 타입</h1>
 
-<p>document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 
-document.documentElement: &lt;html&gt;에 대한 참조를 얻는다. 
-document.body: &lt;body&gt;에 대한 참조를 얻는다. 
-document.doctype:  &lt;!DOCTYPE&gt; 에 대한 참조를 얻는다. </p>
+<p>document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 </p>
+
+<ul>
+  <li>document.documentElement: &lt;html&gt;에 대한 참조를 얻는다. </li>
+  <li>document.body: &lt;body&gt;에 대한 참조를 얻는다. </li>
+  <li>document.doctype:  &lt;!DOCTYPE&gt; 에 대한 참조를 얻는다. </li>
+</ul>
 
 <h1 id="section-8">문서 정보</h1>
-<p>document.title : <title>
-document.URL: 페이지의 URL 
-document.domain: www.nhnent.com 의 경우 nhnent.com
-document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 </title></p>
+<p>document.title : &lt;title&gt; 에대한 참조를 얻는다.</p>
+
+<ul>
+  <li>document.URL: 페이지의 URL </li>
+  <li>document.domain: www.nhnent.com 의 경우 nhnent.com</li>
+  <li>document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 </li>
+</ul>
 
 <h1 id="section-9">요소 위치</h1>
-<p>document.getElementById(“myDiv”);
-document.getElementByTageName(“div”);
-namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. </p>
+<ul>
+  <li>document.getElementById(“myDiv”);</li>
+  <li>document.getElementByTageName(“div”);
+    <ul>
+      <li>namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. </li>
+    </ul>
+  </li>
+</ul>
 
 <h1 id="section-10">속성 얻기 / 조작</h1>
 <p>element.getAttribute(“속성명”);
@@ -238,11 +256,14 @@ namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참�
 
 <h1 id="attribute-node-">attribute Node 타입</h1>
 <p>nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다. 
-Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. 
-- getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.
-- removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. 
-- setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프포러피에 따라 색인 ?
-- item(pos): 인덱스가 pos 인 노드를 반환한다. </p>
+Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. </p>
+
+<ul>
+  <li>getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.</li>
+  <li>removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. </li>
+  <li>setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프로퍼티에 따라 색인한다.</li>
+  <li>item(pos): 인덱스가 pos 인 노드를 반환한다. </li>
+</ul>
 
 
   </article>

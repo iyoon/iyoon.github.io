@@ -6,8 +6,8 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 05 Oct 2015 09:13:04 +0900</pubDate>
-    <lastBuildDate>Mon, 05 Oct 2015 09:13:04 +0900</lastBuildDate>
+    <pubDate>Mon, 05 Oct 2015 09:36:56 +0900</pubDate>
+    <lastBuildDate>Mon, 05 Oct 2015 09:36:56 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -120,10 +120,17 @@ Node.ELEMENT_NODE는 nodeName은 요소의 태그이름과 일치하며 nodeValu
 NodeList 객체는 DOM 구조에 대한 쿼리 결과이며 문서가 바뀌면 NodeList 객체에도 자동적으로 반영된다. 
 계속 바뀌므로 살아있는 객체라고 부르기도 한다. &lt;/p&gt;
 
+&lt;p&gt;&lt;img src=&quot;http://s27.postimg.org/w1db9jzpd/node.png&quot; alt=&quot;javascript 노드구조&quot; /&gt;&lt;/p&gt;
+
 &lt;h1 id=&quot;section-7&quot;&gt;노드 조작&lt;/h1&gt;
 
-&lt;p&gt;appendChild() : childNodes 목록에 노드를 추가한다. 
-insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (true=deep, false=shallow copy)&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;appendChild() : childNodes 목록에 노드를 추가한다. &lt;/li&gt;
+  &lt;li&gt;insertBefore()&lt;/li&gt;
+  &lt;li&gt;replaceChild()&lt;/li&gt;
+  &lt;li&gt;removeChild()&lt;/li&gt;
+  &lt;li&gt;cloneChilde(boolean copyType) (true=deep, false=shallow copy)&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;jQuery의 append() 메소드 구현 &lt;/p&gt;
 
@@ -159,21 +166,32 @@ insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (t
 
 &lt;h1 id=&quot;document-&quot;&gt;Document 타입&lt;/h1&gt;
 
-&lt;p&gt;document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 
-document.documentElement: &amp;lt;html&amp;gt;에 대한 참조를 얻는다. 
-document.body: &amp;lt;body&amp;gt;에 대한 참조를 얻는다. 
-document.doctype:  &amp;lt;!DOCTYPE&amp;gt; 에 대한 참조를 얻는다. &lt;/p&gt;
+&lt;p&gt;document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;document.documentElement: &amp;lt;html&amp;gt;에 대한 참조를 얻는다. &lt;/li&gt;
+  &lt;li&gt;document.body: &amp;lt;body&amp;gt;에 대한 참조를 얻는다. &lt;/li&gt;
+  &lt;li&gt;document.doctype:  &amp;lt;!DOCTYPE&amp;gt; 에 대한 참조를 얻는다. &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;section-8&quot;&gt;문서 정보&lt;/h1&gt;
-&lt;p&gt;document.title : &lt;title&gt;
-document.URL: 페이지의 URL 
-document.domain: www.nhnent.com 의 경우 nhnent.com
-document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 &lt;/title&gt;&lt;/p&gt;
+&lt;p&gt;document.title : &amp;lt;title&amp;gt; 에대한 참조를 얻는다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;document.URL: 페이지의 URL &lt;/li&gt;
+  &lt;li&gt;document.domain: www.nhnent.com 의 경우 nhnent.com&lt;/li&gt;
+  &lt;li&gt;document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;section-9&quot;&gt;요소 위치&lt;/h1&gt;
-&lt;p&gt;document.getElementById(“myDiv”);
-document.getElementByTageName(“div”);
-namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. &lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;document.getElementById(“myDiv”);&lt;/li&gt;
+  &lt;li&gt;document.getElementByTageName(“div”);
+    &lt;ul&gt;
+      &lt;li&gt;namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;section-10&quot;&gt;속성 얻기 / 조작&lt;/h1&gt;
 &lt;p&gt;element.getAttribute(“속성명”);
@@ -188,11 +206,14 @@ namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참�
 
 &lt;h1 id=&quot;attribute-node-&quot;&gt;attribute Node 타입&lt;/h1&gt;
 &lt;p&gt;nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다. 
-Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. 
-- getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.
-- removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. 
-- setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프포러피에 따라 색인 ?
-- item(pos): 인덱스가 pos 인 노드를 반환한다. &lt;/p&gt;
+Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.&lt;/li&gt;
+  &lt;li&gt;removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. &lt;/li&gt;
+  &lt;li&gt;setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프로퍼티에 따라 색인한다.&lt;/li&gt;
+  &lt;li&gt;item(pos): 인덱스가 pos 인 노드를 반환한다. &lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Mon, 05 Oct 2015 03:00:00 +0900</pubDate>

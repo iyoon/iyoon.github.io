@@ -127,12 +127,15 @@ Node.ELEMENT_NODE는 nodeName은 요소의 태그이름과 일치하며 nodeValu
 NodeList 객체는 DOM 구조에 대한 쿼리 결과이며 문서가 바뀌면 NodeList 객체에도 자동적으로 반영된다. 
 계속 바뀌므로 살아있는 객체라고 부르기도 한다. 
 
+![javascript 노드구조](http://s27.postimg.org/w1db9jzpd/node.png)
 
 # 노드 조작 
 
-appendChild() : childNodes 목록에 노드를 추가한다. 
-insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (true=deep, false=shallow copy)
-
+- appendChild() : childNodes 목록에 노드를 추가한다. 
+- insertBefore()
+- replaceChild()
+- removeChild()
+- cloneChilde(boolean copyType) (true=deep, false=shallow copy)
 
 jQuery의 append() 메소드 구현 
 
@@ -174,21 +177,23 @@ function manipulationTarget( elem, content ) {
 # Document 타입 
 
 document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 
-document.documentElement: <html>에 대한 참조를 얻는다. 
-document.body: <body>에 대한 참조를 얻는다. 
-document.doctype:  <!DOCTYPE> 에 대한 참조를 얻는다. 
+
+- document.documentElement: \<html\>에 대한 참조를 얻는다. 
+- document.body: \<body\>에 대한 참조를 얻는다. 
+- document.doctype:  \<!DOCTYPE\> 에 대한 참조를 얻는다. 
 
 # 문서 정보 
-document.title : <title>
-document.URL: 페이지의 URL 
-document.domain: www.nhnent.com 의 경우 nhnent.com
-document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 
+document.title : \<title\> 에대한 참조를 얻는다.
+
+- document.URL: 페이지의 URL 
+- document.domain: www.nhnent.com 의 경우 nhnent.com
+- document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 
 
 
 # 요소 위치 
-document.getElementById("myDiv");
-document.getElementByTageName("div");
-namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. 
+- document.getElementById("myDiv");
+- document.getElementByTageName("div");
+  - namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. 
 
 
 # 속성 얻기 / 조작
@@ -206,8 +211,9 @@ element.removeAttribute("속성명");
 # attribute Node 타입 
 nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다. 
 Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. 
+
 - getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.
 - removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. 
-- setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프포러피에 따라 색인 ?
+- setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프로퍼티에 따라 색인한다.
 - item(pos): 인덱스가 pos 인 노드를 반환한다. 
 
