@@ -196,22 +196,42 @@ document.title : \<title\> 에대한 참조를 얻는다.
 
 - document.URL: 페이지의 URL 
 - document.domain: www.nhnent.com 의 경우 nhnent.com
+
+# Same-origin policy(동일 출처 정책):
+ajax 스크립트를 포함하는 문서가 위치한 웹 서버에만 호출이 가능하다. 
+
 - document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열로 설정된다. 
 
 
-# 요소 위치 
+# Element 탐색 
 - document.getElementById("myDiv");
+  - 해당 element가 없는 경우, null 을 반환한다.
+  - IE7에서 id와 name이 동일한 element가 있는 경우, name이 일치하는 element를 찾는 버그가 있음.(name element가 id element보다 앞에 위치한 경우)
+
 - document.getElementByTageName("div");
   - namedItem() 메서드: name 속성으로 탐색이 가능
 
+# Element 추가 
+document.ceateElement() 메서드를 통해 새 요소를 생성할 수 있다.  
 
-# 속성 얻기 / 조작
+{% highlight javascript %}
+var div = document.createElement("div");
+div.id="myNewDiv";
+div.className="box"
+document.body.appendChild(div);
+{% endhighlight %}
 
-속성명은 대소문자를 구분하지 않는다. 
+# Attribute 조작 
 
 element.getAttribute("속성명");
+
 - 찾지 못한 경우 null반환 
-- 커스텀 속성 값을 가져오는 경우에 사용 가능 (커스텀 속성 값은 프로퍼티로 접근이 불가)
+- 속성명은 대소문자를 구분하지 않는다. 
+- 커스텀 속성 값을 가져오는 경우에 사용 가능 
+- 커스텀 속성 값은 프로퍼티로 접근이 불가
+  - element.custom_attribute_data (X) 
+  - element.id (O)
+- 이벤트 핸들러 속성은 해당 코드의 문자열을 리턴한다. 
 
 
 element.setAttribute("속성명", "변경할 값");
@@ -220,12 +240,5 @@ element.setAttribute("속성명", "변경할 값");
 element.removeAttribute("속성명");
 
 
-# Attribute Node 타입 
-nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다.  
-Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. 
 
-- getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.
-- removeNameItem(name): nodeName 프로퍼티가 name인 노드를 목록에서 제거한다. 
-- setNamedItem(name): node 목록에 속성을 추가하고 nodeName 프로퍼티에 따라 색인한다.
-- item(pos): 인덱스가 pos 인 노드를 반환한다. 
 
