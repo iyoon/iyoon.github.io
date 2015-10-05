@@ -110,8 +110,18 @@ DOM은 노드의 계층 구조로 이루어져 있다.
 
 노드는 12개의 노드 타입으로 구성되어있고, nodeType 프로퍼티를 통해 알 수 있다. 
 
-- Node.ELEMENT_NODE (1)
-- Node.ATTRIBUTE_NODE (2) ... 
+- Node.ELEMENT_NODE(1)
+- Node.ARRTIBUTE_NODE(2)
+- Node.TEXT_NODE(3)
+- Node.CDATA_SECTION_NODE(4)
+- Node.ENTITY_REFERENCE_NODE(5)
+- Node.ENTITY_NODE(6)
+- Node.PROCESSING_INSTRUCTION_NODE(7)
+- Node.COMMENT_NODE(8)
+- Node.DOCUMENT_NODE(9)
+- Node.DOCUMENT_TYPE_NODE(10)
+- Node.DOCUMENT_FRANMENT_NODE(11)
+- Node.NOTATION_NODE(12)
 
 (익스플로러는 Node 타입 생성자를 인터페이스에 노출하지 않으므로 상수 값으로 비교해야한다.)
 
@@ -121,7 +131,7 @@ nodeName과 nodeValue 프로퍼티는 해당 노드의 정보를 제공한다.
 각 노드 타입에 따라 프로퍼티값이 다르다. 
 Node.ELEMENT_NODE는 nodeName은 요소의 태그이름과 일치하며 nodeValue는 null을 갖는다. 
 
-# childNodes
+# 노드 사이의 관계 
 
 각 노드에는 childNodes 프로퍼티가 있다. 이 프로퍼티에는 NodeList가 저장된다.
 NodeList 객체는 DOM 구조에 대한 쿼리 결과이며 문서가 바뀌면 NodeList 객체에도 자동적으로 반영된다. 
@@ -129,13 +139,12 @@ NodeList 객체는 DOM 구조에 대한 쿼리 결과이며 문서가 바뀌면 
 
 ![javascript 노드구조](http://s27.postimg.org/w1db9jzpd/node.png)
 
-# 노드 조작 
-
+# 노드 조작 API
 - appendChild() : childNodes 목록에 노드를 추가한다. 
-- insertBefore()
-- replaceChild()
-- removeChild()
-- cloneChilde(boolean copyType) (true=deep, false=shallow copy)
+- insertBefore() : 특정 노드의 바로 앞에 노드를 삽입한다.
+- replaceChild() : 기존 노드를 새로운 노드로 교체한다.
+- removeChild() : 특정 노드를 삭제한다. 
+- cloneChilde(boolean copyType) : 노드를 복제한다. (copyType : true로 설정시 deep copy, false로 설정시 shallow copy)
 
 jQuery의 append() 메소드 구현 
 
@@ -176,7 +185,7 @@ function manipulationTarget( elem, content ) {
 
 # Document 타입 
 
-document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작 
+document 객체를 통해 페이지에 대한 정보를 얻고, 구조 및 외관을 조작한다. 
 
 - document.documentElement: \<html\>에 대한 참조를 얻는다. 
 - document.body: \<body\>에 대한 참조를 얻는다. 
@@ -187,16 +196,19 @@ document.title : \<title\> 에대한 참조를 얻는다.
 
 - document.URL: 페이지의 URL 
 - document.domain: www.nhnent.com 의 경우 nhnent.com
-- document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열 
+- document.referrer: 이 페이지를 링크한 페이지의 URL이 들어있다. 없는 경우 빈문자열로 설정된다. 
 
 
 # 요소 위치 
 - document.getElementById("myDiv");
 - document.getElementByTageName("div");
-  - namedItem() 메서드: name 속성을 통해 컬렉션 데이터에 대한 참조를 얻는다. 
+  - namedItem() 메서드: name 속성으로 탐색이 가능
 
 
 # 속성 얻기 / 조작
+
+속성명은 대소문자를 구분하지 않는다. 
+
 element.getAttribute("속성명");
 - 찾지 못한 경우 null반환 
 - 커스텀 속성 값을 가져오는 경우에 사용 가능 (커스텀 속성 값은 프로퍼티로 접근이 불가)
@@ -206,10 +218,10 @@ element.setAttribute("속성명", "변경할 값");
 - 속성명이 존재 하지 않을 경우에는 속성을 새로 정의하고 값을 설정한다. 
 
 element.removeAttribute("속성명");
-속성명은 대소문자를 구분하지 않는다. 
 
-# attribute Node 타입 
-nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다. 
+
+# Attribute Node 타입 
+nodeName은 attribute 이름, nodeValue는 속성 값이 들어간다.  
 Attr 노드는 NamedNodeMap 객체에 저장되며, 해당 객체에는 다음 메서드를 제공한다. 
 
 - getNamedItem(name): nodeName 프로퍼티가 name인 노드를 반환한다.
