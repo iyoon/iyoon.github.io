@@ -78,20 +78,18 @@
 <p>예를 들어 DOM에서 element를 찾는 (IE+6)document.getElemementById는 익스플로러 버전6부터 지원한다. 
 그 이하의 버전에서는 (IE 5-)document.all 메소드를 통해 같은 기능을 지원한다.</p>
 
-<p><code>
-function getElemeny(id){
-	// 코드 실행의 능률 향상을 위해 가장 일반적인 case를 조건문의 첫번째로 비교한다. 
-	if(document.elementById){
-		return document.getElementById(id);
-	}
-	else if(document.all){
-		return document.all[id];
-	}
-	else{
-		throw new Error("No way to retieve element");
-	}
-}
-</code></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">getElemeny</span><span class="p">(</span><span class="nx">id</span><span class="p">){</span>
+	<span class="c1">// 코드 실행의 능률 향상을 위해 가장 일반적인 case를 조건문의 첫번째로 비교한다. </span>
+	<span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">elementById</span><span class="p">){</span>
+		<span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">all</span><span class="p">){</span>
+		<span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">all</span><span class="p">[</span><span class="nx">id</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="k">else</span><span class="p">{</span>
+		<span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;No way to retieve element&quot;</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
 
 <h1 id="section-3">잘못된 기능 탐지</h1>
 
@@ -99,24 +97,20 @@ function getElemeny(id){
 
 <p>파이어폭스 브라우저 탐지 코드 </p>
 
-<p><code>
-var isFireFox = !!(navigator.vendor &amp;&amp; navigator.vendorSub);
-</code>
-과거에는 navigator.vendor 와 navigator.venderSub만 체크하면 파이어폭스 브라우저임을 알 수 있었지만 
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">isFireFox</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">vendor</span> <span class="o">&amp;&amp;</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">vendorSub</span><span class="p">);</span></code></pre></div>
+
+<p>과거에는 navigator.vendor 와 navigator.venderSub만 체크하면 파이어폭스 브라우저임을 알 수 있었지만 
 현재는 사파리, 크롬 등도 해당 프로퍼티를 사용하고 있다. </p>
 
 <p>익스플로러 브라우저 탐지 코드 </p>
 
-<p><code>
-var isIE = !! (document.all &amp;&amp; document.uniqueID);
-</code>
-미래에도 해당 프로퍼티 혹은 메소드가 존재 할 지 단정지을 수 없다. </p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">isIE</span> <span class="o">=</span> <span class="o">!!</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">all</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">uniqueID</span><span class="p">);</span></code></pre></div>
+
+<p>미래에도 해당 프로퍼티 혹은 메소드가 존재 할 지 단정지을 수 없다. </p>
 
 <h1 id="section-4">브라우저 그룹</h1>
 
-<p><code>
-var hasDOM1 = !!(document.getElementById &amp;&amp; document.createElement &amp;&amp; document.getElementByTagName);
-</code></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">hasDOM1</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementByTagName</span><span class="p">);</span></code></pre></div>
 
 <p>DOM Level1 의 기능을 지원하는지를 체크하는 기능탐지는 반복적인 기능탐지 코드를 사용하지 않아도 되므로 추천!</p>
 
@@ -129,15 +123,11 @@ var hasDOM1 = !!(document.getElementById &amp;&amp; document.createElement &amp;
 <h1 id="section-6">서버를 속이는 행위 ?</h1>
 <p>넷스케이프 커뮤니테이션즈 (이하 넷스케이프) 는 모질라(“모자이크 킬러의 의미”)라는 코드네임을 따서 사용자 에이전트 문자열을 다음과 같이 정의했다.</p>
 
-<p><code>
-Mozilla/Version [Laugage] (Platform; Encryption)
-</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Mozilla/Version [Laugage] (Platform; Encryption)</code></pre></div>
 
 <p>후속 주자로서 넷스케이프를 따라 잡으려 했던 익스플로러3의 에이전트 문자열은 다음과 같이 정의 했다. </p>
 
-<p><code>
-Mozilar/2.0 (compatible; MSIE Version; Operating System)
-</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Mozilar/2.0 (compatible; MSIE Version; Operating System)</code></pre></div>
 
 <p>MSIE 라는 문자열을 통해 IE 인지는 알겠지만… 왠 경쟁사의 Mozilar 코드네임을 사용할 수 밖에 없었을까? </p>
 
@@ -149,9 +139,7 @@ Mozilar/2.0 (compatible; MSIE Version; Operating System)
 
 <p>크롬의 에이전트 문자열 </p>
 
-<p><code>
-"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36"
-</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&quot;</code></pre></div>
 
 <h1 id="dom">10장 DOM</h1>
 
@@ -189,40 +177,35 @@ insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (t
 
 <p>jQuery의 append() 메소드 구현 </p>
 
-<p>```
-	append: function() {
-		return this.domManip( arguments, function( elem ) {
-			// nodeType(1): ELEMENT_NODE, (11): DOCUMENT_FRAGMENT_NODE (9):DOCUMENT_NODE
-			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-				var target = manipulationTarget( this, elem );
-				target.appendChild( elem );
-			}
-		});
-	},</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">append</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">domManip</span><span class="p">(</span> <span class="nx">arguments</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">elem</span> <span class="p">)</span> <span class="p">{</span>
+			<span class="c1">// nodeType(1): ELEMENT_NODE, (11): DOCUMENT_FRAGMENT_NODE (9):DOCUMENT_NODE</span>
+			<span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">11</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">9</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">manipulationTarget</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">elem</span> <span class="p">);</span>
+				<span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">elem</span> <span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">});</span>
+	<span class="p">},</span>
 
-<pre><code>prepend: function() {
-	return this.domManip( arguments, function( elem ) {
-		if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-			var target = manipulationTarget( this, elem );
-			target.insertBefore( elem, target.firstChild );
-		}
-	});
-},
-</code></pre>
+	<span class="nx">prepend</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">domManip</span><span class="p">(</span> <span class="nx">arguments</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">elem</span> <span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">11</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">9</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">manipulationTarget</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">elem</span> <span class="p">);</span>
+				<span class="nx">target</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span> <span class="nx">elem</span><span class="p">,</span> <span class="nx">target</span><span class="p">.</span><span class="nx">firstChild</span> <span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">});</span>
+	<span class="p">},</span></code></pre></div>
 
-<p>```</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Support: IE&lt;8</span>
+<span class="c1">// Manipulating tables requires a tbody</span>
+<span class="kd">function</span> <span class="nx">manipulationTarget</span><span class="p">(</span> <span class="nx">elem</span><span class="p">,</span> <span class="nx">content</span> <span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">(</span> <span class="nx">elem</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span> <span class="p">)</span> <span class="o">&amp;&amp;</span>
+		<span class="nx">jQuery</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">(</span> <span class="nx">content</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">!==</span> <span class="mi">11</span> <span class="o">?</span> <span class="nx">content</span> <span class="o">:</span> <span class="nx">content</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">,</span> <span class="s2">&quot;tr&quot;</span> <span class="p">)</span> <span class="o">?</span>
 
-<p>```
-// Support: IE&lt;8
-// Manipulating tables requires a tbody
-function manipulationTarget( elem, content ) {
-	return jQuery.nodeName( elem, “table” ) &amp;&amp;
-		jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, “tr” ) ?</p>
-
-<pre><code>	elem.getElementsByTagName("tbody")[0] ||
-		elem.appendChild( elem.ownerDocument.createElement("tbody") ) :
-	elem; } ```
-</code></pre>
+		<span class="nx">elem</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;tbody&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span>
+			<span class="nx">elem</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">ownerDocument</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;tbody&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="o">:</span>
+		<span class="nx">elem</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 
 <h1 id="document-">Document 타입</h1>
 

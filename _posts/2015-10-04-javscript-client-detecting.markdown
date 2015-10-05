@@ -19,7 +19,7 @@ categories: jekyll update
 예를 들어 DOM에서 element를 찾는 (IE+6)document.getElemementById는 익스플로러 버전6부터 지원한다. 
 그 이하의 버전에서는 (IE 5-)document.all 메소드를 통해 같은 기능을 지원한다.
 
-```
+{% highlight javascript %}
 function getElemeny(id){
 	// 코드 실행의 능률 향상을 위해 가장 일반적인 case를 조건문의 첫번째로 비교한다. 
 	if(document.elementById){
@@ -32,7 +32,7 @@ function getElemeny(id){
 		throw new Error("No way to retieve element");
 	}
 }
-```
+{% endhighlight %}
 
 #잘못된 기능 탐지 
 
@@ -40,25 +40,27 @@ function getElemeny(id){
 
 파이어폭스 브라우저 탐지 코드 
 
-```
+{% highlight javascript %}
 var isFireFox = !!(navigator.vendor && navigator.vendorSub);
-```
+{% endhighlight %}
+
 과거에는 navigator.vendor 와 navigator.venderSub만 체크하면 파이어폭스 브라우저임을 알 수 있었지만 
 현재는 사파리, 크롬 등도 해당 프로퍼티를 사용하고 있다. 
 
 익스플로러 브라우저 탐지 코드 
 
-```
+{% highlight javascript %}
 var isIE = !! (document.all && document.uniqueID);
-```
+{% endhighlight %}
+
 미래에도 해당 프로퍼티 혹은 메소드가 존재 할 지 단정지을 수 없다. 
 
 
 #브라우저 그룹 
 
-```
+{% highlight javascript %}
 var hasDOM1 = !!(document.getElementById && document.createElement && document.getElementByTagName);
-```
+{% endhighlight %}
 
 DOM Level1 의 기능을 지원하는지를 체크하는 기능탐지는 반복적인 기능탐지 코드를 사용하지 않아도 되므로 추천!
 
@@ -72,15 +74,15 @@ DOM Level1 의 기능을 지원하는지를 체크하는 기능탐지는 반복�
 # 서버를 속이는 행위 ? 
 넷스케이프 커뮤니테이션즈 (이하 넷스케이프) 는 모질라("모자이크 킬러의 의미")라는 코드네임을 따서 사용자 에이전트 문자열을 다음과 같이 정의했다.
 
-```
+{% highlight text %}
 Mozilla/Version [Laugage] (Platform; Encryption)
-```
+{% endhighlight %}
 
 후속 주자로서 넷스케이프를 따라 잡으려 했던 익스플로러3의 에이전트 문자열은 다음과 같이 정의 했다. 
 
-```
+{% highlight text %}
 Mozilar/2.0 (compatible; MSIE Version; Operating System)
-```
+{% endhighlight %}
 
 MSIE 라는 문자열을 통해 IE 인지는 알겠지만... 왠 경쟁사의 Mozilar 코드네임을 사용할 수 밖에 없었을까? 
 
@@ -93,9 +95,9 @@ MSIE 라는 문자열을 통해 IE 인지는 알겠지만... 왠 경쟁사의 Mo
 
 크롬의 에이전트 문자열 
 
-``` 
+{% highlight text %}
 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36"
-```
+{% endhighlight %}
 
 
 #10장 DOM 
@@ -134,7 +136,7 @@ insertBefore(), replaceChild(), removeChild(), cloneChilde(boolean copyType); (t
 
 jQuery의 append() 메소드 구현 
 
-```
+{% highlight javascript %}
 	append: function() {
 		return this.domManip( arguments, function( elem ) {
 			// nodeType(1): ELEMENT_NODE, (11): DOCUMENT_FRAGMENT_NODE (9):DOCUMENT_NODE
@@ -153,11 +155,10 @@ jQuery의 append() 메소드 구현
 			}
 		});
 	},
+{% endhighlight %}
 
-```
 
-
-```
+{% highlight javascript %}
 // Support: IE<8
 // Manipulating tables requires a tbody
 function manipulationTarget( elem, content ) {
@@ -168,7 +169,7 @@ function manipulationTarget( elem, content ) {
 			elem.appendChild( elem.ownerDocument.createElement("tbody") ) :
 		elem;
 }
-```
+{% endhighlight %}
 
 # Document 타입 
 
