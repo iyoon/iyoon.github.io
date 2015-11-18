@@ -6,9 +6,507 @@
 </description>
     <link>http://iyoon.github.io/</link>
     <atom:link href="http://iyoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 05 Oct 2015 14:51:14 +0900</pubDate>
-    <lastBuildDate>Mon, 05 Oct 2015 14:51:14 +0900</lastBuildDate>
+    <pubDate>Tue, 17 Nov 2015 01:11:38 +0900</pubDate>
+    <lastBuildDate>Tue, 17 Nov 2015 01:11:38 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>13장 자바스크립트 이벤트</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;1. 이벤트&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;문서나 브라우저에서 특정 순간에 일어 난 일 &lt;/li&gt;
+  &lt;li&gt;DOM 레벨2에서 DOM 이벤트에 대한 표준화를 시작하였음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;2. 이벤트 흐름&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;2.1 페이지에서 이벤트가 전달 되는 순서&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;DOM 트리구조에서 각 요소(Element)에 이벤트를 부여할때 이벤트 흐름 방식을 지정 할 수 있다.  &lt;/li&gt;
+  &lt;li&gt;익스플로러는 &lt;code&gt;버블링&lt;/code&gt;, 넷스케이프는 &lt;code&gt;캡쳐링&lt;/code&gt; 방식을 지원한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;2.2 버블링 방식&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;문서 트리에 가장 깊이 위치한 요소 부터 부모 페이지로 거슬러 올라가는 방식 &lt;/li&gt;
+  &lt;li&gt;마치 거품이 올라가는 모양 같아서 ‘버블링’ 이라고 이름 지어짐.&lt;/li&gt;
+  &lt;li&gt;최신 브라우저는 모두 이벤트 버블링 방식을 지원을 한다. &lt;/li&gt;
+  &lt;li&gt;div 요소를 클릭하게 되면 아래의 그림과 같이 div 요소 부터 DOM 트리를 거슬러 올라간다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://s17.postimg.org/51kxf6il7/bubble.png&quot; alt=&quot;버블링 방식&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;2.3 캡쳐링 방식&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;최상위 노드에서 처음으로 이벤트가 발생하여 가장 명시적인 노드에서 마지막으로 발생한다.&lt;/li&gt;
+  &lt;li&gt;이벤트가 의도한 요소에 도달하기 직전에 잡아채려는 목적으로 만들어졌다. &lt;/li&gt;
+  &lt;li&gt;IE 8이하에서는 지원을 하지 않기 때문에 많이 사용하지 않는다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://s17.postimg.org/iwj7xnd0b/capture.png&quot; alt=&quot;캡쳐링 방식&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;3.이벤트 핸들러 연결하는 방법&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;3.1 이벤트 핸들러(리스너) 란?&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;이벤트에 응답하여 호출되는 함수&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;html--&quot;&gt;3.2 HTML 이벤트 핸들러&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;html 속성에 이벤트를 설정하는 방식 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;button&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;vlaue=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;click me!&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;onclick=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;alert(event.type);&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;html-----&quot;&gt;3.3 html에 이벤트 핸들러를 할당하면 안좋은 이유!&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;핸들러 코드가 로드되기 이전에 html 요소를 통해 호출 할 수 있음.&lt;/li&gt;
+  &lt;li&gt;html 과 자바스크립트가 너무 단단히 묶이게 된다. (이벤트 핸들러 수정시 html과 script 모두 변경이 필요하다.)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;dom-0--&quot;&gt;4. DOM 레벨0 이벤트 핸들러&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;객체에 대한 참조를 얻는다.&lt;/li&gt;
+  &lt;li&gt;이벤트 핸들러 프로퍼티에 핸들러 연결한다. 
+    &lt;ul&gt;
+      &lt;li&gt;일반적으로 소문자로 입력한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;btn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;myBtn&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+  	&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;clicked&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;	
+  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;dom-0---1&quot;&gt;5. DOM 레벨0 핸들러 제거&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;dom--2--&quot;&gt;6. DOM 레벨 2 이벤트 핸들러&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;DOM 레벨0과의 차이점: 여러 개의 이벤트 핸들러를 연결 할 수 있다. &lt;/li&gt;
+  &lt;li&gt;이벤트 추가: addEventListener()
+    &lt;ul&gt;
+      &lt;li&gt;캡처링: true&lt;/li&gt;
+      &lt;li&gt;버블링: false &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;이벤트 제거: removeEventListner()
+    &lt;ul&gt;
+      &lt;li&gt;추가 등록시 동일한 함수 객체를 매개변수로 넘겨야 제거가 가능하다. &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;btn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;myBtn&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;click&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;clicked&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;7. 익스플로러 이벤트 핸들러&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이벤트 등록: attachEvent()&lt;/li&gt;
+  &lt;li&gt;이벤트 제거: detachEvent() &lt;/li&gt;
+  &lt;li&gt;IE8이하 버전은 버블링 방식만 지원한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dom-event-&quot;&gt;8. DOM event 객체&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DOM과 관련된 이벤트가 발생하면 관련 정보는 모두 &lt;code&gt;event&lt;/code&gt; 라는 객체에 저장된다. &lt;/li&gt;
+  &lt;li&gt;이 객체에는 이벤트가 발생한 요소, 이벤트 타입 같은 기본 정보는 물론 이벤트와 관련된 다른 데이터도 저장된다.&lt;/li&gt;
+  &lt;li&gt;매개변수로 &lt;code&gt;event&lt;/code&gt; 객체가 전달 된다. &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;event&lt;/code&gt; 객체는 이벤트 핸들러가 아직 실행 중일 때만 존재하며 이벤트 핸들러가 실행을 마치면 &lt;code&gt;event&lt;/code&gt; 객체는 파과된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;event-&quot;&gt;8.1 event 프로퍼티&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;type&lt;/strong&gt;: 발생한 이벤트 타입 (onclick, onload…)
+    &lt;ul&gt;
+      &lt;li&gt;포커스 이벤트: 요소가 포커스를 얻거나 잃을때 발생 (focus, blur, focusin, focusout)&lt;/li&gt;
+      &lt;li&gt;마우스 이벤트: 마우스로 어떤 동작을 취할때 발생 (click, dbclick, mousedown …)&lt;/li&gt;
+      &lt;li&gt;휠 이벤트: 마우스 휠로 어떤 동작을 취할때 발생 (mousewheel …)&lt;/li&gt;
+      &lt;li&gt;키보드 이벤트: 키보드로 어떤 동작을 취할때 발생 (keydown, kypress, keyup, textInput …)&lt;/li&gt;
+      &lt;li&gt;구성 이벤트: IME 를 통해 문자를 입력 할 때 발생 &lt;/li&gt;
+      &lt;li&gt;변경 이벤트: DOM 구조가 바뀔 때 발생(요소나 속성의 이름이 발생) (DOMNodeInserted,DOMNodeRemoved,DOMAttrModifed… )&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;bubbles&lt;/strong&gt;: 이벤트가 버블링 되는지 나타낸다. &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;cancelable&lt;/strong&gt;: 이벤트의 기본 동작을 처리 할 수 있는지 나타낸다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;currentTarget&lt;/strong&gt;: 현재 이벤트를 처리 중인 요소, 이벤트 핸들러의 내부의 this와 같다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;target&lt;/strong&gt;: 이벤트의 실제 타깃&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;event--1&quot;&gt;8.2 event 함수&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;preventDefault() 
+    &lt;ul&gt;
+      &lt;li&gt;이벤트의 기본 동작을 취소한다. &lt;/li&gt;
+      &lt;li&gt;이벤트를 취소하려면 해당 이벤트의 &lt;code&gt;cancelable&lt;/code&gt; 프로퍼티가 &lt;code&gt;true&lt;/code&gt; 여야 한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;myLink&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 링크 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;myLink&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;preventDefault&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;stopPropagation()
+    &lt;ul&gt;
+      &lt;li&gt;이벤트 전파를 막는다. (캡처링, 버블링을 모두 취소)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;btn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;myBtn&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Clicked&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stopPropagation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Body Clicked&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Clicked&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;ui-&quot;&gt;9. UI 이벤트&lt;/h2&gt;
+
+&lt;h1 id=&quot;load-&quot;&gt;9.1 load 이벤트&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;이미지, 자바스크립트, CSS 같은 외부 자원을 포함해 전체 페이지를 완전히 불러왔을 때 호출됨 &lt;/li&gt;
+  &lt;li&gt;window 객체에 load event에 handler를 할당 할 수 있다. &lt;/li&gt;
+  &lt;li&gt;&amp;lt;body&amp;gt; 요소에 onload 속성 추가할 수 있다. 
+    &lt;ul&gt;
+      &lt;li&gt;html에서는 window객체에 접근할 수 없기 때문에 일종의 핵 같은 방식&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&amp;lt;img&amp;gt; 요소에도 사용가능 (이미지을 불러 왔을 때 hanlder 호출)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;unload-&quot;&gt;9.2 unload 이벤트&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;다른 페이지로 이동할 때 발생된다. &lt;/li&gt;
+  &lt;li&gt;참조를 제거하여 메모리 누수를 방지하는 목적으로 사용한다. &lt;/li&gt;
+  &lt;li&gt;모든 것이 해제 될때 발생하므로 페이지에 존재하던 객체를 전부 사용 할 수 없다. &lt;/li&gt;
+  &lt;li&gt;DOM 노드의 위치나 외형을 조작하려 하면 에러가 발생 할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;resize-&quot;&gt;9.3 resize 이벤트&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;익스플로러/사파리/크롬/오페라: 사용자가 브라우저 창 크기를 조절하는 동안 계속 발생 &lt;/li&gt;
+  &lt;li&gt;파이어폭스: 창 크기 조절을 멈추는 시점에 발생 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;scroll-&quot;&gt;9.4 scroll 이벤트&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;html 요소의 scrollTop과 scrollLeft 를 이용 
+    &lt;ul&gt;
+      &lt;li&gt;document.documentElement.scrollTop&lt;/li&gt;
+      &lt;li&gt;document.docuemntElement.scrollLeft&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;사파리의 경우 body 요소에 포함
+    &lt;ul&gt;
+      &lt;li&gt;document.body.scrollTop&lt;/li&gt;
+      &lt;li&gt;document.body.scrollLeft&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;문서를 스크롤 하는 동안 반복 실행된다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;focus-&quot;&gt;9.5 focus 이벤트&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;blur&lt;/code&gt; : 포커스를 잃을때 발생 (버블링 지원X)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;focus&lt;/code&gt; : 요소가 포커스를 받을 때 발생 (버블링 지원X)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;focusin&lt;/code&gt; : 요소가 포커스를 받을 때 발생 (버블링 지원O)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;focusout&lt;/code&gt; : 요소가 포커스를 잃을 때 발생 (버블링 지원O)&lt;/li&gt;
+  &lt;li&gt;부모가 div고 내부에 input 요소가 있을때
+    &lt;ul&gt;
+      &lt;li&gt;input 요소에 &lt;code&gt;focusin&lt;/code&gt; 이벤트 발생시 부모 div에도 그 이벤트가 전달된다.&lt;/li&gt;
+      &lt;li&gt;input 요소에 &lt;code&gt;focus&lt;/code&gt; 이벤트 발생시 부모 div에는 그 이벤트가 전달되지 않는다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;10. 마우스 이벤트&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-9&quot;&gt;10.1 이벤트 종류&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;click&lt;/code&gt; : 사용자가 주요 마우스 버튼(일반적으로 왼쪽 버튼)을 클릭하거나 엔터키를 누를 때 발생&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;dbclick&lt;/code&gt; : 사용자가 주요 마우스 버튼을 더블 클릭할 때 발생&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mousedown&lt;/code&gt; : 사용자가 마우스 버튼을 누를 때 발생 &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mouseenter&lt;/code&gt; : 마우스 커서가 요소 밖에서 요소 경계 안으로 처음 이동할 때 발생 &lt;code&gt;DOM 레벨3&lt;/code&gt; &lt;code&gt;버블링X&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mouseleave&lt;/code&gt; : 마우스 커서가 요소 위에 있다가 경계 밖으로 이동 할 때 발생 &lt;code&gt;DOM 레벨3&lt;/code&gt; &lt;code&gt;버블링X&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mousemove&lt;/code&gt; : 마우스 커서가 요소 주변을 이동하는 동안 계속 발생&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mouseout&lt;/code&gt; : 마우스 커서가 요소 위에 있다가 다른 요소 위로 이동할 대 발생 &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mouseover&lt;/code&gt; : 마우스 커서가 요소 바깥에 있다가 요소 경계 안으로 이동할 때 발생 &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mouseup&lt;/code&gt; : 사용자가 마우스 버튼을 누르고 있다가 놓을 때 발생 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-10&quot;&gt;10.2 마우스 이벤트 발생 순서&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;mousedown&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mouseup&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;click&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mousedown&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mouseup&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;click&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;dbclick&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;section-11&quot;&gt;11 좌표&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-12&quot;&gt;11.1 클라이언트좌표&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;클라이언트 영역 내에서의 좌표 &lt;/li&gt;
+  &lt;li&gt;스크롤은 계산하지 않는다. 
+    &lt;ul&gt;
+      &lt;li&gt;event.clientX&lt;/li&gt;
+      &lt;li&gt;event.clientY&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-13&quot;&gt;11.2 페이지좌표&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;페이지 기준의 좌표 
+    &lt;ul&gt;
+      &lt;li&gt;event.pageX&lt;/li&gt;
+      &lt;li&gt;event.pageY&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;스크롤 계산포함 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-14&quot;&gt;11.3 화면좌표&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;전체 화면 기준의 좌표 &lt;/li&gt;
+  &lt;li&gt;브라우저를 움직여도 값이 같음. 
+    &lt;ul&gt;
+      &lt;li&gt;event.screenX&lt;/li&gt;
+      &lt;li&gt;event.screenY&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;clientX : &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;\nclientY : &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;pageX : &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pageX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;\npageY : &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pageY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;screenX : &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;screenX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;\nscreenY : &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;screenY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;section-15&quot;&gt;12 마우스 휠 이벤트&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;onmousewheel 이벤트 핸들러 &lt;/li&gt;
+  &lt;li&gt;event.wheelDelta : 마우스 휠을 어떤 방향으로 얼마만큼 움직였는지에 대한 정보 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-16&quot;&gt;13 키보드 이벤트&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;keydown&lt;/code&gt; : 사용자가 키를 처음 누를 때 발생하며 누르고 있는 동안 계속 발생&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;keypress&lt;/code&gt; : 사용자가 키를 누른 결과로 문자가 입력되었을 때 처음 발생하며 누르고 있는 동안 계속 발생 
+    &lt;ul&gt;
+      &lt;li&gt;esc 키에서도 발생 &lt;/li&gt;
+      &lt;li&gt;DOM 레벨 3 에서는 폐기되었으므로 textInput 이벤트를 권장&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;keyup&lt;/code&gt; : 사용자가 키에 손을 뗄 때 발생 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-17&quot;&gt;13.1 사용자가 키를 누르면 아래와 같은 순서로 이벤트가 발생&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;keydown &lt;/li&gt;
+  &lt;li&gt;keypress (텍스트 입력 전 발생)&lt;/li&gt;
+  &lt;li&gt;keyup (텍스트 입력이 된 후에 발생)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;section-18&quot;&gt;13.2 키 코드&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;keydown 과 keyup 이벤트에서 event 객체의 keyCode 프로퍼티에는 각 키에 대응하는 코드가 있다. 
+    &lt;ul&gt;
+      &lt;li&gt;keyCode 는 아스키 값이 들어간다. &lt;/li&gt;
+      &lt;li&gt;예를들어 7은 55, a나 A는 65 이다.(shift 키 상태와 관계없이)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DOM 레벨3에서는 &lt;code&gt;key&lt;/code&gt;와 &lt;code&gt;char&lt;/code&gt; 두 가지 프로퍼티가 추가 되었다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code&gt;key&lt;/code&gt; 프로퍼티의 값은 문자 키 인 경우 그대로의 문자 값 (a, A)&lt;/li&gt;
+      &lt;li&gt;문자가 아닌 키 인 경우 키 이름(shift, down)&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;char&lt;/code&gt; 프로퍼티의 값은 문자 인경우 &lt;code&gt;key&lt;/code&gt; 프로퍼티와 동일하고, 문자가 아닌 값은 &lt;code&gt;null&lt;/code&gt; 이 들어간다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-19&quot;&gt;14 텍스트 이벤트&lt;/h2&gt;
+
+&lt;h1 id=&quot;textinput-&quot;&gt;14.1 textInput 이벤트&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DOM 레벨3 에서는 편집 가능한 영역에 문자가 입력 될 때 발생하는 textInput 이벤트를 추가하였다. &lt;/li&gt;
+  &lt;li&gt;keypress를 교체할 목적으로 만들어짐&lt;/li&gt;
+  &lt;li&gt;keypress 이벤트와의 차이점 
+    &lt;ul&gt;
+      &lt;li&gt;keypress 이벤트는 포커스를 받을 수 있는 요소 전체에 대해 지원
+        &lt;ul&gt;
+          &lt;li&gt;즉, 백스페이스나 esc 키 같은 키는 무시 &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;textInput은 키를 누른 결과로 새문자가 삽입될 키에 대해서만 동작 &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;event 객체의 data 프로퍼티에 삽입된 문자 자체가 저장됨 
+    &lt;ul&gt;
+      &lt;li&gt;shift와 a를 누르면 event.data = A, a만 누르면  event.data= a&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-20&quot;&gt;15 조작 이벤트&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;DOM 레벨2 에서는 DOM의 일부가 변경되었을 때 알리는 이벤트를 제공한다. &lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;DOMSubtreeModified&lt;/code&gt; : DOM 구조가 어떻게든 변경되었을 때 발생 &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;DOMNodeInserted&lt;/code&gt; : 노드가 다른 노드의 자식으로 삽입될 때 발생&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;DOMNodeRemoved&lt;/code&gt; : 노드가 부모 노드로부터 제거될 때 발생&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;DOMNodeInsertedIntoDocument&lt;/code&gt; : 노드가 직접적으로 또는 자신이 존재하는 서브트리를 통해 삽입되었을 때 발생 (DOM 레벨3에서 폐기)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;DOMNodeRemovedFromDocument&lt;/code&gt; : 노드가 직접적으로 또는 자신이 존재하는 서브트리를 통해 제거되었을 때 발생 (DOM 레벨3에서 폐기)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;DOMAttrModifed&lt;/code&gt; : 속성이 바뀌었을 때 발생 (DOM 레벨3에서 폐기)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;DOMCharacterDataModifed&lt;/code&gt; : 텍스트 노드의 값이 변경될 때 발생 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-21&quot;&gt;15.1 노드 제거&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;removeChild()나 replaceChild()로 DOM에서 노드를 제거한다.&lt;/li&gt;
+  &lt;li&gt;DOMNodeRemoved 이벤트가 발생한다. &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;event.target&lt;/code&gt; 프로퍼티에는 제거된 노드의 참조가 있다. &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;event.relatedNode&lt;/code&gt; 프로퍼티에는 부모 노드에 대한 참조가 있다. &lt;/li&gt;
+  &lt;li&gt;이 이벤트가 발생하는 시점에서는 아직 노드가 제거 된 상태가 아니다. 
+    &lt;ul&gt;
+      &lt;li&gt;즉, element의 parentNode 프로퍼티는 event.relatedNode와 같다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-22&quot;&gt;15.2 노드 삽입&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;appendChild()나 replaceChild(), insertBefore()로 노드를 DOM에 삽입한다.&lt;/li&gt;
+  &lt;li&gt;DOMNodeInserted 이벤트가 발생한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;event.target&lt;/code&gt; 프로퍼티에는 삽입된 노드의 참조가 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;event.relatedNode&lt;/code&gt; 프로퍼티에는 부모 노드에 대한 참조가 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;html5-event&quot;&gt;16. html5 event&lt;/h2&gt;
+
+&lt;h1 id=&quot;beforeunload&quot;&gt;16.1 beforeunload&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;페이지를 언로드 하기 직전에 발생&lt;/li&gt;
+  &lt;li&gt;확인메시지를 통하여 페이지에 계속 머무를지 닫을지 확인한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;beforeunload&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;이 페이지에서 정말로 나가겠습니까?&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 대화 상자에 표시할 문자열을 지정한다. &lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;returnValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 사파리와 크롬에서는 함수 값으로 반환이 필요 &lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;domcontentloaded&quot;&gt;16.2 DOMContentLoaded&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;DOM 트리가 완전히 구성되면 발생&lt;/li&gt;
+  &lt;li&gt;외부자원(이미지, 자바스크립트, CSS 등)는 기다리지 않는다.&lt;/li&gt;
+  &lt;li&gt;이벤트 핸들러 등록, DOM 조작에 사용 &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-23&quot;&gt;17 메모리와 성능&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-24&quot;&gt;17.1 이벤트 핸들러와 성능의 관계&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이벤트 핸들러의 개수가 성능에 직접적으로 영향을 미친다.
+    &lt;ul&gt;
+      &lt;li&gt;각 함수가 메모리를 점유하는 객체 이기 때문이다. 메모리에 객체가 많을 수록 성능은 떨어진다. &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;이벤트 핸들러를 많이 할당 할 수록 DOM 접근이 많아진다. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-25&quot;&gt;17.2 이벤트 핸들러의 성능 최적화&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이벤트 버블링의 장점을 활용하여 이벤트 핸들러를 하나만 할당하여 이벤트를 처리하는 방식을 사용한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;myLinks&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;item1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; itme1 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;item2&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; itme2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;item3&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; itme3 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+  
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;myLinks&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  
+  &lt;span class=&quot;nx&quot;&gt;EventUtil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;click&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EventUtil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EventUtil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  
+      &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;item1&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;I changed the document&amp;#39;s title&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  
+          &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;item2&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;http://www.wrox.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  
+          &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;item3&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;section-26&quot;&gt;17.3  이벤트 핸들러 제거&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;페이지를 떠나기 전 제거하지 않은 이벤트 핸들러는 메모리에 계속 남는다.&lt;/li&gt;
+  &lt;li&gt;onunload 이벤트 핸들러를 써서 이벤트 핸들러를 모두 제거한다. &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Mon, 16 Nov 2015 03:00:00 +0900</pubDate>
+        <link>http://iyoon.github.io/jekyll/update/2015/11/16/javscript-event.html</link>
+        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/11/16/javscript-event.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>자바스크립트 클라이언트 탐지와 DOM</title>
@@ -1462,82 +1960,6 @@ Tika는 파일의 확장자를 변조하거나 하여도 정확한 MIME Type을 
         <pubDate>Mon, 18 May 2015 03:00:00 +0900</pubDate>
         <link>http://iyoon.github.io/jekyll/update/2015/05/18/cron-expression.html</link>
         <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/05/18/cron-expression.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>rsync 설정하기</title>
-        <description>&lt;h2 id=&quot;rsync-&quot;&gt;rsync 설정하기&lt;/h2&gt;
-&lt;p&gt;서버 간 파일의 동기화를 할 때 rsync 설정으로 간단히 동기화를 할 수 있다.&lt;br /&gt;
-이번 포스트에서 설정 방법에 대해서 정리를 해보았다.  &lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;[서버 설정]&lt;/h2&gt;
-
-&lt;h1 id=&quot;rsync--&quot;&gt;rsync 설정파일 추가&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vi /etc/rsyncd.conf&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# 서비스명 &lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;sample-service&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 동기화 할 디렉토리 경로 &lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/file
-&lt;span class=&quot;nv&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;root
-&lt;span class=&quot;nv&quot;&gt;gid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;root
-use &lt;span class=&quot;nv&quot;&gt;chroot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;yes
-&lt;span class=&quot;nb&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;yes
-&lt;span class=&quot;c&quot;&gt;# 호스트(클라이언트)IP  &lt;/span&gt;
-hosts &lt;span class=&quot;nv&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;192.168.0.1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;xinetd-rsync--&quot;&gt;xinetd rsync 설정파일 수정&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vi /etc/xinetd.d/rsync&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#disable = yes &lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;disable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;xinetd-&quot;&gt;xinetd 재구동하기&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;/etc/init.d/xinetd stop 
-/etc/init.d/xinetd start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;section-1&quot;&gt;방화벽 열기&lt;/h1&gt;
-&lt;p&gt;rsync를 통해 서버와 클라이언트간 동기화 할 때 사용되는 포트를 방화벽에서 열어준다.  &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vi /etc/sysconfig/iptables&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 873 -j ACCEPT&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;section-2&quot;&gt;방화벽 재시작하기&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;/etc/init.d/iptables stop 
-/etc/init.d/iptables start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;[클라이언트 설정]&lt;/h2&gt;
-
-&lt;p&gt;주기적으로 동기화를 하기위해서 crontab에 rsync 명령을 추가한다. &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vi crontab - e&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;* * * * * rsync -avz 192.168.0.2::sample-service /path/file&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;이렇게 설정 하면 192.168.0.2 (서버IP)에서 sample-service 이라는 서비스(서버의 rsyncd.conf에 정의됨)에 설정된 디렉토리의 파일을 
-클라이언트의 /path/file 디렉토리의 파일을 동기화 해준다. &lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;참고자료&lt;br /&gt;
-&lt;a href=&quot;http://calflove.tistory.com/337&quot;&gt;서버들간 데이터 동기화 방안 중 가장 간단한 rsync 설정방법&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;http://fruitdev.tistory.com/38&quot;&gt;Rsync 설치하기&lt;/a&gt;  &lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Mon, 11 May 2015 03:00:00 +0900</pubDate>
-        <link>http://iyoon.github.io/jekyll/update/2015/05/11/rsync.html</link>
-        <guid isPermaLink="true">http://iyoon.github.io/jekyll/update/2015/05/11/rsync.html</guid>
         
         
         <category>jekyll</category>
